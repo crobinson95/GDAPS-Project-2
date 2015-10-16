@@ -41,6 +41,7 @@
     <Compile Include="Floor.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="GameObject.cs" />
+    <Compile Include="Level.cs" />
     <Compile Include="MovableGameObject.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
