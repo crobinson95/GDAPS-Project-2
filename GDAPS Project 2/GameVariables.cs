@@ -14,12 +14,14 @@ namespace GDAPS_Project_2
         public static int gameHeight;
         public static int innerWidth;
         public static int innerHeight;
-        public static int playerSpeed;
-        public static double gravity;
-        public static string imgPlayer;
-        public static string imgWall;
-        public static string imgFloor;
-        public static string imgSpike;
+        public static double playerSpeed = 0.2f;
+        public static double gravity = 0.4f;
+        public static string imgPlayer = @"Images/Sprites/imgPlayer";
+        public static string imgWall = @"Images/Sprites/imgWall";
+        public static string imgFloor = @"Images/Sprites/imgFloor";
+        public static string imgSpike = @"Images/Sprites/imgSpike";
+        public static string bgMenus;
+        public static string bgLevels;
 
 
     }

@@ -19,26 +19,20 @@ namespace GDAPS_Project_2
         }
 
         Vector2 objPos;
-        Vector2 ObjPos
+        public Vector2 ObjPos
         {
             get { return objPos; }
             set { objPos = value; }
         }
         
-        double time;
-        double Time
-        {
-            get { return Time; }
-            set { time = value; }
-        }
         double velocity;
-        double Velocity
+        public double Velocity
         {
             get { return velocity; }
             set { velocity = value; }
         }
 
-        
+        public MovableGameObject(int x, int y, int w, int h) : base(x, y, w, h) { }
 
     }
 }

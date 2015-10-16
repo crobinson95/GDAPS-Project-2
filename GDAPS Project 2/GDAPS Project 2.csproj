@@ -43,6 +43,7 @@
     <Compile Include="GameObject.cs" />
     <Compile Include="GameVariables.cs" />
     <Compile Include="Level.cs" />
+    <Compile Include="World.cs" />
     <Compile Include="MovableGameObject.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />

@@ -11,33 +11,38 @@ namespace GDAPS_Project_2
     abstract class GameObject
     {
         Rectangle objRect;
-        Rectangle ObjRect
+        public Rectangle ObjRect
         {
             get { return objRect; }
             set { objRect = value; }
         }
-        int ObjRectX
+        public int ObjRectX
         {
             get { return objRect.X; }
             set { objRect.X = value; }
         }
-        int ObjRectY
+        public int ObjRectY
         {
             get { return objRect.Y; }
             set { objRect.Y = value; }
         }
 
         Texture2D objImage;
-        Texture2D ObjImage
+        public Texture2D ObjImage
         {
             get { return objImage; }
             set { objImage = value; }
         }
 
         public abstract bool isColliding();
-        public void spriteDraw(SpriteBatch s)
+        public virtual void spriteDraw(SpriteBatch s)
         {
             s.Draw(objImage, objRect, Color.White);
+        }
+
+        public GameObject(int x, int y, int width ,int height)
+        {
+            objRect = new Rectangle(x, y, width, height);
         }
     }
 }

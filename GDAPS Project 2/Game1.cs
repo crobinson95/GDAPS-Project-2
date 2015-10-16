@@ -11,6 +11,23 @@ namespace GDAPS_Project_2
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        Player player;
+        double time;
+
+        public enum GameState
+        {
+            Menu,
+            Level,
+            Quit
+        }
+        public enum Menus
+        {
+            Start,
+            Help,
+            Options,
+            LevelSelect,
+            AboutUs
+        }
 
         public Game1()
         {
@@ -27,7 +44,7 @@ namespace GDAPS_Project_2
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            player = new Player(1,1,1,1); // TODO: give player actual rectangle values
             base.Initialize();
         }
 
@@ -41,6 +58,7 @@ namespace GDAPS_Project_2
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+            player.ObjImage = Content.Load<Texture2D>(player.imageLoc);
         }
 
         /// <summary>
@@ -50,6 +68,7 @@ namespace GDAPS_Project_2
         protected override void UnloadContent()
         {
             // TODO: Unload any non ContentManager content here
+            Content.Unload();
         }
 
         /// <summary>
@@ -73,7 +92,7 @@ namespace GDAPS_Project_2
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.White);
 
             // TODO: Add your drawing code here
 

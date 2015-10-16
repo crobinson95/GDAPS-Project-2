@@ -5,12 +5,8 @@ using System.Text;
 
 namespace GDAPS_Project_2
 {
-    class Level
+    class World
     {
-        int levelTime;
-        public Level(int t)
-        {
-            levelTime = t;
-        }
+        List<Level> levels = new List<Level>();
     }
 }
