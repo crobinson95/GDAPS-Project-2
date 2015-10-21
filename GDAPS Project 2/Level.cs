@@ -9,11 +9,9 @@ namespace GDAPS_Project_2
 {
     class Level
     {
-        int levelTime;
-        StreamReader s;
-        public Level(int t, string levelData)
+        int levelTime; // set this from data file
+        public Level(string levelData, StreamReader s)
         {
-            levelTime = t;
             try
             {
                 char delim = ',';

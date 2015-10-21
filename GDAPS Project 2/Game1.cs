@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.IO;
 
 namespace GDAPS_Project_2
 {
@@ -13,6 +14,7 @@ namespace GDAPS_Project_2
         SpriteBatch spriteBatch;
         Player player;
         double time;
+        StreamReader s;
 
         public enum GameState
         {
