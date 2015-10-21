@@ -10,6 +10,8 @@ namespace GDAPS_Project_2
 {
     abstract class GameObject
     {
+        public bool isDangerous;
+
         Rectangle objRect;
         public Rectangle ObjRect
         {
@@ -34,7 +36,11 @@ namespace GDAPS_Project_2
             set { objImage = value; }
         }
 
-        public abstract bool isColliding();
+        public virtual bool isColliding(GameObject obj)
+        {
+            if (ObjRect.Intersects(obj.ObjRect)) { return true; }
+            else { return false; }
+        }
         public virtual void spriteDraw(SpriteBatch s)
         {
             s.Draw(objImage, objRect, Color.White);

@@ -208,10 +208,41 @@ namespace GDAPS_Project_2
             }
         }
 
-        public override bool isColliding()
+        public void Collisions(List<GameObject> objs)
         {
-            return false;
+            foreach (GameObject obj in objs)
+            {
+                if (isColliding(obj) && obj.isDangerous)
+                {
+                    alive = false;
+                    isDead();
+                }
+                else if (isColliding(obj))
+                {
+                    switch (grav)
+                    {
+                        case (gravDirection.Down):
+                            ObjPos.Y = obj.ObjRectY - ObjRect.Height;
+                            break;
+                        case (gravDirection.Up):
+                            ObjPos.Y = obj.ObjRectY + obj.ObjRect.Height;
+                            break;
+                        case (gravDirection.Right):
+                            ObjPos.X = obj.ObjRectX - ObjRect.Width;
+                            break;
+                        case (gravDirection.Left):
+                            ObjPos.X = obj.ObjRectX + obj.ObjRect.Width;
+                            break;
+                    }
+
+                    inAir = false;
+                    ObjRectX = (int)ObjPos.X;
+                    ObjRectY = (int)ObjPos.Y;
+                }
+
+            }
         }
-        
+
+        public void isDead() { }
     }
 }
