@@ -13,7 +13,7 @@ namespace GDAPS_Project_2
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Player player;
-        World world1 = new World(1);
+        World world;
         double time;
         StreamReader s;
 
@@ -52,11 +52,7 @@ namespace GDAPS_Project_2
             // TODO: Add your initialization logic here
             player = new Player(500,305,45,115); // TODO: give player actual rectangle values
 
-            for (int i = 0; i <= 3; i++)
-            {
-            world1.levels.Add(new Level(0, "map" + i + ".txt"));
-            }
-            world1.currentLevel = 0;
+            world = new World(@"", s); // TODO: get path to world directory
 
             moveCamera = new Camera(player, GraphicsDevice);
 
@@ -79,7 +75,7 @@ namespace GDAPS_Project_2
             Texture2D wallTexture = Content.Load<Texture2D>(GameVariables.imgWall);
             Texture2D spikeTexture = Content.Load<Texture2D>(GameVariables.imgSpike);
             Texture2D doorTexture = Content.Load<Texture2D>(GameVariables.imgDoor);
-            foreach (Level loadLevel in world1.levels)
+            foreach (Level loadLevel in world.Levels)
             {
                 foreach (GameObject item in loadLevel.objects)
                 {
@@ -144,7 +140,7 @@ namespace GDAPS_Project_2
             // TODO: Add your drawing code here
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, null, null, null, null, moveCamera.viewMatrix);
 
-            foreach (GameObject item in world1.levels[world1.currentLevel].objects)
+            foreach (GameObject item in world.Levels[world.currentLevel].objects)
             {
                 spriteBatch.Draw(item.ObjImage, item.ObjRect, Color.White);
             }

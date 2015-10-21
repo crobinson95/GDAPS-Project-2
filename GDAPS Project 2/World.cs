@@ -9,10 +9,12 @@ namespace GDAPS_Project_2
     class World
     {
         List<Level> levels = new List<Level>();
-        string[] levelFiles;
-        int currLevel;
+        public List<Level> Levels { get { return levels; } }
 
-        public World(string world, StreamReader s)
+        string[] levelFiles;
+        public int currentLevel;
+
+        public World(string world, StreamReader s) // string world is a directory
         {
             levelFiles = Directory.GetFiles(world);
             foreach (string level in levelFiles)
