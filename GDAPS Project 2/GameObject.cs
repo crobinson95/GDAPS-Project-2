@@ -10,6 +10,8 @@ namespace GDAPS_Project_2
 {
     abstract class GameObject
     {
+        public bool isDangerous;
+
         Rectangle objRect;
         public Rectangle ObjRect
         {
