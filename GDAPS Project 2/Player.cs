@@ -143,7 +143,7 @@ namespace GDAPS_Project_2
                 case gravDirection.Left:
                     if (inAir)
                     {
-                        xVelocity += (float)gravity;
+                        xVelocity -= (float)gravity;
                     }
 
                     if (k.IsKeyDown(Keys.W))
@@ -173,27 +173,27 @@ namespace GDAPS_Project_2
                     }
                     break;
             }
-            if (k.IsKeyDown(Keys.LeftShift))
+            if (k.IsKeyDown(Keys.Up))
             {
                 grav = gravDirection.Up;
                 yVelocity = 0;
                 xVelocity = 0;
             }
-            if (k.IsKeyDown(Keys.RightShift))
+            if (k.IsKeyDown(Keys.Down))
             {
                 grav = gravDirection.Down;
                 yVelocity = 0;
                 xVelocity = 0;
             }
-            if (k.IsKeyDown(Keys.Z))
+            if (k.IsKeyDown(Keys.Right))
             {
                 grav = gravDirection.Right;
                 yVelocity = 0;
                 xVelocity = 0;
             }
-            if (k.IsKeyDown(Keys.X))
+            if (k.IsKeyDown(Keys.Left))
             {
-                grav = gravDirection.Right;
+                grav = gravDirection.Left;
                 yVelocity = 0;
                 xVelocity = 0;
             }

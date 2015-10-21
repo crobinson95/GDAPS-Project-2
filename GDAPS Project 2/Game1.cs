@@ -15,6 +15,7 @@ namespace GDAPS_Project_2
         World world1 = new World(1);
         double time;
 
+        Camera moveCamera;
         KeyboardState kbState;
 
         public enum GameState
@@ -54,6 +55,8 @@ namespace GDAPS_Project_2
             world1.levels.Add(new Level(0, "map" + i + ".txt"));
             }
             world1.currentLevel = 0;
+
+            moveCamera = new Camera(player, GraphicsDevice);
 
             base.Initialize();
         }
@@ -123,6 +126,7 @@ namespace GDAPS_Project_2
             // TODO: Add your update logic here
             kbState = Keyboard.GetState();
             player.Movement(kbState, gameTime);
+            moveCamera.viewMatrix = moveCamera.GetTranform(player);
 
             base.Update(gameTime);
         }
@@ -136,7 +140,7 @@ namespace GDAPS_Project_2
             GraphicsDevice.Clear(Color.White);
 
             // TODO: Add your drawing code here
-            spriteBatch.Begin();
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, null, null, null, null, moveCamera.viewMatrix);
 
             foreach (GameObject item in world1.levels[world1.currentLevel].objects)
             {
