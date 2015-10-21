@@ -36,11 +36,6 @@ namespace GDAPS_Project_2
             set { objImage = value; }
         }
 
-        public virtual bool isColliding(GameObject obj)
-        {
-            if (ObjRect.Intersects(obj.ObjRect)) { return true; }
-            else { return false; }
-        }
         public virtual void spriteDraw(SpriteBatch s)
         {
             s.Draw(objImage, objRect, Color.White);

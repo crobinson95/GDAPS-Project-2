@@ -22,8 +22,6 @@ namespace GDAPS_Project_2
 
         public bool inAir;
 
-        public bool alive;
-
         public double gravity;
 
         public Vector2 ObjPos;
@@ -40,6 +38,11 @@ namespace GDAPS_Project_2
         {
             get { return yvelocity; }
             set { yvelocity = value; }
+        }
+        public virtual bool isColliding(GameObject obj)
+        {
+            if (ObjRect.Intersects(obj.ObjRect)) { return true; }
+            else { return false; }
         }
 
         public MovableGameObject(int x, int y, int w, int h) : base(x, y, w, h) { }

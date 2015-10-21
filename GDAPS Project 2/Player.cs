@@ -10,11 +10,14 @@ namespace GDAPS_Project_2
 {
     class Player : MovableGameObject
     {
+        public string imageLoc;
         int energy;
+        bool alive = true;
 
         public Player(int x, int y, int w, int h)
             : base(x, y, w, h)
         {
+            imageLoc = GameVariables.imgPlayer;
             grav = gravDirection.Down;
             gravity = GameVariables.gravity;
             xVelocity = 0;
@@ -23,7 +26,7 @@ namespace GDAPS_Project_2
             alive = true;
         }
 
-        public void Movement(KeyboardState k, Floor f, GameTime g)
+        public void Movement(KeyboardState k, GameTime g)
         {
 
             ObjPos += new Vector2(xVelocity, yVelocity);
@@ -140,7 +143,7 @@ namespace GDAPS_Project_2
                 case gravDirection.Left:
                     if (inAir)
                     {
-                        xVelocity += (float)gravity;
+                        xVelocity -= (float)gravity;
                     }
 
                     if (k.IsKeyDown(Keys.W))
@@ -170,27 +173,27 @@ namespace GDAPS_Project_2
                     }
                     break;
             }
-            if (k.IsKeyDown(Keys.LeftShift))
+            if (k.IsKeyDown(Keys.Up))
             {
                 grav = gravDirection.Up;
                 yVelocity = 0;
                 xVelocity = 0;
             }
-            if (k.IsKeyDown(Keys.RightShift))
+            if (k.IsKeyDown(Keys.Down))
             {
                 grav = gravDirection.Down;
                 yVelocity = 0;
                 xVelocity = 0;
             }
-            if (k.IsKeyDown(Keys.Z))
+            if (k.IsKeyDown(Keys.Right))
             {
                 grav = gravDirection.Right;
                 yVelocity = 0;
                 xVelocity = 0;
             }
-            if (k.IsKeyDown(Keys.X))
+            if (k.IsKeyDown(Keys.Left))
             {
-                grav = gravDirection.Right;
+                grav = gravDirection.Left;
                 yVelocity = 0;
                 xVelocity = 0;
             }

@@ -7,7 +7,9 @@ namespace GDAPS_Project_2
 {
     class World
     {
-        List<Level> levels = new List<Level>();
+        public List<Level> levels = new List<Level>();
+
+        public int currentLevel;
 
         public World(int world)
         {
