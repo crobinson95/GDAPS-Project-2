@@ -13,8 +13,12 @@ namespace GDAPS_Project_2
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Player player;
+        World world1 = new World(1);
         double time;
         StreamReader s;
+
+        Camera moveCamera;
+        KeyboardState kbState;
 
         public enum GameState
         {
@@ -46,7 +50,16 @@ namespace GDAPS_Project_2
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            player = new Player(1,1,1,1); // TODO: give player actual rectangle values
+            player = new Player(500,305,45,115); // TODO: give player actual rectangle values
+
+            for (int i = 0; i <= 3; i++)
+            {
+            world1.levels.Add(new Level(0, "map" + i + ".txt"));
+            }
+            world1.currentLevel = 0;
+
+            moveCamera = new Camera(player, GraphicsDevice);
+
             base.Initialize();
         }
 
@@ -61,8 +74,37 @@ namespace GDAPS_Project_2
 
             // TODO: use this.Content to load your game content here
             player.ObjImage = Content.Load<Texture2D>(player.imageLoc);
-        }
 
+            Texture2D floorTexture = Content.Load<Texture2D>(GameVariables.imgFloor);
+            Texture2D wallTexture = Content.Load<Texture2D>(GameVariables.imgWall);
+            Texture2D spikeTexture = Content.Load<Texture2D>(GameVariables.imgSpike);
+            Texture2D doorTexture = Content.Load<Texture2D>(GameVariables.imgDoor);
+            foreach (Level loadLevel in world1.levels)
+            {
+                foreach (GameObject item in loadLevel.objects)
+                {
+                    string itemType = item.ToString();
+                    switch (itemType)
+                    {
+                        case "GDAPS_Project_2.Floor":
+                            item.ObjImage = floorTexture;
+                            break;
+
+                        case "GDAPS_Project_2.Wall":
+                            item.ObjImage = wallTexture;
+                            break;
+
+                        case "GDAPS_Project_2.Spike":
+                            item.ObjImage = spikeTexture;
+                            break;
+
+                        case "GDAPS_Project_2.Door":
+                            item.ObjImage = doorTexture;
+                            break;
+                    }
+                }
+            }
+        }
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
         /// game-specific content.
@@ -84,6 +126,9 @@ namespace GDAPS_Project_2
                 Exit();
 
             // TODO: Add your update logic here
+            kbState = Keyboard.GetState();
+            player.Movement(kbState, gameTime);
+            moveCamera.viewMatrix = moveCamera.GetTranform(player);
 
             base.Update(gameTime);
         }
@@ -97,6 +142,16 @@ namespace GDAPS_Project_2
             GraphicsDevice.Clear(Color.White);
 
             // TODO: Add your drawing code here
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, null, null, null, null, moveCamera.viewMatrix);
+
+            foreach (GameObject item in world1.levels[world1.currentLevel].objects)
+            {
+                spriteBatch.Draw(item.ObjImage, item.ObjRect, Color.White);
+            }
+
+            spriteBatch.Draw(player.ObjImage, player.ObjRect, Color.White);
+
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }

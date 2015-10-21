@@ -10,21 +10,17 @@ namespace GDAPS_Project_2
     {
         List<Level> levels = new List<Level>();
         string[] levelFiles;
+        int currLevel;
 
         public World(string world, StreamReader s)
         {
-            try {
-                levelFiles = Directory.GetFiles(world);
-                foreach(string level in levelFiles)
-                {
-                    Level newLevel = new Level(level, s);
-                    levels.Add(newLevel);
-                }
-            }
-            catch
+            levelFiles = Directory.GetFiles(world);
+            foreach (string level in levelFiles)
             {
-
+                Level newLevel = new Level(level, s);
+                levels.Add(newLevel);
             }
+
         }
     }
 }

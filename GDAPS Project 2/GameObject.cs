@@ -34,7 +34,6 @@ namespace GDAPS_Project_2
             set { objImage = value; }
         }
 
-        public abstract bool isColliding();
         public virtual void spriteDraw(SpriteBatch s)
         {
             s.Draw(objImage, objRect, Color.White);

@@ -18,18 +18,28 @@ namespace GDAPS_Project_2
             Right
         }
 
-        Vector2 objPos;
-        public Vector2 ObjPos
-        {
-            get { return objPos; }
-            set { objPos = value; }
-        }
+        public abstract bool isColliding();
+
+        public gravDirection grav;
+
+        public bool inAir;
+
+        public double gravity;
+
+        public Vector2 ObjPos;
         
-        double velocity;
-        public double Velocity
+        float xvelocity;
+        public float xVelocity
         {
-            get { return velocity; }
-            set { velocity = value; }
+            get { return xvelocity; }
+            set { xvelocity = value; }
+        }
+
+        float yvelocity;
+        public float yVelocity
+        {
+            get { return yvelocity; }
+            set { yvelocity = value; }
         }
 
         public MovableGameObject(int x, int y, int w, int h) : base(x, y, w, h) { }

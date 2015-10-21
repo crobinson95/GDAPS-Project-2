@@ -5,10 +5,14 @@ using System.Text;
 
 namespace GDAPS_Project_2
 {
-    class Spike : GameObject
+    class Door : GameObject
     {
-        public Spike(int x, int y, int w, int h)
+        int destination;
+
+        public Door(int x, int y, int w, int h, int d)
             : base(x, y, w, h)
-        { }
+        {
+            destination = d;
+        }
     }
 }
