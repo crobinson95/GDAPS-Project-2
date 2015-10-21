@@ -10,11 +10,14 @@ namespace GDAPS_Project_2
 {
     class Player : MovableGameObject
     {
+        public string imageLoc;
         int energy;
+        bool alive = true;
 
         public Player(int x, int y, int w, int h)
             : base(x, y, w, h)
         {
+            imageLoc = GameVariables.imgPlayer;
             grav = gravDirection.Down;
             gravity = GameVariables.gravity;
             xVelocity = 0;
@@ -23,7 +26,7 @@ namespace GDAPS_Project_2
             alive = true;
         }
 
-        public void Movement(KeyboardState k, Floor f, GameTime g)
+        public void Movement(KeyboardState k, GameTime g)
         {
 
             ObjPos += new Vector2(xVelocity, yVelocity);

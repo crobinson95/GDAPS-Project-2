@@ -18,11 +18,11 @@ namespace GDAPS_Project_2
             Right
         }
 
+        public abstract bool isColliding();
+
         public gravDirection grav;
 
         public bool inAir;
-
-        public bool alive;
 
         public double gravity;
 

@@ -20,6 +20,7 @@ namespace GDAPS_Project_2
         public static string imgWall = @"Images/Sprites/imgWall";
         public static string imgFloor = @"Images/Sprites/imgFloor";
         public static string imgSpike = @"Images/Sprites/imgSpike";
+        public static string imgDoor = @"Images/Sprites/imgDoor";
         public static string bgMenus;
         public static string bgLevels;
 
