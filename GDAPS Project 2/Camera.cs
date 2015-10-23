@@ -34,15 +34,15 @@ namespace GDAPS_Project_2
             position.Y = p.ObjRect.Top - 100;
         }
 
-        public void Move(Player p)
+        public void Move(Player p, int width, int height)
         {
-            position.X -= p.xVelocity;
-            position.Y -= p.yVelocity;
+            position.X = -p.ObjRectX + width/2;
+            position.Y = -p.ObjRectY + height/2;
         }
 
-        public Matrix GetTranform(Player p)
+        public Matrix GetTranform(Player p, int width, int height)
         {
-            Move(p);
+            Move(p, width, height);
             var translationMatrix = Matrix.CreateTranslation(new Vector3(position.X, position.Y, 0));
             var originMatrix = Matrix.CreateTranslation(new Vector3(origin.X, origin.Y, 0));
 

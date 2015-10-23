@@ -17,6 +17,9 @@ namespace GDAPS_Project_2
         double time;
         StreamReader s;
 
+        int width;
+        int height;
+
         Camera moveCamera;
         KeyboardState kbState;
 
@@ -50,11 +53,14 @@ namespace GDAPS_Project_2
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            player = new Player(500,305,45,115); // TODO: give player actual rectangle values
+            player = new Player(0,0,45,115); // TODO: give player actual rectangle values
 
-            world = new World(@"", s); // TODO: get path to world directory
+            world = new World(@"world", s); // TODO: get path to world directory
 
             moveCamera = new Camera(player, GraphicsDevice);
+
+            width = GraphicsDevice.Viewport.Width;
+            height = GraphicsDevice.Viewport.Height;
 
             base.Initialize();
         }
@@ -124,7 +130,8 @@ namespace GDAPS_Project_2
             // TODO: Add your update logic here
             kbState = Keyboard.GetState();
             player.Movement(kbState, gameTime);
-            moveCamera.viewMatrix = moveCamera.GetTranform(player);
+            player.Collisions(world.Levels[world.currentLevel].objects);
+            moveCamera.viewMatrix = moveCamera.GetTranform(player, width, height);
 
             base.Update(gameTime);
         }

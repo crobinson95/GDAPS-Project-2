@@ -88,11 +88,11 @@ namespace GDAPS_Project_2
                     }
                     if (k.IsKeyDown(Keys.A))
                     {
-                        ObjPos.X += (float)GameVariables.playerSpeed * (float)g.ElapsedGameTime.TotalSeconds;
+                        ObjPos.X -= (float)GameVariables.playerSpeed * (float)g.ElapsedGameTime.TotalSeconds;
                     }
                     if (k.IsKeyDown(Keys.D))
                     {
-                        ObjPos.X -= (float)GameVariables.playerSpeed * (float)g.ElapsedGameTime.TotalSeconds;
+                        ObjPos.X += (float)GameVariables.playerSpeed * (float)g.ElapsedGameTime.TotalSeconds;
                     }
                     if (k.IsKeyDown(Keys.Space))
                     {
