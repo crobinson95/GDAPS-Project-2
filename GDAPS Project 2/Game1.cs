@@ -139,7 +139,6 @@ namespace GDAPS_Project_2
             player.Movement(kbState, gameTime);
             player.Collisions(world.Levels[world.currentLevel].objects, kbState, previousKbState, world);
             moveCamera.viewMatrix = moveCamera.GetTranform(player, width, height);
-
             base.Update(gameTime);
         }
 
