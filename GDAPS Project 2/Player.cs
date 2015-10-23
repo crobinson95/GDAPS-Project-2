@@ -211,7 +211,7 @@ namespace GDAPS_Project_2
             }
         }
 
-        public void Collisions(List<GameObject> objs)
+        public void Collisions(List<GameObject> objs, KeyboardState k, World w)
         {
             foreach (GameObject obj in objs)
             {
@@ -222,25 +222,39 @@ namespace GDAPS_Project_2
                 }
                 else if (isColliding(obj))
                 {
-                    switch (grav)
+                    if(obj is Door)
                     {
-                        case (gravDirection.Down):
-                            ObjPos.Y = obj.ObjRectY - ObjRect.Height;
-                            break;
-                        case (gravDirection.Up):
-                            ObjPos.Y = obj.ObjRectY + obj.ObjRect.Height;
-                            break;
-                        case (gravDirection.Right):
-                            ObjPos.X = obj.ObjRectX - ObjRect.Width;
-                            break;
-                        case (gravDirection.Left):
-                            ObjPos.X = obj.ObjRectX + obj.ObjRect.Width;
-                            break;
-                    }
+                        Door temp = (Door)obj;
+                        if (k.IsKeyDown(Keys.E))
+                        {
+                            w.currentLevel = temp.destination;
+                            ObjRectX = w.Levels[w.currentLevel].objects[0].ObjRectX;
+                            ObjRectY = w.Levels[w.currentLevel].objects[0].ObjRectY;
+                        }
 
-                    inAir = false;
-                    ObjRectX = (int)ObjPos.X;
-                    ObjRectY = (int)ObjPos.Y;
+                    }
+                    else
+                    {
+                        switch (grav)
+                        {
+                            case (gravDirection.Down):
+                                ObjPos.Y = obj.ObjRectY - ObjRect.Height;
+                                break;
+                            case (gravDirection.Up):
+                                ObjPos.Y = obj.ObjRectY + obj.ObjRect.Height;
+                                break;
+                            case (gravDirection.Right):
+                                ObjPos.X = obj.ObjRectX - ObjRect.Width;
+                                break;
+                            case (gravDirection.Left):
+                                ObjPos.X = obj.ObjRectX + obj.ObjRect.Width;
+                                break;
+                        }
+
+                        inAir = false;
+                        ObjRectX = (int)ObjPos.X;
+                        ObjRectY = (int)ObjPos.Y;
+                        }
                 }
 
             }
@@ -249,3 +263,4 @@ namespace GDAPS_Project_2
         public void isDead() { }
     }
 }
+

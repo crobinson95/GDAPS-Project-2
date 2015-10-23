@@ -53,7 +53,7 @@ namespace GDAPS_Project_2
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            player = new Player(0,0,45,115); // TODO: give player actual rectangle values
+            player = new Player(100,100,45,115); // TODO: give player actual rectangle values
 
             world = new World(@"world", s); // TODO: get path to world directory
 
@@ -130,7 +130,7 @@ namespace GDAPS_Project_2
             // TODO: Add your update logic here
             kbState = Keyboard.GetState();
             player.Movement(kbState, gameTime);
-            player.Collisions(world.Levels[world.currentLevel].objects);
+            player.Collisions(world.Levels[world.currentLevel].objects, kbState, world);
             moveCamera.viewMatrix = moveCamera.GetTranform(player, width, height);
 
             base.Update(gameTime);

@@ -45,7 +45,12 @@ namespace GDAPS_Project_2
             else { return false; }
         }
 
-        public MovableGameObject(int x, int y, int w, int h) : base(x, y, w, h) { }
+        public MovableGameObject(int x, int y, int w, int h) : base(x, y, w, h)
+        {
+            ObjPos = new Vector2(x, y);
+            ObjRectX = (int)ObjPos.X;
+            ObjRectY = (int)ObjPos.Y;
+        }
 
     }
 }

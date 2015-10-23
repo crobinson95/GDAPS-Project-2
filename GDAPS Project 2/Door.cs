@@ -7,7 +7,7 @@ namespace GDAPS_Project_2
 {
     class Door : GameObject
     {
-        int destination;
+        public int destination;
 
         public Door(int x, int y, int w, int h, int d)
             : base(x, y, w, h)

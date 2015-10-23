@@ -44,8 +44,6 @@ namespace GDAPS_Project_2
         public GameObject(int x, int y, int width ,int height)
         {
             objRect = new Rectangle(x, y, width, height);
-            ObjRectX = x;
-            ObjRectY = y;
         }
     }
 }
