@@ -76,7 +76,7 @@ namespace GDAPS_Project_2
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            player.ObjImage = Content.Load<Texture2D>(player.imageLoc);
+            player.ObjImage = Content.Load<Texture2D>(GameVariables.imgPlayer);
 
             Texture2D floorTexture = Content.Load<Texture2D>(GameVariables.imgFloor);
             Texture2D wallTexture = Content.Load<Texture2D>(GameVariables.imgWall);

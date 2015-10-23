@@ -10,20 +10,25 @@ namespace GDAPS_Project_2
 {
     class Player : MovableGameObject
     {
-        public string imageLoc;
         int energy;
-        bool alive = true;
+        public HitBox topHit;
+        public HitBox bottHit;
+        public HitBox rightHit;
+        public HitBox leftHit;
 
         public Player(int x, int y, int w, int h)
             : base(x, y, w, h)
         {
-            imageLoc = GameVariables.imgPlayer;
             grav = gravDirection.Down;
             gravity = GameVariables.gravity;
             xVelocity = 0;
             yVelocity = 0;
             inAir = true;
             alive = true;
+            topHit = new HitBox((int)ObjPos.X + 5, ObjRect.Y + 5, ObjRect.Width - 10, 5);
+            bottHit = new HitBox((int)ObjPos.X + 5, ObjRect.Height, ObjRect.Width - 10, 5);
+            rightHit = new HitBox((int)ObjPos.X, ObjRect.Y, 5, ObjRect.Height - 10);
+            leftHit = new HitBox((int)ObjPos.X, ObjRect.Y, 5, ObjRect.Height - 10);
         }
 
         public void Movement(KeyboardState k, GameTime g)
@@ -33,11 +38,14 @@ namespace GDAPS_Project_2
             switch (grav)
             {
                 case gravDirection.Down:
-                    if (xVelocity > 0) { xVelocity -= .1f; }
-                    if (xVelocity < 0) { xVelocity += .1f; }
                     if (inAir)
                     {
                         yVelocity += (float)gravity;
+                    }
+                    else
+                    {
+                        if (xVelocity > 0) { xVelocity -= .1f; }
+                        if (xVelocity < 0) { xVelocity += .1f; }
                     }
 
                     if (k.IsKeyDown(Keys.W))
@@ -77,6 +85,11 @@ namespace GDAPS_Project_2
                     {
                         yVelocity -= (float)gravity;
                     }
+                    else
+                    {
+                        if (xVelocity > 0) { xVelocity -= .1f; }
+                        if (xVelocity < 0) { xVelocity += .1f; }
+                    }
 
                     if (k.IsKeyDown(Keys.W))
                     {
@@ -111,7 +124,11 @@ namespace GDAPS_Project_2
                     {
                         xVelocity += (float)gravity;
                     }
-
+                    else
+                    {
+                        if (yVelocity > 0) { yVelocity -= .1f; }
+                        if (yVelocity < 0) { yVelocity += .1f; }
+                    }
                     if (k.IsKeyDown(Keys.W))
                     {
 
@@ -143,9 +160,13 @@ namespace GDAPS_Project_2
                 case gravDirection.Left:
                     if (inAir)
                     {
-                        xVelocity -= (float)gravity;
+                        xVelocity += (float)gravity;
                     }
-
+                    else
+                    {
+                        if (yVelocity > 0) { yVelocity -= .1f; }
+                        if (yVelocity < 0) { yVelocity += .1f; }
+                    }
                     if (k.IsKeyDown(Keys.W))
                     {
 
@@ -176,30 +197,35 @@ namespace GDAPS_Project_2
             if (k.IsKeyDown(Keys.Up))
             {
                 grav = gravDirection.Up;
-                yVelocity = 0;
-                xVelocity = 0;
             }
             if (k.IsKeyDown(Keys.Down))
             {
                 grav = gravDirection.Down;
-                yVelocity = 0;
-                xVelocity = 0;
             }
             if (k.IsKeyDown(Keys.Right))
             {
                 grav = gravDirection.Right;
-                yVelocity = 0;
-                xVelocity = 0;
             }
             if (k.IsKeyDown(Keys.Left))
             {
                 grav = gravDirection.Left;
-                yVelocity = 0;
-                xVelocity = 0;
             }
 
             ObjRectX = (int)ObjPos.X;
             ObjRectY = (int)ObjPos.Y;
+            HitboxUpdate();
+        }
+
+        public void HitboxUpdate()
+        {
+            topHit.ObjRectY = ObjRectY - 5;
+            topHit.ObjRectX = ObjRectX + 5;
+            bottHit.ObjRectY = ObjRectY + ObjRect.Height;
+            bottHit.ObjRectX = ObjRectX + 5;
+            rightHit.ObjRectY = ObjRectY + 5;
+            rightHit.ObjRectX = ObjRectX + ObjRect.Width;
+            leftHit.ObjRectY = ObjRectY + 5;
+            leftHit.ObjRectX = ObjRectX - 5;
 
         }
 
@@ -235,23 +261,50 @@ namespace GDAPS_Project_2
                     }
                     else
                     {
-                        switch (grav)
+                        if (topHit.isColliding(obj))
                         {
-                            case (gravDirection.Down):
-                                ObjPos.Y = obj.ObjRectY - ObjRect.Height;
-                                break;
-                            case (gravDirection.Up):
+                            if (obj is Player)
+                            { }
+                            else
+                            {
                                 ObjPos.Y = obj.ObjRectY + obj.ObjRect.Height;
-                                break;
-                            case (gravDirection.Right):
-                                ObjPos.X = obj.ObjRectX - ObjRect.Width;
-                                break;
-                            case (gravDirection.Left):
-                                ObjPos.X = obj.ObjRectX + obj.ObjRect.Width;
-                                break;
+                                yVelocity = 0;
+                                if (grav == gravDirection.Up) { inAir = false; }
+                            }
                         }
-
-                        inAir = false;
+                        if (bottHit.active && bottHit.isColliding(obj))
+                        {
+                            if (obj is Player)
+                            { }
+                            else
+                            {
+                                ObjPos.Y = obj.ObjRectY - ObjRect.Height;
+                                yVelocity = 0;
+                                if (grav == gravDirection.Down) { inAir = false; }
+                            }
+                        }
+                        if (rightHit.isColliding(obj))
+                        {
+                            if (obj is Player)
+                            { }
+                            else
+                            {
+                                ObjPos.X = obj.ObjRectX - ObjRect.Width;
+                                xVelocity = 0;
+                                if (grav == gravDirection.Right) { inAir = false; }
+                            }
+                        }
+                        if (leftHit.isColliding(obj))
+                        {
+                            if (obj is Player)
+                            { }
+                            else
+                            {
+                                ObjPos.X = obj.ObjRectX + obj.ObjRect.Width;
+                                xVelocity = 0;
+                                if (grav == gravDirection.Left) { inAir = false; }
+                            }
+                        }
                         ObjRectX = (int)ObjPos.X;
                         ObjRectY = (int)ObjPos.Y;
                         }

@@ -22,6 +22,8 @@ namespace GDAPS_Project_2
 
         public bool inAir;
 
+        public bool alive;
+
         public double gravity;
 
         public Vector2 ObjPos;
