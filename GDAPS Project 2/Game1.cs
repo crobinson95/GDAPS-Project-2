@@ -77,7 +77,10 @@ namespace GDAPS_Project_2
 
             // TODO: use this.Content to load your game content here
             player.ObjImage = Content.Load<Texture2D>(GameVariables.imgPlayer);
-
+            player.bottHit.ObjImage = Content.Load<Texture2D>(@"Images/Sprites/imgHitbox");
+            player.topHit.ObjImage = Content.Load<Texture2D>(@"Images/Sprites/imgHitbox");
+            player.leftHit.ObjImage = Content.Load<Texture2D>(@"Images/Sprites/imgHitbox");
+            player.rightHit.ObjImage = Content.Load<Texture2D>(@"Images/Sprites/imgHitbox");
             Texture2D floorTexture = Content.Load<Texture2D>(GameVariables.imgFloor);
             Texture2D wallTexture = Content.Load<Texture2D>(GameVariables.imgWall);
             Texture2D spikeTexture = Content.Load<Texture2D>(GameVariables.imgSpike);
@@ -157,7 +160,10 @@ namespace GDAPS_Project_2
             {
                 spriteBatch.Draw(item.ObjImage, item.ObjRect, Color.White);
             }
-
+            player.bottHit.spriteDraw(spriteBatch);
+            player.topHit.spriteDraw(spriteBatch);
+            player.leftHit.spriteDraw(spriteBatch);
+            player.rightHit.spriteDraw(spriteBatch);
             spriteBatch.Draw(player.ObjImage, player.ObjRect, Color.White);
 
             spriteBatch.End();

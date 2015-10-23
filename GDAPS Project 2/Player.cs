@@ -160,7 +160,7 @@ namespace GDAPS_Project_2
                 case gravDirection.Left:
                     if (inAir)
                     {
-                        xVelocity += (float)gravity;
+                        xVelocity -= (float)gravity;
                     }
                     else
                     {
@@ -272,7 +272,7 @@ namespace GDAPS_Project_2
                                 if (grav == gravDirection.Up) { inAir = false; }
                             }
                         }
-                        if (bottHit.active && bottHit.isColliding(obj))
+                        if (bottHit.isColliding(obj))
                         {
                             if (obj is Player)
                             { }
