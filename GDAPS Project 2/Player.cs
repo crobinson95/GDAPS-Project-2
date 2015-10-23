@@ -211,7 +211,7 @@ namespace GDAPS_Project_2
             }
         }
 
-        public void Collisions(List<GameObject> objs, KeyboardState k, World w)
+        public void Collisions(List<GameObject> objs, KeyboardState k, KeyboardState p, World w)
         {
             foreach (GameObject obj in objs)
             {
@@ -225,7 +225,7 @@ namespace GDAPS_Project_2
                     if(obj is Door)
                     {
                         Door temp = (Door)obj;
-                        if (k.IsKeyDown(Keys.E))
+                        if (Game1.SingleKeyPress(Keys.E, k, p))
                         {
                             w.currentLevel = temp.destination;
                             ObjRectX = w.Levels[w.currentLevel].objects[0].ObjRectX;

@@ -22,6 +22,7 @@ namespace GDAPS_Project_2
 
         Camera moveCamera;
         KeyboardState kbState;
+        KeyboardState previousKbState;
 
         public enum GameState
         {
@@ -117,6 +118,11 @@ namespace GDAPS_Project_2
             Content.Unload();
         }
 
+        public static bool SingleKeyPress(Keys k, KeyboardState current, KeyboardState previous)
+        {
+            return (current.IsKeyDown(k) && previous.IsKeyUp(k));
+        }
+
         /// <summary>
         /// Allows the game to run logic such as updating the world,
         /// checking for collisions, gathering input, and playing audio.
@@ -128,9 +134,10 @@ namespace GDAPS_Project_2
                 Exit();
 
             // TODO: Add your update logic here
+            previousKbState = kbState;
             kbState = Keyboard.GetState();
             player.Movement(kbState, gameTime);
-            player.Collisions(world.Levels[world.currentLevel].objects, kbState, world);
+            player.Collisions(world.Levels[world.currentLevel].objects, kbState, previousKbState, world);
             moveCamera.viewMatrix = moveCamera.GetTranform(player, width, height);
 
             base.Update(gameTime);
