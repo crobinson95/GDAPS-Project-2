@@ -14,8 +14,11 @@ namespace GDAPS_Project_2
         public static int gameHeight;
         public static int innerWidth;
         public static int innerHeight;
-        public static double playerSpeed = 50f;
-        public static double gravity = 0.05f;
+        public static double playerAcceleration = 30f;
+        public static double playerMaxSpeed = 6f;
+        public static double gravity = 0.15f;
+        public static double friction = 1.2f;
+        public static double jump = 5.5f;
         public static string imgPlayer = @"Images/Sprites/imgPlayer";
         public static string imgWall = @"Images/Sprites/imgWall";
         public static string imgFloor = @"Images/Sprites/imgFloor";

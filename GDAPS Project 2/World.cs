@@ -16,6 +16,7 @@ namespace GDAPS_Project_2
 
         public World(string world, StreamReader s) // string world is a directory
         {
+            currentLevel = 0;
             levelFiles = Directory.GetFiles(world);
             foreach (string level in levelFiles)
             {

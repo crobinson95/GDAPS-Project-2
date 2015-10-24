@@ -40,7 +40,7 @@ namespace GDAPS_Project_2
             position.Y = -p.ObjRectY + height/2;
         }
 
-        public Matrix GetTranform(Player p, int width, int height)
+        public Matrix GetTransform(Player p, int width, int height)
         {
             Move(p, width, height);
             var translationMatrix = Matrix.CreateTranslation(new Vector3(position.X, position.Y, 0));

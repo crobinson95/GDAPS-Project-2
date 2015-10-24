@@ -54,9 +54,12 @@ namespace GDAPS_Project_2
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            player = new Player(100,100,45,115); // TODO: give player actual rectangle values
+            player = new Player(100,100,60,60); // TODO: give player actual rectangle values
 
             world = new World(@"world", s); // TODO: get path to world directory
+
+            player.ObjPos.X = world.Levels[0].playerSpawn.X;
+            player.ObjPos.Y = world.Levels[0].playerSpawn.Y;
 
             moveCamera = new Camera(player, GraphicsDevice);
 
@@ -77,10 +80,10 @@ namespace GDAPS_Project_2
 
             // TODO: use this.Content to load your game content here
             player.ObjImage = Content.Load<Texture2D>(GameVariables.imgPlayer);
-            player.bottHit.ObjImage = Content.Load<Texture2D>(@"Images/Sprites/imgHitbox");
-            player.topHit.ObjImage = Content.Load<Texture2D>(@"Images/Sprites/imgHitbox");
-            player.leftHit.ObjImage = Content.Load<Texture2D>(@"Images/Sprites/imgHitbox");
-            player.rightHit.ObjImage = Content.Load<Texture2D>(@"Images/Sprites/imgHitbox");
+            //player.bottHit.ObjImage = Content.Load<Texture2D>(@"Images/Sprites/imgHitbox");
+            //player.topHit.ObjImage = Content.Load<Texture2D>(@"Images/Sprites/imgHitbox");
+            //player.leftHit.ObjImage = Content.Load<Texture2D>(@"Images/Sprites/imgHitbox");
+            //player.rightHit.ObjImage = Content.Load<Texture2D>(@"Images/Sprites/imgHitbox");
             Texture2D floorTexture = Content.Load<Texture2D>(GameVariables.imgFloor);
             Texture2D wallTexture = Content.Load<Texture2D>(GameVariables.imgWall);
             Texture2D spikeTexture = Content.Load<Texture2D>(GameVariables.imgSpike);
@@ -141,7 +144,7 @@ namespace GDAPS_Project_2
             kbState = Keyboard.GetState();
             player.Movement(kbState, gameTime);
             player.Collisions(world.Levels[world.currentLevel].objects, kbState, previousKbState, world);
-            moveCamera.viewMatrix = moveCamera.GetTranform(player, width, height);
+            moveCamera.viewMatrix = moveCamera.GetTransform(player, width, height);
             base.Update(gameTime);
         }
 
@@ -160,10 +163,10 @@ namespace GDAPS_Project_2
             {
                 spriteBatch.Draw(item.ObjImage, item.ObjRect, Color.White);
             }
-            player.bottHit.spriteDraw(spriteBatch);
-            player.topHit.spriteDraw(spriteBatch);
-            player.leftHit.spriteDraw(spriteBatch);
-            player.rightHit.spriteDraw(spriteBatch);
+            //player.bottHit.spriteDraw(spriteBatch);
+            //player.topHit.spriteDraw(spriteBatch);
+            //player.leftHit.spriteDraw(spriteBatch);
+            //player.rightHit.spriteDraw(spriteBatch);
             spriteBatch.Draw(player.ObjImage, player.ObjRect, Color.White);
 
             spriteBatch.End();

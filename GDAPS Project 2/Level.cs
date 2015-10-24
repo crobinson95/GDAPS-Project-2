@@ -10,9 +10,7 @@ namespace GDAPS_Project_2
     class Level
     {
         int levelTime;
-        string debug1;
-        string debug2;
-        string debug3;
+        public Point playerSpawn;
         public List<GameObject> objects = new List<GameObject>();
         
         /// <summary>
@@ -24,32 +22,33 @@ namespace GDAPS_Project_2
         {
             try
             {
+                playerSpawn = new Point ( 0, 0 );
                 char[] delim = { ',' };
                 string identifier;
                 Point p;
                 s = new StreamReader(levelData);
-                debug1 = levelData;
                 string line;
                 string[] splitLine;
                 while ((line = s.ReadLine()) != null)
                 {
                     try
                     {
-                        debug2 = line;
                         splitLine = line.Split(delim);
                         identifier = splitLine[0];
-                        debug3 = identifier;
                         p = new Point(int.Parse(splitLine[1]), int.Parse(splitLine[2]));
                         switch (identifier)
                         {
+                            case "spawn":
+                                playerSpawn = p;
+                                break;
                             case "floor":
                                 int w = int.Parse(splitLine[3]);
-                                objects.Add(new Floor(p.X, p.Y, w, 30));
+                                objects.Add(new Floor(p.X, p.Y, w, 60));
                                 break;
 
                             case "wall":
                                 int h = int.Parse(splitLine[3]);
-                                objects.Add(new Wall(p.X, p.Y, 30, h));
+                                objects.Add(new Wall(p.X, p.Y, 60, h));
                                 break;
 
                             case "spike":
