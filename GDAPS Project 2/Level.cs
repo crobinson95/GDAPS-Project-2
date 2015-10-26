@@ -12,6 +12,9 @@ namespace GDAPS_Project_2
         int levelTime;
         public Point playerSpawn;
         public List<GameObject> objects = new List<GameObject>();
+
+        string[] hudInfo;
+        string[] HudInfo { get { return hudInfo; } }
         
         /// <summary>
         /// Reads text files with info on each line.
@@ -35,30 +38,38 @@ namespace GDAPS_Project_2
                     {
                         splitLine = line.Split(delim);
                         identifier = splitLine[0];
-                        p = new Point(int.Parse(splitLine[1]), int.Parse(splitLine[2]));
-                        switch (identifier)
+                        if (identifier.Equals("hud"))
                         {
-                            case "spawn":
-                                playerSpawn = p;
-                                break;
-                            case "floor":
-                                int w = int.Parse(splitLine[3]);
-                                objects.Add(new Floor(p.X, p.Y, w, 60));
-                                break;
+                            hudInfo = splitLine;
+                        }
+                        else
+                        {
+                            p = new Point(int.Parse(splitLine[1]), int.Parse(splitLine[2]));
+                            switch (identifier)
+                            {
+                                case "spawn":
+                                    playerSpawn = p;
+                                    break;
+                                case "floor":
+                                    int w = int.Parse(splitLine[3]);
+                                    objects.Add(new Floor(p.X, p.Y, w, 60));
+                                    break;
 
-                            case "wall":
-                                int h = int.Parse(splitLine[3]);
-                                objects.Add(new Wall(p.X, p.Y, 60, h));
-                                break;
+                                case "wall":
+                                    int h = int.Parse(splitLine[3]);
+                                    objects.Add(new Wall(p.X, p.Y, 60, h));
+                                    break;
 
-                            case "spike":
-                                objects.Add(new Spike(p.X, p.Y, 100, 100));
-                                break;
+                                case "spike":
+                                    objects.Add(new Spike(p.X, p.Y, 100, 100));
+                                    break;
 
-                            case "door":
-                                int d = int.Parse(splitLine[3]);
-                                objects.Add(new Door(p.X, p.Y, 75, 150, d));
-                                break;
+                                case "door":
+                                    int d = int.Parse(splitLine[3]);
+                                    objects.Add(new Door(p.X, p.Y, 75, 150, d));
+                                    break;
+
+                            }
                         }
                     }
                     catch

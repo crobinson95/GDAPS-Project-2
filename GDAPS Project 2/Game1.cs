@@ -16,7 +16,7 @@ namespace GDAPS_Project_2
         World world;
         double time;
         StreamReader s;
-
+        GameState g;
         int width;
         int height;
 
@@ -28,6 +28,7 @@ namespace GDAPS_Project_2
         {
             Menu,
             Level,
+            Pause,
             Quit
         }
         public enum Menus
@@ -56,7 +57,9 @@ namespace GDAPS_Project_2
             // TODO: Add your initialization logic here
             player = new Player(100,100,60,60); // TODO: give player actual rectangle values
 
-            world = new World(@"world", s); // TODO: get path to world directory
+            g = GameState.Menu;
+
+            world = new World(@"menu", s); // Menu "world"
 
             player.ObjPos.X = world.Levels[0].playerSpawn.X;
             player.ObjPos.Y = world.Levels[0].playerSpawn.Y;

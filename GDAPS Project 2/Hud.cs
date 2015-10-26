@@ -10,9 +10,9 @@ namespace GDAPS_Project_2
     {
         Player playerLoc;
         SpriteBatch spriteBatch;
-        Level levelRelevantInfo;
+        string[] levelRelevantInfo;
 
-        public Hud(int x, int y, int w, int h, SpriteBatch s, Player p, Level l) : base(x, y, w, h)
+        public Hud(int x, int y, int w, int h, SpriteBatch s, Player p, string[] l) : base(x, y, w, h)
         {
             spriteBatch = s;
             playerLoc = p;
