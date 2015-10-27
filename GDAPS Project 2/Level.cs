@@ -14,7 +14,7 @@ namespace GDAPS_Project_2
         public List<GameObject> objects = new List<GameObject>();
 
         string[] hudInfo;
-        string[] HudInfo { get { return hudInfo; } }
+        public string[] HudInfo { get { return hudInfo; } }
         
         /// <summary>
         /// Reads text files with info on each line.

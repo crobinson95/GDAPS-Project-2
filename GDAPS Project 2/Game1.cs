@@ -61,6 +61,8 @@ namespace GDAPS_Project_2
 
             world = new World(@"menu", s); // Menu "world"
 
+            Hud gameHUD = new Hud(0, 0, 100, 100, spriteBatch, player, world.Levels[0].HudInfo , "Menu - Main");
+
             player.ObjPos.X = world.Levels[0].playerSpawn.X;
             player.ObjPos.Y = world.Levels[0].playerSpawn.Y;
 
