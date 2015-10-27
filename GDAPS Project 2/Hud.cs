@@ -12,6 +12,7 @@ namespace GDAPS_Project_2
         SpriteBatch spriteBatch;
         string[] levelRelevantInfo;
         string worldLevel;
+        bool top = true;
 
         Dictionary<string, bool> HudInfo = new Dictionary<string, bool>();
 
@@ -40,6 +41,20 @@ namespace GDAPS_Project_2
                         HudInfo[key] = true;
                     }
                 }
+            }
+        }
+
+        public void checkPlayerY()
+        {
+            if(playerLoc.ObjRectY > GameVariables.innerHeight * 2 / 3 && top)
+            {
+                // move hud to bottom
+                top = false;
+            }
+            if(playerLoc.ObjRectY < GameVariables.innerHeight / 3 && !top)
+            {
+                // move hud to top
+                top = true;
             }
         }
 

@@ -18,6 +18,8 @@ namespace GDAPS_Project_2
         
         /// <summary>
         /// Reads text files with info on each line.
+        /// Format for Hud line:
+        /// hud, strings (strings for information that needs to be displayed)
         /// Format for each line:
         /// identifier,x_position,y_position,(extra attributes depending on objects).
         /// </summary>

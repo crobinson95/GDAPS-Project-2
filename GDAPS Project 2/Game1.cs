@@ -19,6 +19,7 @@ namespace GDAPS_Project_2
         GameState g;
         int width;
         int height;
+        Hud gameHUD;
 
         Camera moveCamera;
         KeyboardState kbState;
@@ -61,7 +62,8 @@ namespace GDAPS_Project_2
 
             world = new World(GameVariables.menuWorld, s); // Menu "world"
 
-            Hud gameHUD = new Hud(0, 0, 100, 100, spriteBatch, player, world.Levels[0].HudInfo , (GameVariables.menuWorld + " - " + (world.currentLevel + 1).ToString()));
+            // x y width height are temporary filler values
+            gameHUD = new Hud(0, 0, 100, 100, spriteBatch, player, world.Levels[0].HudInfo , (GameVariables.menuWorld + " - " + (world.currentLevel + 1).ToString()));
 
             player.ObjPos.X = world.Levels[0].playerSpawn.X;
             player.ObjPos.Y = world.Levels[0].playerSpawn.Y;
@@ -150,6 +152,7 @@ namespace GDAPS_Project_2
             player.Movement(kbState, gameTime);
             player.Collisions(world.Levels[world.currentLevel].objects, kbState, previousKbState, world);
             moveCamera.viewMatrix = moveCamera.GetTransform(player, width, height);
+            gameHUD.checkPlayerY();
             base.Update(gameTime);
         }
 
@@ -166,13 +169,14 @@ namespace GDAPS_Project_2
 
             foreach (GameObject item in world.Levels[world.currentLevel].objects)
             {
-                spriteBatch.Draw(item.ObjImage, item.ObjRect, Color.White);
+                item.spriteDraw(spriteBatch);
             }
             //player.bottHit.spriteDraw(spriteBatch);
             //player.topHit.spriteDraw(spriteBatch);
             //player.leftHit.spriteDraw(spriteBatch);
             //player.rightHit.spriteDraw(spriteBatch);
-            spriteBatch.Draw(player.ObjImage, player.ObjRect, Color.White);
+            player.spriteDraw(spriteBatch);
+            gameHUD.spriteDraw(spriteBatch);
 
             spriteBatch.End();
 
