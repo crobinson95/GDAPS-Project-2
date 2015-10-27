@@ -74,13 +74,17 @@ namespace GDAPS_Project_2
                     }
                     catch
                     {
-
+                        Console.WriteLine("File read, unable to load objects, exiting");
+                        System.Threading.Thread.Sleep(2000);
+                        Environment.Exit(0);
                     }
                 }
             }
             catch
             {
-
+                Console.WriteLine("Unable to read file, exiting");
+                System.Threading.Thread.Sleep(2000);
+                Environment.Exit(0);
             }
             finally
             {

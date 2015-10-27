@@ -59,9 +59,9 @@ namespace GDAPS_Project_2
 
             g = GameState.Menu;
 
-            world = new World(@"menu", s); // Menu "world"
+            world = new World(GameVariables.menuWorld, s); // Menu "world"
 
-            Hud gameHUD = new Hud(0, 0, 100, 100, spriteBatch, player, world.Levels[0].HudInfo , "Menu - Main");
+            Hud gameHUD = new Hud(0, 0, 100, 100, spriteBatch, player, world.Levels[0].HudInfo , (GameVariables.menuWorld + " - " + (world.currentLevel + 1).ToString()));
 
             player.ObjPos.X = world.Levels[0].playerSpawn.X;
             player.ObjPos.Y = world.Levels[0].playerSpawn.Y;
