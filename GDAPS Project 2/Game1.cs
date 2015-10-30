@@ -120,8 +120,8 @@ namespace GDAPS_Project_2
                             break;
                     }
                 }
-                gameHUD.ObjImage = hud;
             }
+            gameHUD.ObjImage = hud;
         }
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
@@ -178,7 +178,10 @@ namespace GDAPS_Project_2
             //player.leftHit.spriteDraw(spriteBatch);
             //player.rightHit.spriteDraw(spriteBatch);
             player.spriteDraw(spriteBatch);
-            gameHUD.spriteDraw(spriteBatch);
+            if (world.Levels[world.currentLevel].HudInfo != null)
+            {
+                gameHUD.spriteDraw(spriteBatch);
+            }
 
             spriteBatch.End();
 

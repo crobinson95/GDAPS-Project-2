@@ -13,7 +13,7 @@ namespace GDAPS_Project_2
         SpriteBatch spriteBatch;
         string[] levelRelevantInfo;
         string worldLevel;
-        bool top = true;
+        bool top;
 
         Dictionary<string, bool> HudInfo = new Dictionary<string, bool>();
 
@@ -27,12 +27,10 @@ namespace GDAPS_Project_2
             spriteBatch = s;
             playerLoc = p;
             levelRelevantInfo = l;
-            worldLevel = wL; // pass in the world and level (eg. "Menu - Main", "1 - 3")
-            
-            // TODO: set HUD starting location
+            worldLevel = wL;
+            top = true;
 
             string[] keys = HudInfo.Keys.ToArray();
-
             foreach(string hudComponent in levelRelevantInfo)
             {
                 foreach(string key in keys)
