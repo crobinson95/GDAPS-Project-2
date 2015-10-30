@@ -63,7 +63,7 @@ namespace GDAPS_Project_2
             world = new World(GameVariables.menuWorld, s); // Menu "world"
 
             // x y width height are temporary filler values
-            gameHUD = new Hud(0, 0, 100, 100, spriteBatch, player, world.Levels[0].HudInfo , (GameVariables.menuWorld + " - " + (world.currentLevel + 1).ToString()));
+            gameHUD = new Hud(50, 20, 700, 180, spriteBatch, player, world.Levels[0].HudInfo , (GameVariables.menuWorld + " - " + (world.currentLevel + 1).ToString()));
 
             player.ObjPos.X = world.Levels[0].playerSpawn.X;
             player.ObjPos.Y = world.Levels[0].playerSpawn.Y;
@@ -95,6 +95,7 @@ namespace GDAPS_Project_2
             Texture2D wallTexture = Content.Load<Texture2D>(GameVariables.imgWall);
             Texture2D spikeTexture = Content.Load<Texture2D>(GameVariables.imgSpike);
             Texture2D doorTexture = Content.Load<Texture2D>(GameVariables.imgDoor);
+            Texture2D hud = Content.Load<Texture2D>(GameVariables.imgHUD);
             foreach (Level loadLevel in world.Levels)
             {
                 foreach (GameObject item in loadLevel.objects)
@@ -119,6 +120,7 @@ namespace GDAPS_Project_2
                             break;
                     }
                 }
+                gameHUD.ObjImage = hud;
             }
         }
         /// <summary>

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +28,7 @@ namespace GDAPS_Project_2
             playerLoc = p;
             levelRelevantInfo = l;
             worldLevel = wL; // pass in the world and level (eg. "Menu - Main", "1 - 3")
-
+            
             // TODO: set HUD starting location
 
             string[] keys = HudInfo.Keys.ToArray();
@@ -46,12 +47,12 @@ namespace GDAPS_Project_2
 
         public void checkPlayerY()
         {
-            if(playerLoc.ObjRectY > GameVariables.innerHeight * 2 / 3 && top)
+            if(playerLoc.ObjRectY < GameVariables.innerHeight / 3 && top)
             {
                 // move hud to bottom
                 top = false;
             }
-            if(playerLoc.ObjRectY < GameVariables.innerHeight / 3 && !top)
+            if(playerLoc.ObjRectY > GameVariables.innerHeight * 2 / 3 && !top)
             {
                 // move hud to top
                 top = true;
@@ -62,11 +63,26 @@ namespace GDAPS_Project_2
 
         public override void spriteDraw(SpriteBatch s)
         {
-            foreach(string key in HudInfo.Keys.ToArray())
+            if (top)
             {
-                if (HudInfo[key])
+                s.Draw(this.ObjImage, new Rectangle(50, 20, 700, 180), Color.White);
+                foreach (string key in HudInfo.Keys.ToArray())
                 {
-                    // TODO differentiate between drawn objects and strings as well as set xy
+                    if (HudInfo[key])
+                    {
+                        // TODO differentiate between drawn objects and strings as well as set xy, as well as possibly position
+                    }
+                }
+            }
+            else
+            {
+                s.Draw(this.ObjImage, new Rectangle(50, GameVariables.gameHeight - 200, 700, 180), Color.White);
+                foreach (string key in HudInfo.Keys.ToArray())
+                {
+                    if (HudInfo[key])
+                    {
+                        // TODO differentiate between drawn objects and strings as well as set xy
+                    }
                 }
             }
         }

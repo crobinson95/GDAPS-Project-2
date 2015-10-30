@@ -19,6 +19,7 @@ namespace GDAPS_Project_2
         public static double gravity = 0.15f;
         public static double friction = 1.2f;
         public static double jump = 5.5f;
+        public static string imgHUD = @"Images/hud";
         public static string imgPlayer = @"Images/Sprites/imgPlayer";
         public static string imgWall = @"Images/Sprites/imgWall";
         public static string imgFloor = @"Images/Sprites/imgFloor";
