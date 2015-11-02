@@ -17,9 +17,11 @@ namespace GDAPS_Project_2
         double time;
         StreamReader s;
         GameState g;
+        GameState prevState;
         int width;
         int height;
         Hud gameHUD;
+        bool paused;
 
         Camera moveCamera;
         KeyboardState kbState;
@@ -59,6 +61,7 @@ namespace GDAPS_Project_2
             player = new Player(100,100,60,60); // TODO: give player actual rectangle values
 
             g = GameState.Menu;
+            paused = false;
 
             world = new World(GameVariables.menuWorld, s); // Menu "world"
 
@@ -151,10 +154,26 @@ namespace GDAPS_Project_2
             // TODO: Add your update logic here
             previousKbState = kbState;
             kbState = Keyboard.GetState();
-            player.Movement(kbState, gameTime);
-            player.Collisions(world.Levels[world.currentLevel].objects, kbState, previousKbState, world);
-            moveCamera.viewMatrix = moveCamera.GetTransform(player, width, height);
-            gameHUD.checkPlayerY();
+            if (SingleKeyPress(Keys.P, kbState, previousKbState))
+            {
+                if (!paused)
+                {
+                    prevState = g;
+                    g = GameState.Pause;
+                    
+                }
+                else
+                {
+                    g = prevState;
+                }
+            }
+            if (g != GameState.Pause)
+            {
+                player.Movement(kbState, gameTime);
+                player.Collisions(world.Levels[world.currentLevel].objects, kbState, previousKbState, world);
+                moveCamera.viewMatrix = moveCamera.GetTransform(player, width, height);
+                gameHUD.checkPlayerY();
+            }
             base.Update(gameTime);
         }
 

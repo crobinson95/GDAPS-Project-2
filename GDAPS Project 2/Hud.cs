@@ -56,8 +56,7 @@ namespace GDAPS_Project_2
                 top = true;
             }
         }
-
-        // TODO use player to get player location and draw HUD on the top/bottom depending on location
+        
 
         public override void spriteDraw(SpriteBatch s)
         {
@@ -68,7 +67,7 @@ namespace GDAPS_Project_2
                 {
                     if (HudInfo[key])
                     {
-                        // TODO differentiate between drawn objects and strings as well as set xy, as well as possibly position
+                        // TODO differentiate between drawn objects and strings as well as set xy
                     }
                 }
             }
