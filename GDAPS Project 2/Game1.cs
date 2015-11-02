@@ -18,6 +18,7 @@ namespace GDAPS_Project_2
         StreamReader s;
         GameState g;
         GameState prevState;
+        Menus m;
         int width;
         int height;
         Hud gameHUD;
@@ -61,6 +62,7 @@ namespace GDAPS_Project_2
             player = new Player(100,100,60,60); // TODO: give player actual rectangle values
 
             g = GameState.Menu;
+            m = Menus.Start;
             paused = false;
 
             world = new World(GameVariables.menuWorld, s); // Menu "world"
