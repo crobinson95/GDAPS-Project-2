@@ -123,7 +123,7 @@ namespace GDAPS_Project_2
                 gameHUD.ObjImage = hud;
             }
 
-            player.LoadContent(Content);
+            player.LoadContent(Content); //Player load method
         }
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
@@ -157,7 +157,9 @@ namespace GDAPS_Project_2
             player.Collisions(world.Levels[world.currentLevel].objects, kbState, previousKbState, world);
             moveCamera.viewMatrix = moveCamera.GetTransform(player, width, height);
             gameHUD.checkPlayerY();
-            player.Update(gameTime);
+
+            player.Update(gameTime);    //Player update method
+
             base.Update(gameTime);
         }
 
@@ -173,7 +175,7 @@ namespace GDAPS_Project_2
 
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, null, null, null, null, moveCamera.viewMatrix);
 
-            player.Draw(spriteBatch);
+            player.Draw(spriteBatch);   //Player draw method
 
             foreach (GameObject item in world.Levels[world.currentLevel].objects)
             {

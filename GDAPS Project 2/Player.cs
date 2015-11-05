@@ -9,8 +9,9 @@ using Microsoft.Xna.Framework.Content;
 
 namespace GDAPS_Project_2
 {
-    class Player :  MovableGameObject
+    class Player : MovableGameObject
     {
+        
         float fric = (float)GameVariables.friction;
         float jump = (float)GameVariables.jump;
         float accel = (float)GameVariables.playerAcceleration;
@@ -33,6 +34,9 @@ namespace GDAPS_Project_2
             alive = true;
 
             FramesPerSec = 10;
+            //Adds animation arrays - currenty using dummy values
+            AddAnimation(12, 0, 0, "Left", 50, 50);
+            AddAnimation(12, 0, 0, "Right", 50, 50);
 
             //topHit = new HitBox((int)ObjPos.X + 5, ObjRect.Y + 5, ObjRect.Width - 10, 5);
             //bottHit = new HitBox((int)ObjPos.X + 5, ObjRect.Height, ObjRect.Width - 10, 5);
@@ -65,13 +69,22 @@ namespace GDAPS_Project_2
                     {
 
                     }
-                    if (k.IsKeyDown(Keys.A))
+                    if (k.IsKeyDown(Keys.A))    //Move left
                     {
+
+                        spriteDirection += new Vector2(-1, 0);
+                        PlayAnimation("Left");
+                        currentDir = myDirection.left;
+
                         xVelocity -= accel * (float)g.ElapsedGameTime.TotalSeconds;
                         if (xVelocity < -maxSpeed) { xVelocity = -maxSpeed; }
                     }
-                    if (k.IsKeyDown(Keys.D))
+                    if (k.IsKeyDown(Keys.D))    //Move right
                     {
+                        spriteDirection += new Vector2(1, 0);
+                        PlayAnimation("Right");
+                        currentDir = myDirection.right;
+
                         xVelocity += accel * (float)g.ElapsedGameTime.TotalSeconds;
                         if (xVelocity > maxSpeed) { xVelocity = maxSpeed; }
 
@@ -457,10 +470,34 @@ namespace GDAPS_Project_2
 
         public void isDead() { }
 
+        //Grabs the sprite sheet - not currently in pipe line
         public void LoadContent(ContentManager content)
         {
             sTexture = content.Load<Texture2D>("player_sprite");
-            AddAnimation(12);
+        }
+
+        //Updates position of character sprite
+        public override void Update(GameTime gameTime)
+        {
+            spriteDirection = Vector2.Zero;
+            Movement(Keyboard.GetState(), gameTime);
+
+            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            spriteDirection *= (float)GameVariables.playerMaxSpeed;
+
+            ObjPos += (spriteDirection * deltaTime);
+
+            base.Update(gameTime);
+        }
+
+        //This may be needed if jump animation is present - prevents loops
+        public override void AnimationDone(string animation)
+        {
+            if(animation.Contains("Jump"))
+            {
+                inAir = false;
+            }
         }
     }
 }
