@@ -56,14 +56,14 @@ namespace GDAPS_Project_2
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            player = new Player(100,100,60,60); // TODO: give player actual rectangle values
+            player = new Player(100, 100, 60, 60); // TODO: give player actual rectangle values
 
             g = GameState.Menu;
 
             world = new World(GameVariables.menuWorld, s); // Menu "world"
 
             // x y width height are temporary filler values
-            gameHUD = new Hud(50, 20, 700, 180, spriteBatch, player, world.Levels[0].HudInfo , (GameVariables.menuWorld + " - " + (world.currentLevel + 1).ToString()));
+            gameHUD = new Hud(50, 20, 700, 180, spriteBatch, player, world.Levels[0].HudInfo, (GameVariables.menuWorld + " - " + (world.currentLevel + 1).ToString()));
 
             player.ObjPos.X = world.Levels[0].playerSpawn.X;
             player.ObjPos.Y = world.Levels[0].playerSpawn.Y;
@@ -122,6 +122,8 @@ namespace GDAPS_Project_2
                 }
                 gameHUD.ObjImage = hud;
             }
+
+            player.LoadContent(Content);
         }
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
@@ -155,6 +157,7 @@ namespace GDAPS_Project_2
             player.Collisions(world.Levels[world.currentLevel].objects, kbState, previousKbState, world);
             moveCamera.viewMatrix = moveCamera.GetTransform(player, width, height);
             gameHUD.checkPlayerY();
+            player.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -167,7 +170,10 @@ namespace GDAPS_Project_2
             GraphicsDevice.Clear(Color.White);
 
             // TODO: Add your drawing code here
+
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, null, null, null, null, moveCamera.viewMatrix);
+
+            player.Draw(spriteBatch);
 
             foreach (GameObject item in world.Levels[world.currentLevel].objects)
             {

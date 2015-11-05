@@ -5,10 +5,11 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Content;
 
 namespace GDAPS_Project_2
 {
-    class Player : MovableGameObject
+    class Player :  MovableGameObject
     {
         float fric = (float)GameVariables.friction;
         float jump = (float)GameVariables.jump;
@@ -30,6 +31,9 @@ namespace GDAPS_Project_2
             yVelocity = 0;
             inAir = true;
             alive = true;
+
+            FramesPerSec = 10;
+
             //topHit = new HitBox((int)ObjPos.X + 5, ObjRect.Y + 5, ObjRect.Width - 10, 5);
             //bottHit = new HitBox((int)ObjPos.X + 5, ObjRect.Height, ObjRect.Width - 10, 5);
             //rightHit = new HitBox((int)ObjPos.X, ObjRect.Y, 5, ObjRect.Height - 10);
@@ -44,7 +48,7 @@ namespace GDAPS_Project_2
             {
                 case gravDirection.Down:
                     yVelocity += (float)gravity;
-                    
+
                     if (!inAir)
                     {
                         yVelocity -= (float)gravity;
@@ -446,12 +450,18 @@ namespace GDAPS_Project_2
                     //        inAir = true;
                     //    }
                     ObjRectX = (int)ObjPos.X;
-                    ObjRectY = (int)ObjPos.Y; 
+                    ObjRectY = (int)ObjPos.Y;
                 }
             }
         }
 
         public void isDead() { }
+
+        public void LoadContent(ContentManager content)
+        {
+            sTexture = content.Load<Texture2D>("player_sprite");
+            AddAnimation(12);
+        }
     }
 }
 
