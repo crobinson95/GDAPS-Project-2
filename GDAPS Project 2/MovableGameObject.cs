@@ -60,6 +60,7 @@ namespace GDAPS_Project_2
         }
 
         private Dictionary<string, Rectangle[]> sAnimations = new Dictionary<string, Rectangle[]>();
+        private Dictionary<string, Vector2> sOffset = new Dictionary<string, Vector2>();
 
         public MovableGameObject(int x, int y, int w, int h) : base(x, y, w, h)
         {
@@ -69,7 +70,7 @@ namespace GDAPS_Project_2
         }
 
         //Cuts up sprite sheet into usable pieces
-        public void AddAnimation(int frames, int yPos, int xStartFrame, string name, int width, int height)
+        public void AddAnimation(int frames, int yPos, int xStartFrame, string name, int width, int height, Vector2 offset)
         {
 
             Rectangle[] myRects = new Rectangle[frames];
@@ -79,6 +80,7 @@ namespace GDAPS_Project_2
                 myRects[i] = new Rectangle((i + xStartFrame) * width, yPos, width, height);
             }
             sAnimations.Add(name, myRects);
+            sOffset.Add(name, offset);
         }
 
         //Plays current animation
@@ -117,7 +119,7 @@ namespace GDAPS_Project_2
         //Draws the current frame of the current animation
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(sTexture, ObjPos, sAnimations[currentAnimation][frameIndex], Color.White);
+            spriteBatch.Draw(sTexture, ObjPos + sOffset[currentAnimation], sAnimations[currentAnimation][frameIndex], Color.White);
         }
 
         //Possibly needed later to prevent animation loops

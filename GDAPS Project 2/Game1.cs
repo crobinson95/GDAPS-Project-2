@@ -44,6 +44,8 @@ namespace GDAPS_Project_2
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferHeight = 720;
+            graphics.PreferredBackBufferWidth = 1280;
             Content.RootDirectory = "Content";
         }
 
@@ -56,14 +58,14 @@ namespace GDAPS_Project_2
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            player = new Player(100, 100, 60, 60); // TODO: give player actual rectangle values
+            player = new Player(100, 100, 256, 246); // TODO: give player actual rectangle values
 
             g = GameState.Menu;
 
             world = new World(GameVariables.menuWorld, s); // Menu "world"
 
             // x y width height are temporary filler values
-            gameHUD = new Hud(50, 20, 700, 180, spriteBatch, player, world.Levels[0].HudInfo, (GameVariables.menuWorld + " - " + (world.currentLevel + 1).ToString()));
+            // gameHUD = new Hud(50, 20, 700, 180, spriteBatch, player, world.Levels[0].HudInfo, (GameVariables.menuWorld + " - " + (world.currentLevel + 1).ToString()));
 
             player.ObjPos.X = world.Levels[0].playerSpawn.X;
             player.ObjPos.Y = world.Levels[0].playerSpawn.Y;
@@ -156,7 +158,7 @@ namespace GDAPS_Project_2
             player.Movement(kbState, gameTime);
             player.Collisions(world.Levels[world.currentLevel].objects, kbState, previousKbState, world);
             moveCamera.viewMatrix = moveCamera.GetTransform(player, width, height);
-            gameHUD.checkPlayerY();
+//             gameHUD.checkPlayerY();
 
             player.Update(gameTime);    //Player update method
 
@@ -186,7 +188,7 @@ namespace GDAPS_Project_2
             //player.leftHit.spriteDraw(spriteBatch);
             //player.rightHit.spriteDraw(spriteBatch);
             player.spriteDraw(spriteBatch);
-            gameHUD.spriteDraw(spriteBatch);
+            // gameHUD.spriteDraw(spriteBatch);
 
             spriteBatch.End();
 
