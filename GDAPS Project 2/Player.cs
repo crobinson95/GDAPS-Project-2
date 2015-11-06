@@ -35,8 +35,10 @@ namespace GDAPS_Project_2
 
             FramesPerSec = 10;
             //Adds animation arrays - currenty using dummy values
-            AddAnimation(12, 0, 0, "Left", 50, 50);
-            AddAnimation(12, 0, 0, "Right", 50, 50);
+            AddAnimation(16, 0, 0, "Down_Left", 256, 256);
+            AddAnimation(16, 256, 0, "Down_Right", 256, 256);
+            AddAnimation(16, 512, 0, "Up_Left", 256, 256);
+            AddAnimation(16, 738, 0, "Up_Right", 256, 256);
 
             //topHit = new HitBox((int)ObjPos.X + 5, ObjRect.Y + 5, ObjRect.Width - 10, 5);
             //bottHit = new HitBox((int)ObjPos.X + 5, ObjRect.Height, ObjRect.Width - 10, 5);

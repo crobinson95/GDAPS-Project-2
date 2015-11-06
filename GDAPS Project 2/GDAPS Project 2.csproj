@@ -44,7 +44,6 @@
     <Compile Include="Game1.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="GameVariables.cs" />
-    <Compile Include="HitBox.cs" />
     <Compile Include="Hud.cs" />
     <Compile Include="Level.cs" />
     <Compile Include="World.cs" />
@@ -67,7 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </MonoGameContentReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
