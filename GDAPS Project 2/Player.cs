@@ -37,12 +37,12 @@ namespace GDAPS_Project_2
             //Adds animation arrays - currenty using dummy values
             AddAnimation(16, 0, 0, "Down_Left", 256, 256, new Vector2(50, +20));
             AddAnimation(16, 256, 0, "Down_Right", 256, 256, new Vector2(50, +20));
-            AddAnimation(16, 512, 0, "Up_Left", 256, 256, new Vector2(50, +20));
-            AddAnimation(16, 738, 0, "Up_Right", 256, 256, new Vector2(50, +20));
+            AddAnimation(16, 512, 0, "Up_Left", 256, 256, new Vector2(50, -20));
+            AddAnimation(16, 738, 0, "Up_Right", 256, 256, new Vector2(50, -20));
             AddAnimation(1, 0, 0, "Down_Idle_Left", 256, 256, new Vector2(50, +20));
             AddAnimation(1, 256, 0, "Down_Idle_Right", 256, 256, new Vector2(50, +20));
-            AddAnimation(1, 512, 0, "Up_Idle_Left", 256, 256, new Vector2(50, +20));
-            AddAnimation(1, 738, 0, "Up_Idle_Right", 256, 256, new Vector2(50, +20));
+            AddAnimation(1, 512, 0, "Up_Idle_Left", 256, 256, new Vector2(50, -20));
+            AddAnimation(1, 738, 0, "Up_Idle_Right", 256, 256, new Vector2(50, -20));
 
             //topHit = new HitBox((int)ObjPos.X + 5, ObjRect.Y + 5, ObjRect.Width - 10, 5);
             //bottHit = new HitBox((int)ObjPos.X + 5, ObjRect.Height, ObjRect.Width - 10, 5);
@@ -84,7 +84,11 @@ namespace GDAPS_Project_2
                         xVelocity -= accel * (float)g.ElapsedGameTime.TotalSeconds;
                         if (xVelocity < -maxSpeed) { xVelocity = -maxSpeed; }
                     }
-                    else { PlayAnimation("Down_Idle_Left"); }
+                    else
+                    {
+                        currentDir = myDirection.none;
+                        PlayAnimation("Down_Idle_Left");
+                    }
                     if (k.IsKeyDown(Keys.D))    //Move right
                     {
                         currentDir = myDirection.right;
@@ -95,7 +99,11 @@ namespace GDAPS_Project_2
                         if (xVelocity > maxSpeed) { xVelocity = maxSpeed; }
 
                     }
-                    else { PlayAnimation("Down_Idle_Right"); }
+                    else
+                    {
+                        currentDir = myDirection.none;
+                        PlayAnimation("Down_Idle_Right");
+                    }
                     if (k.IsKeyDown(Keys.Space))
                     {
                         if (inAir == false)
@@ -135,7 +143,11 @@ namespace GDAPS_Project_2
                         xVelocity -= accel * (float)g.ElapsedGameTime.TotalSeconds;
                         if (xVelocity < -maxSpeed) { xVelocity = -maxSpeed; }
                     }
-                    else { PlayAnimation("Up_Idle_Left"); }
+                    else
+                    {
+                        currentDir = myDirection.none;
+                        PlayAnimation("Up_Idle_Left");
+                    }
                     if (k.IsKeyDown(Keys.D))
                     {
                         currentDir = myDirection.right;
@@ -145,7 +157,11 @@ namespace GDAPS_Project_2
                         xVelocity += accel * (float)g.ElapsedGameTime.TotalSeconds;
                         if (xVelocity > maxSpeed) { xVelocity = maxSpeed; }
                     }
-                    else { PlayAnimation("Up_Idle_Left"); }
+                    else
+                    {
+                        currentDir = myDirection.none;
+                        PlayAnimation("Up_Idle_Left");
+                    }
                     if (k.IsKeyDown(Keys.Space))
                     {
                         if (inAir == false)
@@ -509,13 +525,7 @@ namespace GDAPS_Project_2
         }
 
         //This may be needed if jump animation is present - prevents loops
-        public override void AnimationDone(string animation)
-        {
-            if (animation.Contains("Jump"))
-            {
-                inAir = false;
-            }
-        }
+        
     }
 }
 

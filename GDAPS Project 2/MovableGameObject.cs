@@ -108,7 +108,7 @@ namespace GDAPS_Project_2
                 }
                 else
                 {
-                    AnimationDone(currentAnimation);
+                    //AnimationDone(currentAnimation);
                     frameIndex = 0;
                 }
 
@@ -123,6 +123,6 @@ namespace GDAPS_Project_2
         }
 
         //Possibly needed later to prevent animation loops
-        public abstract void AnimationDone(string animation);
+       // public abstract void AnimationDone(string animation);
     }
 }
