@@ -95,7 +95,7 @@ namespace GDAPS_Project_2
             Texture2D wallTexture = Content.Load<Texture2D>(GameVariables.imgWall);
             Texture2D spikeTexture = Content.Load<Texture2D>(GameVariables.imgSpike);
             Texture2D doorTexture = Content.Load<Texture2D>(GameVariables.imgDoor);
-            Texture2D hud = Content.Load<Texture2D>(GameVariables.imgHUD);
+            //Texture2D hud = Content.Load<Texture2D>(GameVariables.imgHUD);
             foreach (Level loadLevel in world.Levels)
             {
                 foreach (GameObject item in loadLevel.objects)
@@ -120,7 +120,7 @@ namespace GDAPS_Project_2
                             break;
                     }
                 }
-                gameHUD.ObjImage = hud;
+                //gameHUD.ObjImage = hud;
             }
         }
         /// <summary>
@@ -154,7 +154,7 @@ namespace GDAPS_Project_2
             player.Movement(kbState, gameTime);
             player.Collisions(world.Levels[world.currentLevel].objects, kbState, previousKbState, world);
             moveCamera.viewMatrix = moveCamera.GetTransform(player, width, height);
-            gameHUD.checkPlayerY();
+            //gameHUD.checkPlayerY();
             base.Update(gameTime);
         }
 
@@ -178,7 +178,7 @@ namespace GDAPS_Project_2
             //player.leftHit.spriteDraw(spriteBatch);
             //player.rightHit.spriteDraw(spriteBatch);
             player.spriteDraw(spriteBatch);
-            gameHUD.spriteDraw(spriteBatch);
+            //gameHUD.spriteDraw(spriteBatch);
 
             spriteBatch.End();
 

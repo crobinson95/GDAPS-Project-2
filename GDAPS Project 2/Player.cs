@@ -14,6 +14,8 @@ namespace GDAPS_Project_2
         float jump = (float)GameVariables.jump;
         float accel = (float)GameVariables.playerAcceleration;
         float maxSpeed = (float)GameVariables.playerMaxSpeed;
+        float airSpeed = (float)GameVariables.maxAirSpeed;
+        float airControl = (float)GameVariables.playerAirControl;
 
         int energy;
         //public HitBox topHit;
@@ -44,15 +46,26 @@ namespace GDAPS_Project_2
             {
                 case gravDirection.Down:
                     yVelocity += (float)gravity;
-                    
+                    if (yVelocity > airSpeed) { yVelocity = airSpeed; }
+
                     if (!inAir)
                     {
                         yVelocity -= (float)gravity;
                         if (xVelocity > fric) { xVelocity -= fric; }
                         else if (xVelocity < -fric) { xVelocity += fric; }
                         else { xVelocity = 0; }
+                        if (k.IsKeyDown(Keys.A))
+                        {
+                            xVelocity -= accel * (float)g.ElapsedGameTime.TotalSeconds;
+                            if (xVelocity < -maxSpeed) { xVelocity = -maxSpeed; }
+                        }
+                        if (k.IsKeyDown(Keys.D))
+                        {
+                            xVelocity += accel * (float)g.ElapsedGameTime.TotalSeconds;
+                            if (xVelocity > maxSpeed) { xVelocity = maxSpeed; }
+                        }
                     }
-
+                    else
                     if (k.IsKeyDown(Keys.W))
                     {
 
@@ -63,13 +76,13 @@ namespace GDAPS_Project_2
                     }
                     if (k.IsKeyDown(Keys.A))
                     {
-                        xVelocity -= accel * (float)g.ElapsedGameTime.TotalSeconds;
-                        if (xVelocity < -maxSpeed) { xVelocity = -maxSpeed; }
+                        xVelocity -= airControl * (float)g.ElapsedGameTime.TotalSeconds;
+                        if (xVelocity < -airSpeed) { xVelocity = -airSpeed; }
                     }
                     if (k.IsKeyDown(Keys.D))
                     {
-                        xVelocity += accel * (float)g.ElapsedGameTime.TotalSeconds;
-                        if (xVelocity > maxSpeed) { xVelocity = maxSpeed; }
+                        xVelocity += airControl * (float)g.ElapsedGameTime.TotalSeconds;
+                        if (xVelocity > airSpeed) { xVelocity = airSpeed; }
 
                     }
                     if (k.IsKeyDown(Keys.Space))
@@ -85,6 +98,7 @@ namespace GDAPS_Project_2
 
                 case gravDirection.Up:
                     yVelocity -= (float)gravity;
+                    if (yVelocity <= -airSpeed) { yVelocity = -airSpeed; }
 
                     if (!inAir)
                     {
@@ -92,6 +106,16 @@ namespace GDAPS_Project_2
                         if (xVelocity > fric) { xVelocity -= fric; }
                         else if (xVelocity < -fric) { xVelocity += fric; }
                         else { xVelocity = 0; }
+                        if (k.IsKeyDown(Keys.A))
+                        {
+                            xVelocity -= accel * (float)g.ElapsedGameTime.TotalSeconds;
+                            if (xVelocity < -maxSpeed) { xVelocity = -maxSpeed; }
+                        }
+                        if (k.IsKeyDown(Keys.D))
+                        {
+                            xVelocity += accel * (float)g.ElapsedGameTime.TotalSeconds;
+                            if (xVelocity > maxSpeed) { xVelocity = maxSpeed; }
+                        }
                     }
 
                     if (k.IsKeyDown(Keys.W))
@@ -104,13 +128,13 @@ namespace GDAPS_Project_2
                     }
                     if (k.IsKeyDown(Keys.A))
                     {
-                        xVelocity -= accel * (float)g.ElapsedGameTime.TotalSeconds;
-                        if (xVelocity < -maxSpeed) { xVelocity = -maxSpeed; }
+                        xVelocity -= airControl * (float)g.ElapsedGameTime.TotalSeconds;
+                        if (xVelocity < -airSpeed) { xVelocity = -maxSpeed; }
                     }
                     if (k.IsKeyDown(Keys.D))
                     {
-                        xVelocity += accel * (float)g.ElapsedGameTime.TotalSeconds;
-                        if (xVelocity > maxSpeed) { xVelocity = maxSpeed; }
+                        xVelocity += airControl * (float)g.ElapsedGameTime.TotalSeconds;
+                        if (xVelocity > airSpeed) { xVelocity = maxSpeed; }
                     }
                     if (k.IsKeyDown(Keys.Space))
                     {
@@ -126,6 +150,7 @@ namespace GDAPS_Project_2
 
                 case gravDirection.Right:
                     xVelocity += (float)gravity;
+                    if (xVelocity >= airSpeed) { xVelocity = airSpeed; }
 
                     if (!inAir)
                     {
@@ -133,16 +158,26 @@ namespace GDAPS_Project_2
                         if (yVelocity > fric) { yVelocity -= fric; }
                         else if (yVelocity < -fric) { yVelocity += fric; }
                         else { yVelocity = 0; }
+                        if (k.IsKeyDown(Keys.W))
+                        {
+                            yVelocity -= accel * (float)g.ElapsedGameTime.TotalSeconds;
+                            if (yVelocity < -maxSpeed) { yVelocity = -maxSpeed; }
+                        }
+                        if (k.IsKeyDown(Keys.S))
+                        {
+                            yVelocity += accel * (float)g.ElapsedGameTime.TotalSeconds;
+                            if (yVelocity > maxSpeed) { yVelocity = maxSpeed; }
+                        }
                     }
                     if (k.IsKeyDown(Keys.W))
                     {
-                        yVelocity -= accel * (float)g.ElapsedGameTime.TotalSeconds;
-                        if (yVelocity < -maxSpeed) { yVelocity = -maxSpeed; }
+                        yVelocity -= airControl * (float)g.ElapsedGameTime.TotalSeconds;
+                        if (yVelocity < -airSpeed) { yVelocity = -maxSpeed; }
                     }
                     if (k.IsKeyDown(Keys.S))
                     {
-                        yVelocity += accel * (float)g.ElapsedGameTime.TotalSeconds;
-                        if (yVelocity > maxSpeed) { yVelocity = maxSpeed; }
+                        yVelocity += airControl * (float)g.ElapsedGameTime.TotalSeconds;
+                        if (yVelocity > airSpeed) { yVelocity = maxSpeed; }
                     }
                     if (k.IsKeyDown(Keys.A))
                     {
@@ -166,22 +201,34 @@ namespace GDAPS_Project_2
 
                 case gravDirection.Left:
                     xVelocity -= (float)gravity;
+                    if (xVelocity <= -airSpeed) { xVelocity = -airSpeed; }
+
                     if (!inAir)
                     {
                         xVelocity += (float)gravity;
                         if (yVelocity > fric) { yVelocity -= fric; }
                         else if (yVelocity < -fric) { yVelocity += fric; }
                         else { yVelocity = 0; }
+                        if (k.IsKeyDown(Keys.W))
+                        {
+                            yVelocity -= accel * (float)g.ElapsedGameTime.TotalSeconds;
+                            if (yVelocity < -maxSpeed) { yVelocity = -maxSpeed; }
+                        }
+                        if (k.IsKeyDown(Keys.S))
+                        {
+                            yVelocity += accel * (float)g.ElapsedGameTime.TotalSeconds;
+                            if (yVelocity > maxSpeed) { yVelocity = maxSpeed; }
+                        }
                     }
                     if (k.IsKeyDown(Keys.W))
                     {
-                        yVelocity -= accel * (float)g.ElapsedGameTime.TotalSeconds;
-                        if (yVelocity < -maxSpeed) { yVelocity = -maxSpeed; }
+                        yVelocity -= airControl * (float)g.ElapsedGameTime.TotalSeconds;
+                        if (yVelocity < -airSpeed) { yVelocity = -maxSpeed; }
                     }
                     if (k.IsKeyDown(Keys.S))
                     {
-                        yVelocity += accel * (float)g.ElapsedGameTime.TotalSeconds;
-                        if (yVelocity > maxSpeed) { yVelocity = maxSpeed; }
+                        yVelocity += airControl * (float)g.ElapsedGameTime.TotalSeconds;
+                        if (yVelocity > airSpeed) { yVelocity = maxSpeed; }
                     }
                     if (k.IsKeyDown(Keys.A))
                     {
@@ -252,7 +299,7 @@ namespace GDAPS_Project_2
                 if (isColliding(obj) && obj.isDangerous)
                 {
                     alive = false;
-                    isDead();
+                    isDead(w.Levels[w.currentLevel].playerSpawn);
                 }
                 else if (isColliding(obj))
                 {
@@ -451,7 +498,12 @@ namespace GDAPS_Project_2
             }
         }
 
-        public void isDead() { }
+        public void isDead(Point sPoint)
+        {
+            ObjPos.X = sPoint.X;
+            ObjPos.Y = sPoint.Y;
+            alive = true;
+        }
     }
 }
 
