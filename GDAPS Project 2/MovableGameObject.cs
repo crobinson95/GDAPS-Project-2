@@ -10,7 +10,19 @@ namespace GDAPS_Project_2
 {
     abstract class MovableGameObject : GameObject
     {
-        public enum gravDirection
+        protected Texture2D sTexture;
+        private Rectangle[] playerRects;
+        private int frameIndex = 0;
+        private double timeElapsed;
+        private double timeToUpdate;
+        public int FramesPerSec { set { timeToUpdate = 1f / value; } }
+        protected Vector2 spriteDirection = Vector2.Zero;
+        private string currentAnimation;
+        public enum myDirection { none, left, right };
+
+        protected myDirection currentDir = myDirection.none;
+
+        protected enum gravDirection
         {
             Up,
             Down,
@@ -18,34 +30,37 @@ namespace GDAPS_Project_2
             Right
         }
 
-        public gravDirection grav;
+        protected gravDirection grav;
 
-        public bool inAir;
+        protected bool inAir;
 
-        public bool alive;
+        protected bool alive;
 
-        public double gravity;
+        protected double gravity;
 
         public Vector2 ObjPos;
-        
+
         float xvelocity;
-        public float xVelocity
+        protected float xVelocity
         {
             get { return xvelocity; }
             set { xvelocity = value; }
         }
 
         float yvelocity;
-        public float yVelocity
+        protected float yVelocity
         {
             get { return yvelocity; }
             set { yvelocity = value; }
         }
-        public virtual bool isColliding(GameObject obj)
+        protected virtual bool isColliding(GameObject obj)
         {
             if (ObjRect.Intersects(obj.ObjRect)) { return true; }
             else { return false; }
         }
+
+        private Dictionary<string, Rectangle[]> sAnimations = new Dictionary<string, Rectangle[]>();
+        private Dictionary<string, Vector2> sOffset = new Dictionary<string, Vector2>();
 
         public MovableGameObject(int x, int y, int w, int h) : base(x, y, w, h)
         {
@@ -54,5 +69,60 @@ namespace GDAPS_Project_2
             ObjRectY = (int)ObjPos.Y;
         }
 
+        //Cuts up sprite sheet into usable pieces
+        public void AddAnimation(int frames, int yPos, int xStartFrame, string name, int width, int height, Vector2 offset)
+        {
+
+            Rectangle[] myRects = new Rectangle[frames];
+
+            for (int i = 0; i < frames; i++)
+            {
+                myRects[i] = new Rectangle((i + xStartFrame) * width, yPos, width, height);
+            }
+            sAnimations.Add(name, myRects);
+            sOffset.Add(name, offset);
+        }
+
+        //Plays current animation
+        public void PlayAnimation(string name)
+        {
+            if (currentAnimation != name && currentDir == myDirection.none)
+            {
+                currentAnimation = name;
+                frameIndex = 0;
+            }
+        }
+
+        //Updates the player's info and loops through animation frames
+        public virtual void Update(GameTime gameTime)
+        {
+            timeElapsed += gameTime.ElapsedGameTime.TotalSeconds;
+
+            if (timeElapsed > timeToUpdate)
+            {
+                timeElapsed -= timeToUpdate;
+
+                if (frameIndex < sAnimations[currentAnimation].Length - 1)
+                {
+                    frameIndex++;
+                }
+                else
+                {
+                    //AnimationDone(currentAnimation);
+                    frameIndex = 0;
+                }
+
+
+            }
+        }
+
+        //Draws the current frame of the current animation
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(sTexture, ObjPos + sOffset[currentAnimation], sAnimations[currentAnimation][frameIndex], Color.White);
+        }
+
+        //Possibly needed later to prevent animation loops
+       // public abstract void AnimationDone(string animation);
     }
 }

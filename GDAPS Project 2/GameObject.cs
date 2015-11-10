@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace GDAPS_Project_2
 {
-    abstract class GameObject
+   public abstract class GameObject
     {
         public bool isDangerous;
 

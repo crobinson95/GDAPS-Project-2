@@ -47,6 +47,8 @@ namespace GDAPS_Project_2
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferHeight = 720;
+            graphics.PreferredBackBufferWidth = 1280;
             Content.RootDirectory = "Content";
         }
 
@@ -59,7 +61,7 @@ namespace GDAPS_Project_2
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            player = new Player(100,100,60,60); // TODO: give player actual rectangle values
+            player = new Player(100, 100, 256, 246); // TODO: give player actual rectangle values
 
             g = GameState.Menu;
             m = Menus.Start;
@@ -68,7 +70,7 @@ namespace GDAPS_Project_2
             world = new World(GameVariables.menuWorld, s); // Menu "world"
 
             // x y width height are temporary filler values
-            gameHUD = new Hud(50, 20, 700, 180, spriteBatch, player, world.Levels[0].HudInfo , (GameVariables.menuWorld + " - " + (world.currentLevel + 1).ToString()));
+            // gameHUD = new Hud(50, 20, 700, 180, spriteBatch, player, world.Levels[0].HudInfo, (GameVariables.menuWorld + " - " + (world.currentLevel + 1).ToString()));
 
             player.ObjPos.X = world.Levels[0].playerSpawn.X;
             player.ObjPos.Y = world.Levels[0].playerSpawn.Y;
@@ -100,7 +102,7 @@ namespace GDAPS_Project_2
             Texture2D wallTexture = Content.Load<Texture2D>(GameVariables.imgWall);
             Texture2D spikeTexture = Content.Load<Texture2D>(GameVariables.imgSpike);
             Texture2D doorTexture = Content.Load<Texture2D>(GameVariables.imgDoor);
-            Texture2D hud = Content.Load<Texture2D>(GameVariables.imgHUD);
+            //Texture2D hud = Content.Load<Texture2D>(GameVariables.imgHUD);
             foreach (Level loadLevel in world.Levels)
             {
                 foreach (GameObject item in loadLevel.objects)
@@ -125,8 +127,8 @@ namespace GDAPS_Project_2
                             break;
                     }
                 }
+                // gameHUD.ObjImage = hud;
             }
-            gameHUD.ObjImage = hud;
         }
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
@@ -176,8 +178,10 @@ namespace GDAPS_Project_2
                 player.Collisions(world.Levels[world.currentLevel].objects, kbState, previousKbState, world);
                 moveCamera.viewMatrix = moveCamera.GetTransform(player, width, height);
                 gameHUD.checkPlayerY();
+
+                player.Update(gameTime);
+                base.Update(gameTime);
             }
-            base.Update(gameTime);
         }
 
         /// <summary>
@@ -189,7 +193,10 @@ namespace GDAPS_Project_2
             GraphicsDevice.Clear(Color.White);
 
             // TODO: Add your drawing code here
+
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, null, null, null, null, moveCamera.viewMatrix);
+
+            player.Draw(spriteBatch);   //Player draw method
 
             foreach (GameObject item in world.Levels[world.currentLevel].objects)
             {
@@ -200,11 +207,10 @@ namespace GDAPS_Project_2
             //player.leftHit.spriteDraw(spriteBatch);
             //player.rightHit.spriteDraw(spriteBatch);
             player.spriteDraw(spriteBatch);
-            if (world.Levels[world.currentLevel].HudInfo != null)
-            {
-                gameHUD.spriteDraw(spriteBatch);
-            }
-
+            // if (world.Levels[world.currentLevel].HudInfo != null)
+            //{
+            //    gameHUD.spriteDraw(spriteBatch);
+            //}
             spriteBatch.End();
 
             base.Draw(gameTime);
