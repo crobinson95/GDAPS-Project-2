@@ -17,7 +17,7 @@ namespace GDAPS_Project_2
         double time;
         StreamReader s;
         GameState g;
-        GameState prevState;
+        // GameState prevState;
         Menus m;
         int width;
         int height;
@@ -156,17 +156,17 @@ namespace GDAPS_Project_2
             // TODO: Add your update logic here
             previousKbState = kbState;
             kbState = Keyboard.GetState();
-            if (SingleKeyPress(Keys.P, kbState, previousKbState))
+            if (SingleKeyPress(Keys.P, kbState, previousKbState) && g == GameState.Level)
             {
                 if (!paused)
                 {
-                    prevState = g;
                     g = GameState.Pause;
-                    
+                    paused = true;
                 }
                 else
                 {
-                    g = prevState;
+                    g = GameState.Level;
+                    paused = false;
                 }
             }
             if (g != GameState.Pause)
