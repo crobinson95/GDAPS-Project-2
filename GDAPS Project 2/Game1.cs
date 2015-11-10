@@ -17,7 +17,7 @@ namespace GDAPS_Project_2
         double time;
         StreamReader s;
         GameState g;
-        // GameState prevState;
+        GameState prevState;
         Menus m;
         int width;
         int height;
@@ -33,7 +33,7 @@ namespace GDAPS_Project_2
             Menu,
             Level,
             Pause,
-            Quit
+            Minigame
         }
         public enum Menus
         {
@@ -156,16 +156,17 @@ namespace GDAPS_Project_2
             // TODO: Add your update logic here
             previousKbState = kbState;
             kbState = Keyboard.GetState();
-            if (SingleKeyPress(Keys.P, kbState, previousKbState) && g == GameState.Level)
+            if (SingleKeyPress(Keys.P, kbState, previousKbState) && g != GameState.Menu)
             {
                 if (!paused)
                 {
+                    prevState = g;
                     g = GameState.Pause;
                     paused = true;
                 }
                 else
                 {
-                    g = GameState.Level;
+                    g = prevState;
                     paused = false;
                 }
             }
