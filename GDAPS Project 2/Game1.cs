@@ -177,11 +177,15 @@ namespace GDAPS_Project_2
                 player.Movement(kbState, gameTime);
                 player.Collisions(world.Levels[world.currentLevel].objects, kbState, previousKbState, world);
                 moveCamera.viewMatrix = moveCamera.GetTransform(player, width, height);
-                gameHUD.checkPlayerY();
 
                 player.Update(gameTime);
-                base.Update(gameTime);
             }
+            if(g == GameState.Level && world.Levels[world.currentLevel].HudInfo != null)
+            {
+                //gameHUD.checkPlayerY();
+            }
+
+            base.Update(gameTime);
         }
 
         /// <summary>
