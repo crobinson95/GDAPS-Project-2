@@ -175,7 +175,7 @@ namespace GDAPS_Project_2
             if (g != GameState.Pause)
             {
                 player.Movement(kbState, gameTime);
-                player.Collisions(world.Levels[world.currentLevel].objects, kbState, previousKbState, world);
+                player.Collisions(world.Levels[world.currentLevel].objects, kbState, previousKbState, world, s);
                 moveCamera.viewMatrix = moveCamera.GetTransform(player, width, height);
 
                 player.Update(gameTime);

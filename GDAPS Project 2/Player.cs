@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
+using System.IO;
 
 namespace GDAPS_Project_2
 {
@@ -294,7 +295,7 @@ namespace GDAPS_Project_2
             }
         }
 
-        public void Collisions(List<GameObject> objs, KeyboardState k, KeyboardState p, World w)
+        public void Collisions(List<GameObject> objs, KeyboardState k, KeyboardState p, World w, StreamReader s)
         {
             inAir = true;
             foreach (GameObject obj in objs)
@@ -311,6 +312,15 @@ namespace GDAPS_Project_2
                         Door temp = (Door)obj;
                         if (Game1.SingleKeyPress(Keys.E, k, p) && temp.destWorld == null)
                         {
+                            w.currentLevel = temp.destination;
+                            ObjPos.X = w.Levels[w.currentLevel].playerSpawn.X;
+                            ObjPos.Y = w.Levels[w.currentLevel].playerSpawn.Y;
+                            xVelocity = 0.0f;
+                            yVelocity = 0.0f;
+                        }
+                        else if(Game1.SingleKeyPress(Keys.E, k, p))
+                        {
+                            w = new World(temp.destWorld, s);
                             w.currentLevel = temp.destination;
                             ObjPos.X = w.Levels[w.currentLevel].playerSpawn.X;
                             ObjPos.Y = w.Levels[w.currentLevel].playerSpawn.Y;

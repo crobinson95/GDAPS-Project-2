@@ -76,7 +76,7 @@ namespace GDAPS_Project_2
                                     }
                                     else
                                     {
-                                        objects.Add(new Door(p.X, p.Y, 75, 150, d))
+                                        objects.Add(new Door(p.X, p.Y, 75, 150, d));
                                     }
                                     break;
 
