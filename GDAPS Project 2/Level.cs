@@ -68,7 +68,16 @@ namespace GDAPS_Project_2
 
                                 case "door":
                                     int d = int.Parse(splitLine[3]);
-                                    objects.Add(new Door(p.X, p.Y, 75, 150, d));
+                                    if (splitLine[4] != null)
+                                    {
+                                        string world = splitLine[4];
+                                        objects.Add(new Door(p.X, p.Y, 75, 150, d, world));
+                                        // change door code to include world to go to
+                                    }
+                                    else
+                                    {
+                                        objects.Add(new Door(p.X, p.Y, 75, 150, d))
+                                    }
                                     break;
 
                             }

@@ -309,7 +309,7 @@ namespace GDAPS_Project_2
                     if (obj is Door)
                     {
                         Door temp = (Door)obj;
-                        if (Game1.SingleKeyPress(Keys.E, k, p))
+                        if (Game1.SingleKeyPress(Keys.E, k, p) && temp.destWorld == null)
                         {
                             w.currentLevel = temp.destination;
                             ObjPos.X = w.Levels[w.currentLevel].playerSpawn.X;
