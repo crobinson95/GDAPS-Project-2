@@ -321,7 +321,7 @@ namespace GDAPS_Project_2
                         }
                         else if(Game1.SingleKeyPress(Keys.E, k, p))
                         {
-                            w = new World(temp.destWorld, s);
+                            changeWorld(ref w, temp.destWorld, s);
                             w.currentLevel = temp.destination;
                             ObjPos.X = w.Levels[w.currentLevel].playerSpawn.X;
                             ObjPos.Y = w.Levels[w.currentLevel].playerSpawn.Y;
@@ -533,6 +533,11 @@ namespace GDAPS_Project_2
             ObjPos += (spriteDirection * deltaTime);
 
             base.Update(gameTime);
+        }
+
+        public void changeWorld(ref World w, string dest, StreamReader s)
+        {
+            w = new World(dest, s);
         }
 
         //This may be needed if jump animation is present - prevents loops
