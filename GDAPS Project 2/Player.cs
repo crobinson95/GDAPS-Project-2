@@ -295,7 +295,7 @@ namespace GDAPS_Project_2
             }
         }
 
-        public void Collisions(KeyboardState k, KeyboardState p, World w, StreamReader s)
+        public void Collisions(KeyboardState k, KeyboardState p, ref World w, StreamReader s)
         {
             inAir = true;
             List<GameObject> objs = w.Levels[w.currentLevel].objects;
