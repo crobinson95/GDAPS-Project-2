@@ -295,9 +295,10 @@ namespace GDAPS_Project_2
             }
         }
 
-        public void Collisions(List<GameObject> objs, KeyboardState k, KeyboardState p, World w, StreamReader s)
+        public void Collisions(KeyboardState k, KeyboardState p, World w, StreamReader s)
         {
             inAir = true;
+            List<GameObject> objs = w.Levels[w.currentLevel].objects;
             foreach (GameObject obj in objs)
             {
                 if (isColliding(obj) && obj.isDangerous)
