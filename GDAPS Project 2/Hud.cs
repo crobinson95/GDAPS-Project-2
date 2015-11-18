@@ -14,6 +14,8 @@ namespace GDAPS_Project_2
         string[] levelRelevantInfo;
         string worldLevel;
         bool top;
+        Point infoDraw; // used to determine position of objects on HUD based on how many are visible
+        
 
         Dictionary<string, bool> HudInfo = new Dictionary<string, bool>();
 
@@ -41,6 +43,8 @@ namespace GDAPS_Project_2
                     }
                 }
             }
+
+            infoDraw = new Point(x + 5, y + 5);
         }
 
         public void checkPlayerY()
