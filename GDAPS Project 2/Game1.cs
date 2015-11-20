@@ -91,7 +91,7 @@ namespace GDAPS_Project_2
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            player.LoadContent(Content);
             // TODO: use this.Content to load your game content here
             player.ObjImage = Content.Load<Texture2D>(GameVariables.imgPlayer);
             //player.bottHit.ObjImage = Content.Load<Texture2D>(@"Images/Sprites/imgHitbox");

@@ -314,6 +314,7 @@ namespace GDAPS_Project_2
                         if (Game1.SingleKeyPress(Keys.E, k, p) && temp.destWorld == null)
                         {
                             w.currentLevel = temp.destination;
+                            
                             ObjPos.X = w.Levels[w.currentLevel].playerSpawn.X;
                             ObjPos.Y = w.Levels[w.currentLevel].playerSpawn.Y;
                             xVelocity = 0.0f;
