@@ -11,6 +11,8 @@ namespace GDAPS_Project_2
         List<Level> levels = new List<Level>();
         public List<Level> Levels { get { return levels; } }
 
+        public bool changeWorldBool = false;
+
         string[] levelFiles;
         public int currentLevel;
 

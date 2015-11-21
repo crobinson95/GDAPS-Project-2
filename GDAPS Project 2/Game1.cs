@@ -13,7 +13,7 @@ namespace GDAPS_Project_2
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Player player;
-        World world;
+        static World world;
         double time;
         StreamReader s;
         GameState g;
@@ -23,6 +23,12 @@ namespace GDAPS_Project_2
         int height;
         Hud gameHUD;
         bool paused;
+
+
+        Texture2D floorTexture;
+        Texture2D wallTexture;
+        Texture2D spikeTexture;
+        Texture2D doorTexture;
 
         Camera moveCamera;
         KeyboardState kbState;
@@ -61,7 +67,7 @@ namespace GDAPS_Project_2
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            player = new Player(100, 100, 256, 246); // TODO: give player actual rectangle values
+            player = new Player(100, 100, 88, 212);
 
             g = GameState.Menu;
             m = Menus.Start;
@@ -98,11 +104,28 @@ namespace GDAPS_Project_2
             //player.topHit.ObjImage = Content.Load<Texture2D>(@"Images/Sprites/imgHitbox");
             //player.leftHit.ObjImage = Content.Load<Texture2D>(@"Images/Sprites/imgHitbox");
             //player.rightHit.ObjImage = Content.Load<Texture2D>(@"Images/Sprites/imgHitbox");
-            Texture2D floorTexture = Content.Load<Texture2D>(GameVariables.imgFloor);
-            Texture2D wallTexture = Content.Load<Texture2D>(GameVariables.imgWall);
-            Texture2D spikeTexture = Content.Load<Texture2D>(GameVariables.imgSpike);
-            Texture2D doorTexture = Content.Load<Texture2D>(GameVariables.imgDoor);
+            floorTexture = Content.Load<Texture2D>(GameVariables.imgFloor);
+            wallTexture = Content.Load<Texture2D>(GameVariables.imgWall);
+            spikeTexture = Content.Load<Texture2D>(GameVariables.imgSpike);
+            doorTexture = Content.Load<Texture2D>(GameVariables.imgDoor);
             //Texture2D hud = Content.Load<Texture2D>(GameVariables.imgHUD);
+            LoadWorld();
+        }
+        /// <summary>
+        /// UnloadContent will be called once per game and is the place to unload
+        /// game-specific content.
+        /// </summary>
+        protected override void UnloadContent()
+        {
+            // TODO: Unload any non ContentManager content here
+            Content.Unload();
+        }
+
+        /// <summary>
+        /// Loads the levels in a world
+        /// </summary>
+        public void LoadWorld()
+        {
             foreach (Level loadLevel in world.Levels)
             {
                 foreach (GameObject item in loadLevel.objects)
@@ -129,15 +152,7 @@ namespace GDAPS_Project_2
                 }
                 // gameHUD.ObjImage = hud;
             }
-        }
-        /// <summary>
-        /// UnloadContent will be called once per game and is the place to unload
-        /// game-specific content.
-        /// </summary>
-        protected override void UnloadContent()
-        {
-            // TODO: Unload any non ContentManager content here
-            Content.Unload();
+            world.changeWorldBool = false;
         }
 
         public static bool SingleKeyPress(Keys k, KeyboardState current, KeyboardState previous)
@@ -174,8 +189,13 @@ namespace GDAPS_Project_2
             }
             if (g != GameState.Pause)
             {
-                player.Movement(kbState, gameTime);
+                player.Movement(kbState, previousKbState, gameTime);
                 player.Collisions(kbState, previousKbState, ref world, s);
+                if (world.changeWorldBool)
+                {
+                    world = player.world;
+                    LoadWorld();
+                }
                 moveCamera.viewMatrix = moveCamera.GetTransform(player, width, height);
 
                 player.Update(gameTime);
@@ -210,7 +230,7 @@ namespace GDAPS_Project_2
             //player.topHit.spriteDraw(spriteBatch);
             //player.leftHit.spriteDraw(spriteBatch);
             //player.rightHit.spriteDraw(spriteBatch);
-            player.spriteDraw(spriteBatch);
+            //player.spriteDraw(spriteBatch);
             // if (world.Levels[world.currentLevel].HudInfo != null)
             //{
             //    gameHUD.spriteDraw(spriteBatch);
