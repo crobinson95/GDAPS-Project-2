@@ -12,6 +12,7 @@ namespace GDAPS_Project_2
         int levelTime;
         public Point playerSpawn;
         public List<GameObject> objects = new List<GameObject>();
+        public List<Enemy> enemies = new List<Enemy>();
 
         string[] hudInfo;
         public string[] HudInfo { get { return hudInfo; } }
@@ -23,7 +24,7 @@ namespace GDAPS_Project_2
         /// Format for each line:
         /// identifier,x_position,y_position,(extra attributes depending on objects).
         /// </summary>
-        public Level(string levelData, StreamReader s)
+        public Level(string levelData, StreamReader s, Player player)
         {
             try
             {
@@ -79,6 +80,14 @@ namespace GDAPS_Project_2
                                     {
                                         objects.Add(new Door(p.X, p.Y, 75, 150, d));
                                     }
+                                    break;
+
+                                case "enemy":
+                                    enemies.Add(new Enemy(p.X, p.Y, 60, 60, player));
+                                    break;
+
+                                case "enemyf":
+                                    enemies.Add(new EnemyF(p.X, p.Y, 60, 60, player));
                                     break;
 
                             }

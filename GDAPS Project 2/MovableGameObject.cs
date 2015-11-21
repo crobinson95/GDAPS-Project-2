@@ -22,7 +22,7 @@ namespace GDAPS_Project_2
 
         protected myDirection currentDir = myDirection.none;
 
-        protected enum gravDirection
+        public enum gravDirection
         {
             Up,
             Down,
@@ -30,7 +30,7 @@ namespace GDAPS_Project_2
             Right
         }
 
-        protected gravDirection grav;
+        public gravDirection grav;
 
         protected bool inAir;
 

@@ -16,13 +16,13 @@ namespace GDAPS_Project_2
         string[] levelFiles;
         public int currentLevel;
 
-        public World(string world, StreamReader s) // string world is a directory
+        public World(string world, StreamReader s, Player p) // string world is a directory
         {
             currentLevel = 0;
             levelFiles = Directory.GetFiles(world); // need to start organizing worlds by directory
             foreach (string level in levelFiles)
             {
-                Level newLevel = new Level(level, s);
+                Level newLevel = new Level(level, s, p);
                 levels.Add(newLevel);
             }
 

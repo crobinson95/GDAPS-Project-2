@@ -24,11 +24,14 @@ namespace GDAPS_Project_2
         Hud gameHUD;
         bool paused;
 
+        Texture2D pauseBack;
+        SpriteFont gameFont;
 
         Texture2D floorTexture;
         Texture2D wallTexture;
         Texture2D spikeTexture;
         Texture2D doorTexture;
+        Texture2D enemyTexture;
 
         Camera moveCamera;
         KeyboardState kbState;
@@ -73,7 +76,7 @@ namespace GDAPS_Project_2
             m = Menus.Start;
             paused = false;
 
-            world = new World(GameVariables.menuWorld, s); // Menu "world"
+            world = new World(GameVariables.menuWorld, s, player); // Menu "world"
 
             // x y width height are temporary filler values
             // gameHUD = new Hud(50, 20, 700, 180, spriteBatch, player, world.Levels[0].HudInfo, (GameVariables.menuWorld + " - " + (world.currentLevel + 1).ToString()));
@@ -108,6 +111,11 @@ namespace GDAPS_Project_2
             wallTexture = Content.Load<Texture2D>(GameVariables.imgWall);
             spikeTexture = Content.Load<Texture2D>(GameVariables.imgSpike);
             doorTexture = Content.Load<Texture2D>(GameVariables.imgDoor);
+            enemyTexture = Content.Load<Texture2D>(GameVariables.imgEnemy);
+
+            pauseBack = Content.Load<Texture2D>(GameVariables.imgWall);
+            gameFont = Content.Load<SpriteFont>(GameVariables.gFont);
+
             //Texture2D hud = Content.Load<Texture2D>(GameVariables.imgHUD);
             LoadWorld();
         }
@@ -148,6 +156,10 @@ namespace GDAPS_Project_2
                         case "GDAPS_Project_2.Door":
                             item.ObjImage = doorTexture;
                             break;
+                    }
+                    foreach (Enemy enemy in loadLevel.enemies)
+                    {
+                        enemy.ObjImage = enemyTexture;
                     }
                 }
                 // gameHUD.ObjImage = hud;
@@ -191,6 +203,11 @@ namespace GDAPS_Project_2
             {
                 player.Movement(kbState, previousKbState, gameTime);
                 player.Collisions(kbState, previousKbState, ref world, s);
+                foreach (Enemy enemy in world.Levels[world.currentLevel].enemies)
+                {
+                    enemy.Movement(gameTime);
+                    enemy.Collisions(world.Levels[world.currentLevel].objects, kbState, previousKbState, world);
+                }
                 if (world.changeWorldBool)
                 {
                     world = player.world;
@@ -226,6 +243,10 @@ namespace GDAPS_Project_2
             {
                 item.spriteDraw(spriteBatch);
             }
+            foreach (Enemy enemy in world.Levels[world.currentLevel].enemies)
+            {
+                enemy.spriteDraw(spriteBatch);
+            }
             //player.bottHit.spriteDraw(spriteBatch);
             //player.topHit.spriteDraw(spriteBatch);
             //player.leftHit.spriteDraw(spriteBatch);
@@ -235,6 +256,11 @@ namespace GDAPS_Project_2
             //{
             //    gameHUD.spriteDraw(spriteBatch);
             //}
+            if (paused)
+            {
+                spriteBatch.Draw(pauseBack, new Rectangle(-(int)moveCamera.camX + 20, -(int)moveCamera.camY + 80, graphics.PreferredBackBufferWidth - 60, graphics.PreferredBackBufferHeight - 160), Color.White * 0.8f);
+                spriteBatch.DrawString(gameFont, "Game is Paused\nOr is it?", new Vector2(-moveCamera.camX + 40, -moveCamera.camY + 100), Color.Black);
+            }
             spriteBatch.End();
 
             base.Draw(gameTime);

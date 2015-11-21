@@ -22,6 +22,9 @@ namespace GDAPS_Project_2
 
         public World world;
 
+        //public double energy = 280;
+        //public Stopwatch coolDown = new Stopwatch();
+
         int energy;
         //public HitBox topHit;
         //public HitBox bottHit;
@@ -57,6 +60,23 @@ namespace GDAPS_Project_2
 
         public void Movement(KeyboardState k, KeyboardState p, GameTime g)
         {
+            ////Energy Nonsense
+            //if (coolDown.ElapsedMilliseconds >= 5000) { coolDown.Reset(); coolDown.Stop(); }
+            //if (grav != gravDirection.Down && !coolDown.IsRunning) { energy -= (60 * g.ElapsedGameTime.TotalSeconds); }
+            //if (grav == gravDirection.Down && energy < 280 && !coolDown.IsRunning)
+            //{
+            //    energy += (20 * g.ElapsedGameTime.TotalSeconds);
+            //    if (energy > 280)
+            //    {
+            //        energy = 280;
+            //    }
+            //}
+            //if (energy <= 0)
+            //{
+            //    grav = gravDirection.Down;
+            //    coolDown.Start();
+            //}
+            ////Energy nonsense
 
             ObjPos += new Vector2(xVelocity, yVelocity);
             switch (grav)
@@ -358,6 +378,15 @@ namespace GDAPS_Project_2
         {
             inAir = true;
             List<GameObject> objs = w.Levels[w.currentLevel].objects;
+            List<Enemy> enms = w.Levels[w.currentLevel].enemies;
+            foreach (Enemy en in enms)
+            {
+                if (isColliding(en))
+                {
+                    alive = false;
+                    isDead();
+                }
+            }
             foreach (GameObject obj in objs)
             {
                 if (isColliding(obj) && obj.isDangerous)
@@ -381,7 +410,7 @@ namespace GDAPS_Project_2
                         }
                         else if (Game1.SingleKeyPress(Keys.E, k, p))
                         {
-                            changeWorld(ref w, temp.destWorld, s);
+                            changeWorld(ref w, temp.destWorld, s, this);
                             w.changeWorldBool = true;
                             w.currentLevel = temp.destination;
                             ObjPos.X = w.Levels[w.currentLevel].playerSpawn.X;
@@ -596,9 +625,9 @@ namespace GDAPS_Project_2
             base.Update(gameTime);
         }
 
-        public void changeWorld( ref World w, string dest, StreamReader s)
+        public void changeWorld( ref World w, string dest, StreamReader s, Player p)
         {
-            world = new World(dest, s);
+            world = new World(dest, s, p);
         }
     }
 }
