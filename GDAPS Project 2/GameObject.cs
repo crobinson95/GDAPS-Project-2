@@ -28,6 +28,16 @@ namespace GDAPS_Project_2
             get { return objRect.Y; }
             set { objRect.Y = value; }
         }
+        public int ObjRectWidth
+        {
+            get { return objRect.Width; }
+            set { objRect.Width = value; }
+        }
+        public int ObjRectHeight
+        {
+            get { return objRect.Height; }
+            set { objRect.Height = value; }
+        }
 
         Texture2D objImage;
         public Texture2D ObjImage

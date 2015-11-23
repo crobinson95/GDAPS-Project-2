@@ -38,8 +38,11 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AnimatedTexture.cs" />
     <Compile Include="Camera.cs" />
     <Compile Include="Door.cs" />
+    <Compile Include="Enemy.cs" />
+    <Compile Include="EnemyF.cs" />
     <Compile Include="Floor.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="GameObject.cs" />

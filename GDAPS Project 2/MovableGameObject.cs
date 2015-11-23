@@ -18,11 +18,11 @@ namespace GDAPS_Project_2
         public int FramesPerSec { set { timeToUpdate = 1f / value; } }
         protected Vector2 spriteDirection = Vector2.Zero;
         private string currentAnimation;
-        public enum myDirection { none, left, right };
+        public enum myDirection { none, left, right, up, down };
 
         protected myDirection currentDir = myDirection.none;
 
-        protected enum gravDirection
+        public enum gravDirection
         {
             Up,
             Down,
@@ -30,7 +30,7 @@ namespace GDAPS_Project_2
             Right
         }
 
-        protected gravDirection grav;
+        public gravDirection grav;
 
         protected bool inAir;
 
@@ -53,7 +53,7 @@ namespace GDAPS_Project_2
             get { return yvelocity; }
             set { yvelocity = value; }
         }
-        protected virtual bool isColliding(GameObject obj)
+        public virtual bool isColliding(GameObject obj)
         {
             if (ObjRect.Intersects(obj.ObjRect)) { return true; }
             else { return false; }
@@ -67,17 +67,20 @@ namespace GDAPS_Project_2
             ObjPos = new Vector2(x, y);
             ObjRectX = (int)ObjPos.X;
             ObjRectY = (int)ObjPos.Y;
+
+            currentAnimation = "Down_Idle_Left";
+            currentDir = myDirection.right;
         }
 
         //Cuts up sprite sheet into usable pieces
-        public void AddAnimation(int frames, int yPos, int xStartFrame, string name, int width, int height, Vector2 offset)
+        public void AddAnimation(int frames, int xPos, int yPos, int xStartFrame, string name, int frame_width, int width, int height, Vector2 offset)
         {
 
             Rectangle[] myRects = new Rectangle[frames];
 
             for (int i = 0; i < frames; i++)
             {
-                myRects[i] = new Rectangle((i + xStartFrame) * width, yPos, width, height);
+                myRects[i] = new Rectangle(((i + xStartFrame) * frame_width) + xPos, yPos, width, height);
             }
             sAnimations.Add(name, myRects);
             sOffset.Add(name, offset);
@@ -86,7 +89,7 @@ namespace GDAPS_Project_2
         //Plays current animation
         public void PlayAnimation(string name)
         {
-            if (currentAnimation != name && currentDir == myDirection.none)
+            if (currentAnimation != name)
             {
                 currentAnimation = name;
                 frameIndex = 0;

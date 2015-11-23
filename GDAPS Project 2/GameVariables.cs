@@ -27,6 +27,8 @@ namespace GDAPS_Project_2
         public static string imgFloor = @"Images/Sprites/imgFloor";
         public static string imgSpike = @"Images/Sprites/imgSpike";
         public static string imgDoor = @"Images/Sprites/imgDoor";
+        public static string imgEnemy = @"Images/Sprites/imgEnemy";
+        public static string gFont = @"Images/Sprites/Font";
         public static string bgMenus;
         public static string bgLevels;
         public static string menuWorld = @"menu"; // set root directory?
