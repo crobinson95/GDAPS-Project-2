@@ -483,7 +483,7 @@ namespace GDAPS_Project_2
             }
         }
 
-        public void Collisions(KeyboardState k, KeyboardState p, ref World w, StreamReader s)
+        public void Collisions(KeyboardState k, KeyboardState p, World w, StreamReader s, ContentManager content)
         {
             inAir = true;
             List<GameObject> objs = w.Levels[w.currentLevel].objects;
@@ -519,7 +519,7 @@ namespace GDAPS_Project_2
                         }
                         else if (Game1.SingleKeyPress(Keys.E, k, p))
                         {
-                            changeWorld(ref w, temp.destWorld, s, this);
+                            changeWorld(temp.destWorld, s, this, content);
                             w.changeWorldBool = true;
                             w.currentLevel = temp.destination;
                             ObjPos.X = w.Levels[w.currentLevel].playerSpawn.X;
@@ -734,9 +734,9 @@ namespace GDAPS_Project_2
             base.Update(gameTime);
         }
 
-        public void changeWorld( ref World w, string dest, StreamReader s, Player p)
+        public void changeWorld(string dest, StreamReader s, Player p, ContentManager content)
         {
-            world = new World(dest, s, p);
+            world = new World(dest, s, p, content);
         }
     }
 }

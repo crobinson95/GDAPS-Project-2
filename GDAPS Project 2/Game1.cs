@@ -223,7 +223,7 @@ namespace GDAPS_Project_2
             if (g == GameState.Level)
             {
                 player.Movement(kbState, previousKbState, gameTime);
-                player.Collisions(kbState, previousKbState, ref world, s);
+                player.Collisions(kbState, previousKbState, world, s, Content);
                 foreach (Enemy enemy in world.Levels[world.currentLevel].enemies)
                 {
                     enemy.Movement(gameTime);
@@ -233,6 +233,8 @@ namespace GDAPS_Project_2
                 {
                     world = player.world;
                     LoadWorld();
+                    player.ObjPos.X = world.Levels[world.currentLevel].playerSpawn.X;
+                    player.ObjPos.Y = world.Levels[world.currentLevel].playerSpawn.Y;
                 }
                 moveCamera.viewMatrix = moveCamera.GetTransform(player, width, height);
 
