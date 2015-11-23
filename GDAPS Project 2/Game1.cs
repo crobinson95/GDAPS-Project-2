@@ -183,17 +183,18 @@ namespace GDAPS_Project_2
             //    Exit();
 
             // TODO: Add your update logic here
-            if(g == GameState.Menu)
+
+            previousKbState = kbState;
+            kbState = Keyboard.GetState();
+
+            if (g == GameState.Menu)
             {
                 if(SingleKeyPress(Keys.Enter, kbState, previousKbState))
                 {
                     g = GameState.Level;
                 }
             }
-
-
-            previousKbState = kbState;
-            kbState = Keyboard.GetState();
+            
             if (SingleKeyPress(Keys.P, kbState, previousKbState) && g != GameState.Menu)
             {
                 if (!paused)
@@ -208,14 +209,14 @@ namespace GDAPS_Project_2
                     paused = false;
                 }
             }
-            if (g != GameState.Pause)
+            if (g != GameState.Pause && g != GameState.Menu)
             {
-                if (SingleKeyPress(Keys.R, kbState, previousKbState) && g != GameState.Menu)
+                if (SingleKeyPress(Keys.R, kbState, previousKbState))
                 {
                     player.ObjPos.X = world.Levels[world.currentLevel].playerSpawn.X;
                     player.ObjPos.Y = world.Levels[world.currentLevel].playerSpawn.Y;
                 }
-                if (SingleKeyPress(Keys.Q, kbState, previousKbState) && g != GameState.Menu)
+                if (SingleKeyPress(Keys.Q, kbState, previousKbState))
                 {
                     Exit();
                 }
@@ -262,8 +263,6 @@ namespace GDAPS_Project_2
 
             if (g == GameState.Level || g == GameState.Pause)
             {
-
-
                 player.Draw(spriteBatch);   //Player draw method
 
                 foreach (GameObject item in world.Levels[world.currentLevel].objects)
