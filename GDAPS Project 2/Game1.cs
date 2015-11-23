@@ -18,7 +18,7 @@ namespace GDAPS_Project_2
         StreamReader s;
         GameState g;
         GameState prevState;
-        Menus m;
+         Menus m;
         int width;
         int height;
         Hud gameHUD;
