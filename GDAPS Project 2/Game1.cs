@@ -212,8 +212,8 @@ namespace GDAPS_Project_2
             {
                 if (SingleKeyPress(Keys.R, kbState, previousKbState) && g != GameState.Menu)
                 {
-                    player.ObjPos.X = world.Levels[0].playerSpawn.X;
-                    player.ObjPos.Y = world.Levels[0].playerSpawn.Y;
+                    player.ObjPos.X = world.Levels[world.currentLevel].playerSpawn.X;
+                    player.ObjPos.Y = world.Levels[world.currentLevel].playerSpawn.Y;
                 }
                 if (SingleKeyPress(Keys.Q, kbState, previousKbState) && g != GameState.Menu)
                 {
