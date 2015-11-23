@@ -519,7 +519,7 @@ namespace GDAPS_Project_2
                         }
                         else if (Game1.SingleKeyPress(Keys.E, k, p))
                         {
-                            changeWorld(temp.destWorld, s, this, content);
+                            world = new World(temp.destWorld, s, this, content);
                             w.changeWorldBool = true;
                             w.currentLevel = temp.destination;
                             ObjPos.X = w.Levels[w.currentLevel].playerSpawn.X;
@@ -732,11 +732,6 @@ namespace GDAPS_Project_2
             ObjPos += (spriteDirection * deltaTime);
 
             base.Update(gameTime);
-        }
-
-        public void changeWorld(string dest, StreamReader s, Player p, ContentManager content)
-        {
-            world = new World(dest, s, p, content);
         }
     }
 }
