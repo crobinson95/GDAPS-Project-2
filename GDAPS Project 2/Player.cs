@@ -43,14 +43,22 @@ namespace GDAPS_Project_2
 
             FramesPerSec = 10;
             //Adds animation arrays - currenty using dummy values
-            AddAnimation(16, 80, 19, 0, "Down_Right", 255, 115, 212, new Vector2(0, 0));
-            AddAnimation(16, 60, 275, 0, "Down_Left", 255, 115, 212, new Vector2(0, 0));
-            AddAnimation(16, 80, 533, 0, "Up_Right", 255, 115, 212, new Vector2(0, 0));
-            AddAnimation(16, 60, 787, 0, "Up_Left", 255, 115, 212, new Vector2(0, 0));
-            AddAnimation(1, 80, 19, 0, "Down_Idle_Right", 255, 115, 212, new Vector2(0, 0));
-            AddAnimation(1, 60, 275, 0, "Down_Idle_Left", 255, 115, 212, new Vector2(0, 0));
-            AddAnimation(1, 80, 533, 0, "Up_Idle_Right", 255, 115, 212, new Vector2(0, 0));
-            AddAnimation(1, 60, 787, 0, "Up_Idle_Left", 255, 115, 212, new Vector2(0, 0));
+            AddAnimation(16, 40, 9, 0, "Down_Right", 128, 57, 106, new Vector2(0, 0));
+            AddAnimation(16, 30, 137, 0, "Down_Left", 128, 57, 106, new Vector2(0, 0));
+            AddAnimation(16, 40, 264, 0, "Up_Right", 128, 57, 106, new Vector2(0, 0));
+            AddAnimation(16, 30, 391, 0, "Up_Left", 128, 57, 106, new Vector2(0, 0));
+            AddAnimation(16, 11, 544, 0, "Left_Up", 128, 110, 60, new Vector2(0, 0));
+            AddAnimation(16, 12, 672, 0, "Left_Down", 128, 110, 60, new Vector2(0, 0));
+            AddAnimation(16, 11, 799, 0, "Right_Up", 128, 110, 60, new Vector2(0, 0));
+            AddAnimation(16, 12, 924, 0, "Right_Down", 128, 110, 60, new Vector2(0, 0));
+            AddAnimation(1, 40, 9, 0, "Down_Idle_Right", 128, 57, 106, new Vector2(0, 0));
+            AddAnimation(1, 30, 137, 0, "Down_Idle_Left", 128, 57, 106, new Vector2(0, 0));
+            AddAnimation(1, 40, 264, 0, "Up_Idle_Right", 128, 57, 106, new Vector2(0, 0));
+            AddAnimation(1, 30, 391, 0, "Up_Idle_Left", 128, 57, 106, new Vector2(0, 0));
+            AddAnimation(1, 11, 544, 0, "Left_Idle_Up", 128, 110, 60, new Vector2(0, 0));
+            AddAnimation(1, 12, 672, 0, "Left_Idle_Down", 128, 110, 60, new Vector2(0, 0));
+            AddAnimation(1, 11, 799, 0, "Right_Idle_Up", 128, 110, 60, new Vector2(0, 0));
+            AddAnimation(1, 12, 924, 0, "Right_Idle_Down", 128, 110, 60, new Vector2(0, 0));
 
             //topHit = new HitBox((int)ObjPos.X + 5, ObjRect.Y + 5, ObjRect.Width - 10, 5);
             //bottHit = new HitBox((int)ObjPos.X + 5, ObjRect.Height, ObjRect.Width - 10, 5);
@@ -243,6 +251,7 @@ namespace GDAPS_Project_2
 
                 case gravDirection.Right:
                     xVelocity += (float)gravity;
+                    if (xVelocity >= airSpeed) { xVelocity = airSpeed; }
 
                     if (!inAir)
                     {
@@ -250,16 +259,45 @@ namespace GDAPS_Project_2
                         if (yVelocity > fric) { yVelocity -= fric; }
                         else if (yVelocity < -fric) { yVelocity += fric; }
                         else { yVelocity = 0; }
+                        if (k.IsKeyDown(Keys.W))
+                        {
+                            currentDir = myDirection.up;
+                            PlayAnimation("Right_Up");
+                            spriteDirection += new Vector2(0, -1);
+
+                            yVelocity -= accel * (float)g.ElapsedGameTime.TotalSeconds;
+                            if (yVelocity < -maxSpeed) { yVelocity = -maxSpeed; }
+                        }
+                        else if (k.IsKeyDown(Keys.S))
+                        {
+                            currentDir = myDirection.down;
+                            PlayAnimation("Right_Down");
+                            spriteDirection += new Vector2(0, 1);
+
+                            yVelocity += accel * (float)g.ElapsedGameTime.TotalSeconds;
+                            if (yVelocity > maxSpeed) { yVelocity = maxSpeed; }
+                        }
+                        else if (currentDir == myDirection.up)
+                        {
+                            currentDir = myDirection.none;
+                            PlayAnimation("Right_Idle_Up");
+                        }
+
+                        else if (currentDir == myDirection.down)
+                        {
+                            currentDir = myDirection.none;
+                            PlayAnimation("Right_Idle_Down");
+                        }
                     }
                     if (k.IsKeyDown(Keys.W))
                     {
-                        yVelocity -= accel * (float)g.ElapsedGameTime.TotalSeconds;
-                        if (yVelocity < -maxSpeed) { yVelocity = -maxSpeed; }
+                        yVelocity -= airControl * (float)g.ElapsedGameTime.TotalSeconds;
+                        if (yVelocity < -airSpeed) { yVelocity = -maxSpeed; }
                     }
                     if (k.IsKeyDown(Keys.S))
                     {
-                        yVelocity += accel * (float)g.ElapsedGameTime.TotalSeconds;
-                        if (yVelocity > maxSpeed) { yVelocity = maxSpeed; }
+                        yVelocity += airControl * (float)g.ElapsedGameTime.TotalSeconds;
+                        if (yVelocity > airSpeed) { yVelocity = maxSpeed; }
                     }
                     if (k.IsKeyDown(Keys.A))
                     {
@@ -276,6 +314,14 @@ namespace GDAPS_Project_2
                             ObjPos.X -= 5;
                             xVelocity = -jump;
                             inAir = true;
+                            if (currentDir == myDirection.up)
+                            {
+                                PlayAnimation("Right_Idle_Up");
+                            }
+                            else
+                            {
+                                PlayAnimation("Right_Idle_Down");
+                            }
                         }
                     }
                     break;
@@ -283,22 +329,53 @@ namespace GDAPS_Project_2
 
                 case gravDirection.Left:
                     xVelocity -= (float)gravity;
+                    if (xVelocity <= -airSpeed) { xVelocity = -airSpeed; }
+
                     if (!inAir)
                     {
                         xVelocity += (float)gravity;
                         if (yVelocity > fric) { yVelocity -= fric; }
                         else if (yVelocity < -fric) { yVelocity += fric; }
                         else { yVelocity = 0; }
+                        if (k.IsKeyDown(Keys.W))
+                        {
+                            currentDir = myDirection.up;
+                            PlayAnimation("Left_Up");
+                            spriteDirection += new Vector2(0, -1);
+
+                            yVelocity -= accel * (float)g.ElapsedGameTime.TotalSeconds;
+                            if (yVelocity < -maxSpeed) { yVelocity = -maxSpeed; }
+                        }
+                        else if (k.IsKeyDown(Keys.S))
+                        {
+                            currentDir = myDirection.down;
+                            PlayAnimation("Left_Down");
+                            spriteDirection += new Vector2(0, 1);
+
+                            yVelocity += accel * (float)g.ElapsedGameTime.TotalSeconds;
+                            if (yVelocity > maxSpeed) { yVelocity = maxSpeed; }
+                        }
+                        else if (currentDir == myDirection.up)
+                        {
+                            currentDir = myDirection.none;
+                            PlayAnimation("Left_Idle_Up");
+                        }
+
+                        else if (currentDir == myDirection.down)
+                        {
+                            currentDir = myDirection.none;
+                            PlayAnimation("Left_Idle_Down");
+                        }
                     }
                     if (k.IsKeyDown(Keys.W))
                     {
-                        yVelocity -= accel * (float)g.ElapsedGameTime.TotalSeconds;
-                        if (yVelocity < -maxSpeed) { yVelocity = -maxSpeed; }
+                        yVelocity -= airControl * (float)g.ElapsedGameTime.TotalSeconds;
+                        if (yVelocity < -airSpeed) { yVelocity = -maxSpeed; }
                     }
                     if (k.IsKeyDown(Keys.S))
                     {
-                        yVelocity += accel * (float)g.ElapsedGameTime.TotalSeconds;
-                        if (yVelocity > maxSpeed) { yVelocity = maxSpeed; }
+                        yVelocity += airControl * (float)g.ElapsedGameTime.TotalSeconds;
+                        if (yVelocity > airSpeed) { yVelocity = maxSpeed; }
                     }
                     if (k.IsKeyDown(Keys.A))
                     {
@@ -315,6 +392,14 @@ namespace GDAPS_Project_2
                             ObjPos.X += 5;
                             xVelocity = jump;
                             inAir = true;
+                            if (currentDir == myDirection.up)
+                            {
+                                PlayAnimation("Left_Idle_Up");
+                            }
+                            else
+                            {
+                                PlayAnimation("Left_Idle_Down");
+                            }
                         }
                     }
                     break;
@@ -322,6 +407,8 @@ namespace GDAPS_Project_2
             if (k.IsKeyDown(Keys.Up))
             {
                 grav = gravDirection.Up;
+                ObjRectX = 44;
+                ObjRectY = 106;
                 if (currentDir == myDirection.right)
                 {
                     PlayAnimation("Up_Idle_Right");
@@ -331,6 +418,8 @@ namespace GDAPS_Project_2
             if (k.IsKeyDown(Keys.Down))
             {
                 grav = gravDirection.Down;
+                ObjRectWidth = 44;
+                ObjRectHeight = 106;
                 if (currentDir == myDirection.right)
                 {
                     PlayAnimation("Down_Idle_Right");
@@ -343,10 +432,30 @@ namespace GDAPS_Project_2
             if (k.IsKeyDown(Keys.Right))
             {
                 grav = gravDirection.Right;
+                ObjRectWidth = 106;
+                ObjRectHeight = 44;
+                if (currentDir == myDirection.up)
+                {
+                    PlayAnimation("Right_Idle_Up");
+                }
+                else
+                {
+                    PlayAnimation("Right_Idle_Down");
+                }
             }
             if (k.IsKeyDown(Keys.Left))
             {
+                ObjRectWidth = 106;
+                ObjRectHeight = 44;
                 grav = gravDirection.Left;
+                if (currentDir == myDirection.up)
+                {
+                    PlayAnimation("Left_Idle_Up");
+                }
+                else
+                {
+                    PlayAnimation("Left_Idle_Down");
+                }
             }
 
             ObjRectX = (int)ObjPos.X;

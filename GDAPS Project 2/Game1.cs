@@ -70,7 +70,7 @@ namespace GDAPS_Project_2
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            player = new Player(100, 100, 88, 212);
+            player = new Player(100, 100, 44, 106);
 
             g = GameState.Menu;
             m = Menus.Start;
