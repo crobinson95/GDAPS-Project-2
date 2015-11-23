@@ -183,6 +183,15 @@ namespace GDAPS_Project_2
                 Exit();
 
             // TODO: Add your update logic here
+            if(g == GameState.Menu)
+            {
+                if(SingleKeyPress(Keys.Enter, kbState, previousKbState))
+                {
+                    g = GameState.Level;
+                }
+            }
+
+
             previousKbState = kbState;
             kbState = Keyboard.GetState();
             if (SingleKeyPress(Keys.P, kbState, previousKbState) && g != GameState.Menu)
@@ -197,6 +206,18 @@ namespace GDAPS_Project_2
                 {
                     g = prevState;
                     paused = false;
+                }
+            }
+            if (g != GameState.Pause)
+            {
+                if (SingleKeyPress(Keys.R, kbState, previousKbState) && g != GameState.Menu)
+                {
+                    player.ObjPos.X = world.Levels[0].playerSpawn.X;
+                    player.ObjPos.Y = world.Levels[0].playerSpawn.Y;
+                }
+                if (SingleKeyPress(Keys.Q, kbState, previousKbState) && g != GameState.Menu)
+                {
+                    Exit();
                 }
             }
             if (g != GameState.Pause)
@@ -237,30 +258,41 @@ namespace GDAPS_Project_2
 
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, null, null, null, null, moveCamera.viewMatrix);
 
-            player.Draw(spriteBatch);   //Player draw method
+            if (g == GameState.Level)
+            {
 
-            foreach (GameObject item in world.Levels[world.currentLevel].objects)
-            {
-                item.spriteDraw(spriteBatch);
+
+                player.Draw(spriteBatch);   //Player draw method
+
+                foreach (GameObject item in world.Levels[world.currentLevel].objects)
+                {
+                    item.spriteDraw(spriteBatch);
+                }
+                foreach (Enemy enemy in world.Levels[world.currentLevel].enemies)
+                {
+                    enemy.spriteDraw(spriteBatch);
+                }
+                if (paused)
+                {
+                    spriteBatch.Draw(pauseBack, new Rectangle(-(int)moveCamera.camX + 20, -(int)moveCamera.camY + 80, graphics.PreferredBackBufferWidth - 60, graphics.PreferredBackBufferHeight - 160), Color.White * 0.8f);
+                    spriteBatch.DrawString(gameFont, "R to reset\nQ to quit\nCurrent Level: " + world.currentLevel, new Vector2(-moveCamera.camX + 40, -moveCamera.camY + 100), Color.Black);
+                }
             }
-            foreach (Enemy enemy in world.Levels[world.currentLevel].enemies)
+
+            if (g == GameState.Menu)
             {
-                enemy.spriteDraw(spriteBatch);
+                spriteBatch.DrawString(gameFont, "Project Inversion\n\nThis is the Main Menu: Enter to Start!?" + world.currentLevel, new Vector2(20, 20), Color.Black);
             }
-            //player.bottHit.spriteDraw(spriteBatch);
-            //player.topHit.spriteDraw(spriteBatch);
-            //player.leftHit.spriteDraw(spriteBatch);
-            //player.rightHit.spriteDraw(spriteBatch);
-            //player.spriteDraw(spriteBatch);
-            // if (world.Levels[world.currentLevel].HudInfo != null)
-            //{
-            //    gameHUD.spriteDraw(spriteBatch);
-            //}
-            if (paused)
-            {
-                spriteBatch.Draw(pauseBack, new Rectangle(-(int)moveCamera.camX + 20, -(int)moveCamera.camY + 80, graphics.PreferredBackBufferWidth - 60, graphics.PreferredBackBufferHeight - 160), Color.White * 0.8f);
-                spriteBatch.DrawString(gameFont, "Game is Paused\nOr is it?", new Vector2(-moveCamera.camX + 40, -moveCamera.camY + 100), Color.Black);
-            }
+                //player.bottHit.spriteDraw(spriteBatch);
+                //player.topHit.spriteDraw(spriteBatch);
+                //player.leftHit.spriteDraw(spriteBatch);
+                //player.rightHit.spriteDraw(spriteBatch);
+                //player.spriteDraw(spriteBatch);
+                // if (world.Levels[world.currentLevel].HudInfo != null)
+                //{
+                //    gameHUD.spriteDraw(spriteBatch);
+                //}
+            
             spriteBatch.End();
 
             base.Draw(gameTime);
