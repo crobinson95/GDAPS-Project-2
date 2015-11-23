@@ -42,7 +42,8 @@ namespace GDAPS_Project_2
             Menu,
             Level,
             Pause,
-            Minigame
+            Dead
+            //Minigame
         }
         /*public enum Menus
         {
@@ -195,6 +196,16 @@ namespace GDAPS_Project_2
                 }
             }
             
+            if (g == GameState.Dead)
+            {
+                if (Keyboard.GetState().GetPressedKeys().Length > 0)
+                {
+                    player.ObjPos.X = world.Levels[world.currentLevel].playerSpawn.X;
+                    player.ObjPos.Y = world.Levels[world.currentLevel].playerSpawn.Y;
+                    g = GameState.Level;
+                }
+            }
+
             if (SingleKeyPress(Keys.P, kbState, previousKbState) && g != GameState.Menu)
             {
                 if (!paused)
@@ -229,6 +240,10 @@ namespace GDAPS_Project_2
                 {
                     enemy.Movement(gameTime);
                     enemy.Collisions(world.Levels[world.currentLevel].objects, kbState, previousKbState, world);
+                }
+                if (player.IsDead())
+                {
+                    g = GameState.Dead;
                 }
                 if (world.changeWorldBool)
                 {
@@ -283,6 +298,11 @@ namespace GDAPS_Project_2
             if (g == GameState.Menu)
             {
                 spriteBatch.DrawString(gameFont, "Project Inversion\n\nThis is the Main Menu: Enter to Start!?" + world.currentLevel, new Vector2(-moveCamera.camX + 40, -moveCamera.camY + 100), Color.Black);
+            }
+
+            if (g == GameState.Dead)
+            {
+                spriteBatch.DrawString(gameFont, "You died, press any key to restart", new Vector2(-moveCamera.camX + 40, -moveCamera.camY + 100), Color.Black);
             }
                 //player.bottHit.spriteDraw(spriteBatch);
                 //player.topHit.spriteDraw(spriteBatch);

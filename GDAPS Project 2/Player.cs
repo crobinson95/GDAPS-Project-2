@@ -493,7 +493,6 @@ namespace GDAPS_Project_2
                 if (isColliding(en))
                 {
                     alive = false;
-                    isDead();
                 }
             }
             foreach (GameObject obj in objs)
@@ -501,7 +500,6 @@ namespace GDAPS_Project_2
                 if (isColliding(obj) && obj.isDangerous)
                 {
                     alive = false;
-                    isDead();
                 }
                 else if (isColliding(obj))
                 {
@@ -711,7 +709,18 @@ namespace GDAPS_Project_2
             }
         }
 
-        public void isDead() { }
+        public bool IsDead()
+        {
+            if (alive)
+            {
+                return false;
+            }
+            else
+            {
+                alive = true;
+                return true;
+            }
+        }
 
         //Grabs the sprite sheet - not currently in pipe line
         public void LoadContent(ContentManager content)
