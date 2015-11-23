@@ -76,7 +76,7 @@ namespace GDAPS_Project_2
             m = Menus.Start;
             paused = false;
 
-            world = new World(GameVariables.menuWorld, s, player); // Menu "world"
+            world = new World(GameVariables.menuWorld, s, player, Content); // Menu "world"
 
             // x y width height are temporary filler values
             // gameHUD = new Hud(50, 20, 700, 180, spriteBatch, player, world.Levels[0].HudInfo, (GameVariables.menuWorld + " - " + (world.currentLevel + 1).ToString()));
@@ -220,7 +220,7 @@ namespace GDAPS_Project_2
                     Exit();
                 }
             }
-            if (g != GameState.Pause)
+            if (g == GameState.Level)
             {
                 player.Movement(kbState, previousKbState, gameTime);
                 player.Collisions(kbState, previousKbState, ref world, s);
@@ -281,7 +281,7 @@ namespace GDAPS_Project_2
 
             if (g == GameState.Menu)
             {
-                spriteBatch.DrawString(gameFont, "Project Inversion\n\nThis is the Main Menu: Enter to Start!?" + world.currentLevel, new Vector2(20, 20), Color.Black);
+                spriteBatch.DrawString(gameFont, "Project Inversion\n\nThis is the Main Menu: Enter to Start!?" + world.currentLevel, new Vector2(-moveCamera.camX + 40, -moveCamera.camY + 100), Color.Black);
             }
                 //player.bottHit.spriteDraw(spriteBatch);
                 //player.topHit.spriteDraw(spriteBatch);

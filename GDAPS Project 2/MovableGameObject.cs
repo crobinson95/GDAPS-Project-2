@@ -53,7 +53,7 @@ namespace GDAPS_Project_2
             get { return yvelocity; }
             set { yvelocity = value; }
         }
-        protected virtual bool isColliding(GameObject obj)
+        public virtual bool isColliding(GameObject obj)
         {
             if (ObjRect.Intersects(obj.ObjRect)) { return true; }
             else { return false; }

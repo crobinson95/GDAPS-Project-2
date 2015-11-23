@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -24,7 +25,7 @@ namespace GDAPS_Project_2
         /// Format for each line:
         /// identifier,x_position,y_position,(extra attributes depending on objects).
         /// </summary>
-        public Level(string levelData, StreamReader s, Player player)
+        public Level(string levelData, StreamReader s, Player player, ContentManager content)
         {
             try
             {
@@ -78,7 +79,7 @@ namespace GDAPS_Project_2
                                     }
                                     else
                                     {
-                                        objects.Add(new Door(p.X, p.Y, 75, 150, d));
+                                        objects.Add(new Door(content, p.X, p.Y, 75, 150, d));
                                     }
                                     break;
 
