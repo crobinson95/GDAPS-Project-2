@@ -220,7 +220,7 @@ namespace GDAPS_Project_2
                     paused = false;
                 }
             }
-            if (g != GameState.Pause && g != GameState.Menu)
+            if (g == GameState.Pause)
             {
                 if (SingleKeyPress(Keys.R, kbState, previousKbState))
                 {
