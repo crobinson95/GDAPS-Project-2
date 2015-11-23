@@ -18,10 +18,10 @@ namespace GDAPS_Project_2
         StreamReader s;
         GameState g;
         GameState prevState;
-         Menus m;
+        // Menus m;
         int width;
         int height;
-        Hud gameHUD;
+        // Hud gameHUD;
         bool paused;
 
         Texture2D pauseBack;
@@ -44,14 +44,14 @@ namespace GDAPS_Project_2
             Pause,
             Minigame
         }
-        public enum Menus
+        /*public enum Menus
         {
             Start,
             Help,
             Options,
             LevelSelect,
             AboutUs
-        }
+        }*/
 
         public Game1()
         {
@@ -73,7 +73,7 @@ namespace GDAPS_Project_2
             player = new Player(100, 100, 44, 106);
 
             g = GameState.Menu;
-            m = Menus.Start;
+            // m = Menus.Start;
             paused = false;
 
             world = new World(GameVariables.menuWorld, s, player, Content); // Menu "world"
@@ -179,8 +179,8 @@ namespace GDAPS_Project_2
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
+            //if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            //    Exit();
 
             // TODO: Add your update logic here
             if(g == GameState.Menu)
@@ -258,7 +258,7 @@ namespace GDAPS_Project_2
 
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, null, null, null, null, moveCamera.viewMatrix);
 
-            if (g == GameState.Level)
+            if (g == GameState.Level || g == GameState.Pause)
             {
 
 
