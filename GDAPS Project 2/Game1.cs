@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Input;
+using System.Diagnostics;
 using System.IO;
 
 namespace GDAPS_Project_2
@@ -13,8 +15,8 @@ namespace GDAPS_Project_2
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Player player;
+        Stopwatch time;
         static World world;
-        double time;
         StreamReader s;
         GameState g;
         GameState prevState;
@@ -24,14 +26,14 @@ namespace GDAPS_Project_2
         // Hud gameHUD;
         bool paused;
 
+        SoundLoop falling;
+
         Texture2D pauseBack;
         SpriteFont gameFont;
 
-        Texture2D floorTexture;
-        Texture2D wallTexture;
-        Texture2D spikeTexture;
-        Texture2D doorTexture;
-        Texture2D enemyTexture;
+        Texture2D deathScreen;
+
+        AnimatedTexture menu;
 
         Camera moveCamera;
         KeyboardState kbState;
@@ -57,8 +59,9 @@ namespace GDAPS_Project_2
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferHeight = 720;
-            graphics.PreferredBackBufferWidth = 1280;
+            graphics.PreferredBackBufferHeight = 540;
+            graphics.PreferredBackBufferWidth = 960;
+            time = new Stopwatch();
             Content.RootDirectory = "Content";
         }
 
@@ -71,21 +74,24 @@ namespace GDAPS_Project_2
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            player = new Player(100, 100, 44, 106);
+            player = new Player(100, 100, 30, 54);
 
             g = GameState.Menu;
             // m = Menus.Start;
             paused = false;
 
             world = new World(GameVariables.menuWorld, s, player, Content); // Menu "world"
-
+            
             // x y width height are temporary filler values
             // gameHUD = new Hud(50, 20, 700, 180, spriteBatch, player, world.Levels[0].HudInfo, (GameVariables.menuWorld + " - " + (world.currentLevel + 1).ToString()));
 
-            player.ObjPos.X = world.Levels[0].playerSpawn.X;
-            player.ObjPos.Y = world.Levels[0].playerSpawn.Y;
+            player.ObjPos.X = world.levels["main.txt"].playerSpawn.X;
+            player.ObjPos.Y = world.levels["main.txt"].playerSpawn.Y;
+            world.currentLevel = "main.txt";
 
             moveCamera = new Camera(player, GraphicsDevice);
+                        
+            //MediaPlayer.IsRepeating = true;
 
             width = GraphicsDevice.Viewport.Width;
             height = GraphicsDevice.Viewport.Height;
@@ -96,76 +102,49 @@ namespace GDAPS_Project_2
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
         /// all of your content.
-        /// </summary>
+        /// </summary
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             player.LoadContent(Content);
+            GameVariables.LoadContentFiles(Content);
+
             // TODO: use this.Content to load your game content here
-            player.ObjImage = Content.Load<Texture2D>(GameVariables.imgPlayer);
-            //player.bottHit.ObjImage = Content.Load<Texture2D>(@"Images/Sprites/imgHitbox");
-            //player.topHit.ObjImage = Content.Load<Texture2D>(@"Images/Sprites/imgHitbox");
-            //player.leftHit.ObjImage = Content.Load<Texture2D>(@"Images/Sprites/imgHitbox");
-            //player.rightHit.ObjImage = Content.Load<Texture2D>(@"Images/Sprites/imgHitbox");
-            floorTexture = Content.Load<Texture2D>(GameVariables.imgFloor);
-            wallTexture = Content.Load<Texture2D>(GameVariables.imgWall);
-            spikeTexture = Content.Load<Texture2D>(GameVariables.imgSpike);
-            doorTexture = Content.Load<Texture2D>(GameVariables.imgDoor);
-            enemyTexture = Content.Load<Texture2D>(GameVariables.imgEnemy);
 
             pauseBack = Content.Load<Texture2D>(GameVariables.imgWall);
             gameFont = Content.Load<SpriteFont>(GameVariables.gFont);
+            deathScreen = Content.Load<Texture2D>(@"ContentFiles/Images/Sprites/death");
+            menu = new AnimatedTexture(Content, @"ContentFiles/Images/Sprites/fronta", 5, .05f);
+            world.LoadWorld();
 
             //Texture2D hud = Content.Load<Texture2D>(GameVariables.imgHUD);
-            LoadWorld();
+
+            GameVariables.l1.IsLooped = true;
+            GameVariables.l2.IsLooped = true;
+            GameVariables.l3.IsLooped = true;
+            GameVariables.l1.Play();
+            GameVariables.l2.Play();
+            GameVariables.l3.Play();
+            GameVariables.l1.Volume = 0.0f * GameVariables.gameVolume;
+            GameVariables.l2.Volume = 0.0f * GameVariables.gameVolume;
+            GameVariables.l3.Volume = 0.0f * GameVariables.gameVolume;
+            GameVariables.gFX1.Volume = 0.0f * GameVariables.gameVolume;
+            GameVariables.gFX2.Volume = 0.0f * GameVariables.gameVolume;
+            GameVariables.gFX3.Volume = 0.0f * GameVariables.gameVolume;
+            //fAcceleration = fallingAcceleration.CreateInstance();
+            //fLoop = fallingLoop.CreateInstance();
+            falling = new SoundLoop(GameVariables.fallingLoop.CreateInstance(), 1035, GameVariables.fallingLoop.CreateInstance(), 1035, GameVariables.fallingAcceleration.CreateInstance(), 1355, 0.5f * GameVariables.gameVolume);
         }
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
         /// game-specific content.
         /// </summary>
+        /// 
         protected override void UnloadContent()
         {
             // TODO: Unload any non ContentManager content here
             Content.Unload();
-        }
-
-        /// <summary>
-        /// Loads the levels in a world
-        /// </summary>
-        public void LoadWorld()
-        {
-            foreach (Level loadLevel in world.Levels)
-            {
-                foreach (GameObject item in loadLevel.objects)
-                {
-                    string itemType = item.ToString();
-                    switch (itemType)
-                    {
-                        case "GDAPS_Project_2.Floor":
-                            item.ObjImage = floorTexture;
-                            break;
-
-                        case "GDAPS_Project_2.Wall":
-                            item.ObjImage = wallTexture;
-                            break;
-
-                        case "GDAPS_Project_2.Spike":
-                            item.ObjImage = spikeTexture;
-                            break;
-
-                        case "GDAPS_Project_2.Door":
-                            item.ObjImage = doorTexture;
-                            break;
-                    }
-                    foreach (Enemy enemy in loadLevel.enemies)
-                    {
-                        enemy.ObjImage = enemyTexture;
-                    }
-                }
-                // gameHUD.ObjImage = hud;
-            }
-            world.changeWorldBool = false;
         }
 
         public static bool SingleKeyPress(Keys k, KeyboardState current, KeyboardState previous)
@@ -190,18 +169,23 @@ namespace GDAPS_Project_2
 
             if (g == GameState.Menu)
             {
-                if(SingleKeyPress(Keys.Enter, kbState, previousKbState))
+                moveCamera.viewMatrix = moveCamera.GetTransform(player, width, height);
+                if (SingleKeyPress(Keys.Enter, kbState, previousKbState))
                 {
                     g = GameState.Level;
                 }
+                if (SingleKeyPress(Keys.F, kbState, previousKbState))
+                {
+                    graphics.ToggleFullScreen();
+                }
             }
-            
+
             if (g == GameState.Dead)
             {
                 if (Keyboard.GetState().GetPressedKeys().Length > 0)
                 {
-                    player.ObjPos.X = world.Levels[world.currentLevel].playerSpawn.X;
-                    player.ObjPos.Y = world.Levels[world.currentLevel].playerSpawn.Y;
+                    player.ObjPos.X = world.levels[world.currentLevel].playerSpawn.X;
+                    player.ObjPos.Y = world.levels[world.currentLevel].playerSpawn.Y;
                     g = GameState.Level;
                 }
             }
@@ -224,8 +208,12 @@ namespace GDAPS_Project_2
             {
                 if (SingleKeyPress(Keys.R, kbState, previousKbState))
                 {
-                    player.ObjPos.X = world.Levels[world.currentLevel].playerSpawn.X;
-                    player.ObjPos.Y = world.Levels[world.currentLevel].playerSpawn.Y;
+                    player.ObjPos.X = world.levels[world.currentLevel].playerSpawn.X;
+                    player.ObjPos.Y = world.levels[world.currentLevel].playerSpawn.Y;
+                }
+                if (SingleKeyPress(Keys.F, kbState, previousKbState))
+                {
+                    graphics.ToggleFullScreen();
                 }
                 if (SingleKeyPress(Keys.Q, kbState, previousKbState))
                 {
@@ -234,29 +222,28 @@ namespace GDAPS_Project_2
             }
             if (g == GameState.Level)
             {
-                player.Movement(kbState, previousKbState, gameTime);
-                player.Collisions(kbState, previousKbState, world, s, Content);
-                foreach (Enemy enemy in world.Levels[world.currentLevel].enemies)
+                player.Movement(kbState, previousKbState, gameTime, falling);
+                player.Collisions(kbState, previousKbState, world, s, Content, GameVariables.landingInstance);
+
+                foreach (Enemy enemy in world.levels[world.currentLevel].enemies)
                 {
                     enemy.Movement(gameTime);
-                    enemy.Collisions(world.Levels[world.currentLevel].objects, kbState, previousKbState, world);
+                    enemy.Collisions(world.levels[world.currentLevel].objects, kbState, previousKbState, world);
                 }
                 if (player.IsDead())
                 {
                     g = GameState.Dead;
                 }
-                if (world.changeWorldBool)
+                if (player.world != null && player.world != world)
                 {
                     world = player.world;
-                    LoadWorld();
-                    player.ObjPos.X = world.Levels[world.currentLevel].playerSpawn.X;
-                    player.ObjPos.Y = world.Levels[world.currentLevel].playerSpawn.Y;
                 }
+
                 moveCamera.viewMatrix = moveCamera.GetTransform(player, width, height);
 
                 player.Update(gameTime);
             }
-            if(g == GameState.Level && world.Levels[world.currentLevel].HudInfo != null)
+            if(g == GameState.Level && world.levels[world.currentLevel].HudInfo != null)
             {
                 //gameHUD.checkPlayerY();
             }
@@ -274,46 +261,51 @@ namespace GDAPS_Project_2
 
             // TODO: Add your drawing code here
 
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, null, null, null, null, moveCamera.viewMatrix);
+            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.NonPremultiplied, SamplerState.LinearWrap, null, null, null, moveCamera.viewMatrix);
 
             if (g == GameState.Level || g == GameState.Pause)
             {
-                player.Draw(spriteBatch);   //Player draw method
+                spriteBatch.Draw(GameVariables.starsBackground, new Rectangle(-(int)moveCamera.position.X, -(int)moveCamera.position.Y, width, height), null, Color.White, 0.0f, new Vector2(0,0), SpriteEffects.None, 1.0f);
 
-                foreach (GameObject item in world.Levels[world.currentLevel].objects)
+                foreach (GameObject item in world.levels[world.currentLevel].objects)
                 {
                     item.spriteDraw(spriteBatch);
                 }
-                foreach (Enemy enemy in world.Levels[world.currentLevel].enemies)
+                foreach (Enemy enemy in world.levels[world.currentLevel].enemies)
                 {
                     enemy.spriteDraw(spriteBatch);
                 }
+                player.Draw(spriteBatch);   //Player draw method
                 if (paused)
                 {
-                    spriteBatch.Draw(pauseBack, new Rectangle(-(int)moveCamera.camX + 20, -(int)moveCamera.camY + 80, graphics.PreferredBackBufferWidth - 60, graphics.PreferredBackBufferHeight - 160), Color.White * 0.8f);
-                    spriteBatch.DrawString(gameFont, "R to reset\nQ to quit\nCurrent Level: " + world.currentLevel, new Vector2(-moveCamera.camX + 40, -moveCamera.camY + 100), Color.Black);
+                    spriteBatch.Draw(pauseBack, new Rectangle(-(int)moveCamera.camX + 20, -(int)moveCamera.camY + 80, graphics.PreferredBackBufferWidth - 60, graphics.PreferredBackBufferHeight - 160), null, Color.White * 0.8f, 0.0f, new Vector2(0, 0), SpriteEffects.None, 0.1f);
+                    spriteBatch.DrawString(gameFont, "R to reset\nQ to quit\nCurrent Level: " + world.currentLevel, new Vector2(-moveCamera.camX + 40, -moveCamera.camY + 100), Color.Black, 0.0f, new Vector2(0,0), 1.0f, SpriteEffects.None, 0.0f);
                 }
             }
 
             if (g == GameState.Menu)
             {
-                spriteBatch.DrawString(gameFont, "Project Inversion\n\nThis is the Main Menu: Enter to Start!?" + world.currentLevel, new Vector2(-moveCamera.camX + 40, -moveCamera.camY + 100), Color.Black);
+                if (time.ElapsedMilliseconds > 1000) { time.Reset(); }
+
+                time.Start();
+                menu.DrawFrame(spriteBatch, 1, new Vector2(-moveCamera.camX, -moveCamera.camY), false, 0.75f);
+                float elapsed = time.ElapsedMilliseconds;
+                menu.UpdateFrame(elapsed / 1000);
+
+                spriteBatch.DrawString(gameFont, "   Project\n   Inversion\n\n\n  Enter to Start!?" + world.currentLevel, new Vector2(-moveCamera.camX + 400, -moveCamera.camY + 100), Color.White);
             }
 
             if (g == GameState.Dead)
             {
-                spriteBatch.DrawString(gameFont, "You died, press any key to restart", new Vector2(-moveCamera.camX + 40, -moveCamera.camY + 100), Color.Black);
+                spriteBatch.Draw(deathScreen, new Rectangle(-(int)moveCamera.camX, -(int)moveCamera.camY, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight), Color.White);
+                spriteBatch.DrawString(gameFont, "You died.\n\nPress 'R' \nto restart", new Vector2(-moveCamera.camX + 40, -moveCamera.camY + 100), Color.White);
             }
-                //player.bottHit.spriteDraw(spriteBatch);
-                //player.topHit.spriteDraw(spriteBatch);
-                //player.leftHit.spriteDraw(spriteBatch);
-                //player.rightHit.spriteDraw(spriteBatch);
-                //player.spriteDraw(spriteBatch);
-                // if (world.Levels[world.currentLevel].HudInfo != null)
-                //{
-                //    gameHUD.spriteDraw(spriteBatch);
-                //}
-            
+
+            // if (world.Levels[world.currentLevel].HudInfo != null)
+            //{
+            //    gameHUD.spriteDraw(spriteBatch);
+            //}
+
             spriteBatch.End();
 
             base.Draw(gameTime);

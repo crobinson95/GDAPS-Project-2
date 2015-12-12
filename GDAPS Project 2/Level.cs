@@ -49,48 +49,55 @@ namespace GDAPS_Project_2
                         else
                         {
                             p = new Point(int.Parse(splitLine[1]), int.Parse(splitLine[2]));
-                            switch (identifier)
+                            if (identifier.Contains("block"))
                             {
-                                case "spawn":
-                                    playerSpawn = p;
-                                    break;
-                                case "floor":
-                                    int w = int.Parse(splitLine[3]);
-                                    objects.Add(new Floor(p.X, p.Y, w, 60));
-                                    break;
+                                objects.Add(new Block(p.X, p.Y, 40, 40, identifier.ToLower()));
+                            }
+                            else if (identifier.Contains("panel"))
+                            {
+                                objects.Add(new Panel(p.X, p.Y, 80, 80, identifier.ToLower()));
+                            }
+                            else if (identifier.Contains("hazard"))
+                            {
+                                objects.Add(new Hazard(p.X, p.Y, 40, 40, identifier.ToLower()));
+                            }
+                            else
+                            {
+                                switch (identifier)
+                                {
+                                    case "spawn":
+                                        playerSpawn = p;
+                                        break;
+                                    case "floor":
+                                        int w = int.Parse(splitLine[3]);
+                                        objects.Add(new Floor(p.X, p.Y, w, 60));
+                                        break;
+                                    case "wall":
+                                        int h = int.Parse(splitLine[3]);
+                                        objects.Add(new Wall(p.X, p.Y, 60, h));
+                                        break;
+                                    case "door":
+                                        string d = splitLine[3];
+                                        if (splitLine.Length == 5)
+                                        {
+                                            string world = splitLine[4];
+                                            objects.Add(new Door(content, p.X, p.Y, 43, 70, d, @world));
+                                            // change door code to include world to go to
+                                        }
+                                        else
+                                        {
+                                            objects.Add(new Door(content, p.X, p.Y, 43, 70, d));
+                                        }
+                                        break;
+                                    case "enemy":
+                                        enemies.Add(new Enemy(content, p.X, p.Y, 50, 70, player));
+                                        break;
 
-                                case "wall":
-                                    int h = int.Parse(splitLine[3]);
-                                    objects.Add(new Wall(p.X, p.Y, 60, h));
-                                    break;
+                                    case "enemyf":
+                                        enemies.Add(new EnemyF(content, p.X, p.Y, 50, 70, player));
+                                        break;
 
-                                case "spike":
-                                    objects.Add(new Spike(p.X, p.Y, 100, 100));
-                                    break;
-
-                                case "door":
-                                    int d = int.Parse(splitLine[3]);
-                                    
-                                    if (splitLine.Length == 5)
-                                    {
-                                        string world = splitLine[4];
-                                        objects.Add(new Door(p.X, p.Y, 75, 150, d, @world));
-                                        // change door code to include world to go to
-                                    }
-                                    else
-                                    {
-                                        objects.Add(new Door(content, p.X, p.Y, 75, 150, d));
-                                    }
-                                    break;
-
-                                case "enemy":
-                                    enemies.Add(new Enemy(p.X, p.Y, 60, 60, player));
-                                    break;
-
-                                case "enemyf":
-                                    enemies.Add(new EnemyF(p.X, p.Y, 60, 60, player));
-                                    break;
-
+                                }
                             }
                         }
                     }

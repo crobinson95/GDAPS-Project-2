@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -18,6 +19,9 @@ namespace GDAPS_Project_2
         protected float accel = (float)GameVariables.playerAcceleration;
         protected float maxSpeed = (float)GameVariables.playerMaxSpeed / 2;
 
+        Stopwatch atime;
+        AnimatedTexture Move;
+
         protected Point origin;
 
         protected Player player;
@@ -30,7 +34,7 @@ namespace GDAPS_Project_2
             down
         }
 
-        public Enemy(int x, int y, int w, int h, Player p)
+        public Enemy(ContentManager Content, int x, int y, int w, int h, Player p)
             : base(x, y, w, h)
         {
             grav = gravDirection.Down;
@@ -43,8 +47,10 @@ namespace GDAPS_Project_2
             origin = new Point(x, y);
             isDangerous = true;
             player = p;
-
+            Move = new AnimatedTexture(Content, @"Images/Sprites/enemy_sri", 10, 1f);
+            atime = new Stopwatch();
         }
+
 
 
         public virtual void Movement(GameTime g)
@@ -336,7 +342,25 @@ namespace GDAPS_Project_2
         {
             if (alive)
             {
-                base.spriteDraw(s);
+                if (currentDir == Direction.left)
+                {
+                    if (atime.ElapsedMilliseconds > 1000) { atime.Reset(); }
+
+                    atime.Start();
+                    Move.DrawFrame(s, 2, new Vector2(ObjRectX, ObjRectY), true);
+                    float elapsed = atime.ElapsedMilliseconds;
+                    Move.UpdateFrame(elapsed / 1000);
+                }
+                if (currentDir == Direction.right)
+                {
+                    if (atime.ElapsedMilliseconds > 1000) { atime.Reset(); }
+
+                    atime.Start();
+                    Move.DrawFrame(s, 1, new Vector2(ObjRectX, ObjRectY), true);
+                    float elapsed = atime.ElapsedMilliseconds;
+                    Move.UpdateFrame(elapsed / 1000);
+                }
+                //base.spriteDraw(s);
             }
         }
     }

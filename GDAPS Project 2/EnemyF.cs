@@ -24,8 +24,8 @@ namespace GDAPS_Project_2
         Player player;
 
 
-        public EnemyF(int x, int y, int w, int h, Player p)
-            : base(x, y, w, h, p)
+        public EnemyF(ContentManager Content, int x, int y, int w, int h, Player p)
+            : base(Content, x, y, w, h, p)
         {
             grav = gravDirection.Down;
             gravity = GameVariables.gravity;
@@ -354,7 +354,7 @@ namespace GDAPS_Project_2
                 }
                 if (vision.Intersects(obj.ObjRect))
                 {
-                    if (obj is Spike)
+                    if (obj is Hazard)
                     {
                         if (inAir == false)
                         {

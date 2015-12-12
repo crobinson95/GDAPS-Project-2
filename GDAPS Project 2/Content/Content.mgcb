@@ -13,13 +13,244 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin Images/Sprites/Font.spritefont
+#begin ContentFiles/Images/Sprites/Background/panel.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:ContentFiles/Images/Sprites/Background/panel.png
+
+#begin ContentFiles/Images/Sprites/Background/panelDark.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:ContentFiles/Images/Sprites/Background/panelDark.png
+
+#begin ContentFiles/Images/Sprites/Background/stars.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:ContentFiles/Images/Sprites/Background/stars.png
+
+#begin ContentFiles/Images/Sprites/Block/blockBlank.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:ContentFiles/Images/Sprites/Block/blockBlank.png
+
+#begin ContentFiles/Images/Sprites/Block/blockInsideBottom.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:ContentFiles/Images/Sprites/Block/blockInsideBottom.png
+
+#begin ContentFiles/Images/Sprites/Block/blockInsideCornerBottomLeft.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:ContentFiles/Images/Sprites/Block/blockInsideCornerBottomLeft.png
+
+#begin ContentFiles/Images/Sprites/Block/blockInsideCornerBottomRight.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:ContentFiles/Images/Sprites/Block/blockInsideCornerBottomRight.png
+
+#begin ContentFiles/Images/Sprites/Block/blockInsideCornerTopLeft.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:ContentFiles/Images/Sprites/Block/blockInsideCornerTopLeft.png
+
+#begin ContentFiles/Images/Sprites/Block/blockInsideCornerTopRight.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:ContentFiles/Images/Sprites/Block/blockInsideCornerTopRight.png
+
+#begin ContentFiles/Images/Sprites/Block/blockInsideLeft.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:ContentFiles/Images/Sprites/Block/blockInsideLeft.png
+
+#begin ContentFiles/Images/Sprites/Block/blockInsideRight.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:ContentFiles/Images/Sprites/Block/blockInsideRight.png
+
+#begin ContentFiles/Images/Sprites/Block/blockInsideTop.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:ContentFiles/Images/Sprites/Block/blockInsideTop.png
+
+#begin ContentFiles/Images/Sprites/Block/blockOutsideBottom.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:ContentFiles/Images/Sprites/Block/blockOutsideBottom.png
+
+#begin ContentFiles/Images/Sprites/Block/blockOutsideCornerBottomLeft.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:ContentFiles/Images/Sprites/Block/blockOutsideCornerBottomLeft.png
+
+#begin ContentFiles/Images/Sprites/Block/blockOutsideCornerBottomRight.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:ContentFiles/Images/Sprites/Block/blockOutsideCornerBottomRight.png
+
+#begin ContentFiles/Images/Sprites/Block/blockOutsideCornerTopLeft.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:ContentFiles/Images/Sprites/Block/blockOutsideCornerTopLeft.png
+
+#begin ContentFiles/Images/Sprites/Block/blockOutsideCornerTopRight.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:ContentFiles/Images/Sprites/Block/blockOutsideCornerTopRight.png
+
+#begin ContentFiles/Images/Sprites/Block/blockOutsideLeft.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:ContentFiles/Images/Sprites/Block/blockOutsideLeft.png
+
+#begin ContentFiles/Images/Sprites/Block/blockOutsideRight.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:ContentFiles/Images/Sprites/Block/blockOutsideRight.png
+
+#begin ContentFiles/Images/Sprites/Block/blockOutsideTop.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:ContentFiles/Images/Sprites/Block/blockOutsideTop.png
+
+#begin ContentFiles/Images/Sprites/door_spir.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:ContentFiles/Images/Sprites/door_spir.png
+
+#begin ContentFiles/Images/Sprites/Font.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
 /processorParam:TextureFormat=Compressed
-/build:Images/Sprites/Font.spritefont
+/build:ContentFiles/Images/Sprites/Font.spritefont
 
-#begin Images/Sprites/IGME106_P02_Character.png
+#begin ContentFiles/Images/Sprites/IGME106_P02_Character.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -28,9 +259,9 @@
 /processorParam:PremultiplyAlpha=True
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:TextureFormat=Color
-/build:Images/Sprites/IGME106_P02_Character.png
+/build:ContentFiles/Images/Sprites/IGME106_P02_Character.png
 
-#begin Images/Sprites/imgDoor.png
+#begin ContentFiles/Images/Sprites/imgDoor.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -39,9 +270,9 @@
 /processorParam:PremultiplyAlpha=True
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:TextureFormat=Color
-/build:Images/Sprites/imgDoor.png
+/build:ContentFiles/Images/Sprites/imgDoor.png
 
-#begin Images/Sprites/imgEnemy.png
+#begin ContentFiles/Images/Sprites/imgEnemy.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -50,9 +281,9 @@
 /processorParam:PremultiplyAlpha=True
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:TextureFormat=Color
-/build:Images/Sprites/imgEnemy.png
+/build:ContentFiles/Images/Sprites/imgEnemy.png
 
-#begin Images/Sprites/imgFloor.png
+#begin ContentFiles/Images/Sprites/imgFloor.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -61,9 +292,9 @@
 /processorParam:PremultiplyAlpha=True
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:TextureFormat=Color
-/build:Images/Sprites/imgFloor.png
+/build:ContentFiles/Images/Sprites/imgFloor.png
 
-#begin Images/Sprites/imgPlayer.png
+#begin ContentFiles/Images/Sprites/imgPlayer.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -72,9 +303,9 @@
 /processorParam:PremultiplyAlpha=True
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:TextureFormat=Color
-/build:Images/Sprites/imgPlayer.png
+/build:ContentFiles/Images/Sprites/imgPlayer.png
 
-#begin Images/Sprites/imgSpike.png
+#begin ContentFiles/Images/Sprites/imgSpike.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -83,9 +314,9 @@
 /processorParam:PremultiplyAlpha=True
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:TextureFormat=Color
-/build:Images/Sprites/imgSpike.png
+/build:ContentFiles/Images/Sprites/imgSpike.png
 
-#begin Images/Sprites/imgWall.png
+#begin ContentFiles/Images/Sprites/imgWall.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -94,9 +325,9 @@
 /processorParam:PremultiplyAlpha=True
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:TextureFormat=Color
-/build:Images/Sprites/imgWall.png
+/build:ContentFiles/Images/Sprites/imgWall.png
 
-#begin Images/Sprites/sprite_sheet.png
+#begin ContentFiles/Images/Sprites/DoorSliding.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -105,5 +336,182 @@
 /processorParam:PremultiplyAlpha=True
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:TextureFormat=Color
-/build:Images/Sprites/sprite_sheet.png
+/build:ContentFiles/Images/Sprites/DoorSliding.png
+
+#begin ContentFiles/Images/Sprites/DoorFrame.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:ContentFiles/Images/Sprites/DoorFrame.png
+
+#begin ContentFiles/Images/Sprites/sprite_sheet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:ContentFiles/Images/Sprites/sprite_sheet.png
+
+#begin ContentFiles/Sound/Foley/FallingAccelerating.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:ContentFiles/Sound/Foley/FallingAccelerating.wav
+
+#begin ContentFiles/Sound/Foley/FallingMaxLoop.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:ContentFiles/Sound/Foley/FallingMaxLoop.wav
+
+#begin ContentFiles/Sound/Foley/Landing.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:ContentFiles/Sound/Foley/Landing.mp3
+
+#begin ContentFiles/Sound/FX/GravityFX1.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:ContentFiles/Sound/FX/GravityFX1.mp3
+
+#begin ContentFiles/Sound/FX/GravityFX2.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:ContentFiles/Sound/FX/GravityFX2.mp3
+
+#begin ContentFiles/Sound/FX/GravityFX3.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:ContentFiles/Sound/FX/GravityFX3.mp3
+
+#begin ContentFiles/Sound/TestLoops/FinalLayer1.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:ContentFiles/Sound/TestLoops/FinalLayer1.mp3
+
+#begin ContentFiles/Sound/TestLoops/FinalLayer2.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:ContentFiles/Sound/TestLoops/FinalLayer2.mp3
+
+#begin ContentFiles/Sound/TestLoops/FinalLayer3.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:ContentFiles/Sound/TestLoops/FinalLayer3.mp3
+
+#begin ContentFiles/Sound/TestLoops/FinalLoop1.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:ContentFiles/Sound/TestLoops/FinalLoop1.mp3
+
+#begin ContentFiles/Sound/TestLoops/FinalLoop2.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:ContentFiles/Sound/TestLoops/FinalLoop2.mp3
+
+#begin ContentFiles/Sound/TestLoops/FinalLoop3.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:ContentFiles/Sound/TestLoops/FinalLoop3.mp3
+
+#begin ContentFiles/Sound/TestLoops/FinalLoop4.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:ContentFiles/Sound/TestLoops/FinalLoop4.mp3
+
+#begin ContentFiles/Images/Sprites/Block/blockWiresBottom.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:ContentFiles/Images/Sprites/Block/blockWiresBottom.png
+
+#begin ContentFiles/Images/Sprites/Block/blockWiresLeft.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:ContentFiles/Images/Sprites/Block/blockWiresLeft.png
+
+#begin ContentFiles/Images/Sprites/Block/blockWiresRight.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:ContentFiles/Images/Sprites/Block/blockWiresRight.png
+
+#begin ContentFiles/Images/Sprites/Block/blockWiresTop.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:ContentFiles/Images/Sprites/Block/blockWiresTop.png
+
+#begin ContentFiles/Images/Sprites/Hazards/hazardWiresBottom.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:ContentFiles/Images/Sprites/Hazards/hazardWiresBottom.png
+
+#begin ContentFiles/Images/Sprites/death.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:ContentFiles/Images/Sprites/death.png
+
+#begin ContentFiles/Images/Sprites/fronta.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:ContentFiles/Images/Sprites/fronta.png
 

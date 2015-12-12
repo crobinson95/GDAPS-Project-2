@@ -12,6 +12,8 @@ namespace GDAPS_Project_2
     {
         public bool isDangerous;
 
+        public string itemType;
+
         Rectangle objRect;
         public Rectangle ObjRect
         {
@@ -40,6 +42,7 @@ namespace GDAPS_Project_2
         }
 
         Texture2D objImage;
+
         public Texture2D ObjImage
         {
             get { return objImage; }
@@ -48,12 +51,30 @@ namespace GDAPS_Project_2
 
         public virtual void spriteDraw(SpriteBatch s)
         {
-            s.Draw(objImage, objRect, Color.White);
+            if (itemType == "panel" || itemType == "paneldark")
+            {
+                s.Draw(objImage, objRect, null, Color.White, 0.0f, new Vector2(0, 0), SpriteEffects.None, layerDepth: 0.4f);
+            }
+            else if (itemType == "hazard")
+            {
+                s.Draw(objImage, objRect, null, Color.White, 0, new Vector2(0,0), SpriteEffects.None, layerDepth: 0.3f);
+            }
+            else 
+            {
+                s.Draw(objImage, objRect, null, Color.White, 0, new Vector2(0,0), SpriteEffects.None, layerDepth: 0.3f);
+            }
         }
 
         public GameObject(int x, int y, int width ,int height)
         {
             objRect = new Rectangle(x, y, width, height);
+            itemType = null;
+        }
+
+        public GameObject(int x, int y, int width, int height, string ItemType)
+        {
+            objRect = new Rectangle(x, y, width, height);
+            itemType = ItemType;
         }
     }
 }

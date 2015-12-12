@@ -24,13 +24,13 @@ namespace GDAPS_Project_2
 
 
         //Takes Content manager, string for sprite sheet png and the total number of frames and frames per second.
-        public AnimatedTexture(ContentManager content, string name, int frames, int FramesPerSec)
+        public AnimatedTexture(ContentManager content, string name, int frames, float FramesPerSec)
         {
             spriteSheet = content.Load<Texture2D>(name);
             framecount = frames;
             TotalElapsed = 0;
             Frame = 1;
-            TimePerFrame = FramesPerSec;
+            TimePerFrame = 1/FramesPerSec;
         }
 
 
@@ -59,19 +59,29 @@ namespace GDAPS_Project_2
         }
 
         //Draws Frame
-        public void DrawFrame(SpriteBatch batch, int level, Vector2 screenPos)
+        public void DrawFrame(SpriteBatch batch, int level, Vector2 screenPos, bool multi)
         {
-            DrawFrame(batch, Frame, level, screenPos);
+            DrawFrame(batch, Frame, level, screenPos, multi);
+        }
+        public void DrawFrame(SpriteBatch batch, int level, Vector2 screenPos, bool multi, float s)
+        {
+            DrawFrame(batch, Frame, level, screenPos, multi, s);
         }
 
         //Draws Specific Frame from spritesheet
-        public void DrawFrame(SpriteBatch batch, int frame, int level, Vector2 screenPos)
+        public void DrawFrame(SpriteBatch batch, int frame, int level, Vector2 screenPos, bool multi)
         {
             int FrameWidth = spriteSheet.Width / framecount;
             Rectangle sourcerect = new Rectangle(FrameWidth * frame, level,
                 FrameWidth, spriteSheet.Height);
-            batch.Draw(spriteSheet, screenPos, sourcerect, Color.White);
+            batch.Draw(spriteSheet, screenPos, sourcerect, Color.White, 0.0f, new Vector2(0,0), 1.0f, SpriteEffects.None, 0.3f);
         }
-
+        public void DrawFrame(SpriteBatch batch, int frame, int level, Vector2 screenPos, bool multi, float s)
+        {
+            int FrameWidth = spriteSheet.Width / framecount;
+            Rectangle sourcerect = new Rectangle(FrameWidth * frame, level,
+                FrameWidth, spriteSheet.Height);
+            batch.Draw(spriteSheet, screenPos, sourcerect, Color.White, 0.0f, new Vector2(0, 0), s, SpriteEffects.None, 0.3f);
+        }
     }
 }
