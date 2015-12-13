@@ -31,7 +31,7 @@ namespace GDAPS_Project_2
             isDangerous = true;
             origin = new Point(x, y);
             Move = new AnimatedTexture(Content, @"ContentFiles/Images/Sprites/enemyw_sri", 4, .1f);
-            vision = new Rectangle(0, 0, 100, 100);
+            vision = new Rectangle(0, 0, 100, 500);
             atime = new Stopwatch();
             player = p;
 
@@ -83,13 +83,15 @@ namespace GDAPS_Project_2
                     }
                     if (ObjRect.Y < origin.Y)
                     {
-                        yVelocity += (float)gravity;
+                        //yVelocity += (float)gravity;
                     }
-                    if (ObjRect.Y == origin.Y)
+                    if (ObjRect.Y <= origin.Y)
                     {
                         Attacking = false;
                         yVelocity = 0;
                     }
+
+
                     if (currentDir == Direction.left)    //Move left
                     {
 
@@ -106,7 +108,7 @@ namespace GDAPS_Project_2
                     break;
 
                 case gravDirection.Up:
-                    yVelocity -= (float)gravity;
+                    //yVelocity -= (float)gravity;
 
                     //if (!inAir)
                     //{
@@ -137,15 +139,15 @@ namespace GDAPS_Project_2
 
 
                 case gravDirection.Right:
-                    xVelocity += (float)gravity;
+                    //xVelocity += (float)gravity;
 
-                    if (!inAir)
-                    {
-                        xVelocity -= (float)gravity;
-                        if (yVelocity > fric) { yVelocity -= fric; }
-                        else if (yVelocity < -fric) { yVelocity += fric; }
-                        else { yVelocity = 0; }
-                    }
+                    //if (!inAir)
+                    //{
+                    //    xVelocity -= (float)gravity;
+                    //    if (yVelocity > fric) { yVelocity -= fric; }
+                    //    else if (yVelocity < -fric) { yVelocity += fric; }
+                    //    else { yVelocity = 0; }
+                    //}
                     if (currentDir == Direction.up)
                     {
                         yVelocity -= accel * (float)g.ElapsedGameTime.TotalSeconds;
@@ -161,14 +163,14 @@ namespace GDAPS_Project_2
 
 
                 case gravDirection.Left:
-                    xVelocity -= (float)gravity;
-                    if (!inAir)
-                    {
-                        xVelocity += (float)gravity;
-                        if (yVelocity > fric) { yVelocity -= fric; }
-                        else if (yVelocity < -fric) { yVelocity += fric; }
-                        else { yVelocity = 0; }
-                    }
+                    //xVelocity -= (float)gravity;
+                    //if (!inAir)
+                    //{
+                    //    xVelocity += (float)gravity;
+                    //    if (yVelocity > fric) { yVelocity -= fric; }
+                    //    else if (yVelocity < -fric) { yVelocity += fric; }
+                    //    else { yVelocity = 0; }
+                    //}
                     if (currentDir == Direction.up)
                     {
                         yVelocity -= accel * (float)g.ElapsedGameTime.TotalSeconds;
@@ -384,7 +386,7 @@ namespace GDAPS_Project_2
                         if (Attacking == false)
                         {
                             Attacking = true;
-                            yVelocity += (float)GameVariables.jump;
+                            yVelocity += (float)GameVariables.jump * 1.5f;
                         }
                     
                 }
