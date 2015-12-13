@@ -81,10 +81,6 @@ namespace GDAPS_Project_2
                     {
                         yVelocity -= (float)gravity;
                     }
-                    if (ObjRect.Y < origin.Y)
-                    {
-                        //yVelocity += (float)gravity;
-                    }
                     if (ObjRect.Y <= origin.Y)
                     {
                         Attacking = false;
@@ -119,10 +115,11 @@ namespace GDAPS_Project_2
                     //}
                     if (ObjRect.Y < origin.Y)
                     {
-                        yVelocity -= (float)gravity;
+                        yVelocity += (float)gravity;
                     }
-                    if (ObjRect.Y == origin.Y)
+                    if (ObjRect.Y >= origin.Y)
                     {
+                        Attacking = false;
                         yVelocity = 0;
                     }
                     if (currentDir == Direction.left)
@@ -148,6 +145,15 @@ namespace GDAPS_Project_2
                     //    else if (yVelocity < -fric) { yVelocity += fric; }
                     //    else { yVelocity = 0; }
                     //}
+                    if (ObjRect.X > origin.X)
+                    {
+                        xVelocity -= (float)gravity;
+                    }
+                    if (ObjRect.X <= origin.X)
+                    {
+                        Attacking = false;
+                        xVelocity = 0;
+                    }
                     if (currentDir == Direction.up)
                     {
                         yVelocity -= accel * (float)g.ElapsedGameTime.TotalSeconds;
@@ -171,6 +177,15 @@ namespace GDAPS_Project_2
                     //    else if (yVelocity < -fric) { yVelocity += fric; }
                     //    else { yVelocity = 0; }
                     //}
+                    if (ObjRect.X < origin.X)
+                    {
+                        xVelocity += (float)gravity;
+                    }
+                    if (ObjRect.X >= origin.X)
+                    {
+                        Attacking = false;
+                        xVelocity = 0;
+                    }
                     if (currentDir == Direction.up)
                     {
                         yVelocity -= accel * (float)g.ElapsedGameTime.TotalSeconds;
@@ -383,11 +398,38 @@ namespace GDAPS_Project_2
                 //Vision Colisions
                 if (vision.Intersects(player.ObjRect))
                 {
-                        if (Attacking == false)
-                        {
-                            Attacking = true;
-                            yVelocity += (float)GameVariables.jump * 1.5f;
-                        }
+                    switch (grav)
+                    {
+                        case gravDirection.Up:
+                            if (Attacking == false)
+                            {
+                                Attacking = true;
+                                yVelocity -= (float)GameVariables.jump * 1.5f;
+                            }
+                            break;
+                        case gravDirection.Down:
+                            if (Attacking == false)
+                            {
+                                Attacking = true;
+                                yVelocity += (float)GameVariables.jump * 1.5f;
+                            }
+                            break;
+                        case gravDirection.Left:
+                            if (Attacking == false)
+                            {
+                                Attacking = true;
+                                xVelocity -= (float)GameVariables.jump * 1.5f;
+                            }
+                            break;
+                        case gravDirection.Right:
+                            if (Attacking == false)
+                            {
+                                Attacking = true;
+                                xVelocity += (float)GameVariables.jump * 1.5f;
+                            }
+                            break;
+                    }
+                        
                     
                 }
 

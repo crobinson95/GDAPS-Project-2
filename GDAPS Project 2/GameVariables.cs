@@ -74,6 +74,8 @@ namespace GDAPS_Project_2
         public static Texture2D hazardWiresRight;
         public static Texture2D hazardWiresTop;
 
+        public static SoundEffect mainMenuX;
+
         public static SoundEffect finalLayer1;
         public static SoundEffect finalLayer2;
         public static SoundEffect finalLayer3;
@@ -94,6 +96,8 @@ namespace GDAPS_Project_2
         public static SoundEffect DoorOpen;
         public static SoundEffect DoorClose;
         public static SoundEffect Robot;
+
+        public static SoundEffectInstance mainX;
 
         public static SoundEffectInstance l1;
         public static SoundEffectInstance l2;
@@ -147,6 +151,8 @@ namespace GDAPS_Project_2
             hazardWiresRight = content.Load<Texture2D>(@"ContentFiles/Images/Sprites/Hazards/hazardWiresRight");
             hazardWiresTop = content.Load<Texture2D>(@"ContentFiles/Images/Sprites/Hazards/hazardWiresTop");
 
+            mainMenuX = content.Load<SoundEffect>(@"ContentFiles/Sound/FFX_To_Zanarkand");
+
             finalLayer1 = content.Load<SoundEffect>(@"ContentFiles/Sound/TestLoops/FinalLayer1");
             finalLayer2 = content.Load<SoundEffect>(@"ContentFiles/Sound/TestLoops/FinalLayer2");
             finalLayer3 = content.Load<SoundEffect>(@"ContentFiles/Sound/TestLoops/FinalLayer3");
@@ -167,6 +173,8 @@ namespace GDAPS_Project_2
             DoorOpen = content.Load<SoundEffect>(@"ContentFiles/Sound/FX/DoorOpen");
             DoorClose = content.Load<SoundEffect>(@"ContentFiles/Sound/FX/DoorClose");
             Robot = content.Load<SoundEffect>(@"ContentFiles/Sound/Foley/Robot");
+
+            mainX = mainMenuX.CreateInstance();
 
             l1 = finalLayer1.CreateInstance();
             l2 = finalLayer2.CreateInstance();
