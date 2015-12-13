@@ -74,23 +74,23 @@ namespace GDAPS_Project_2
         }
 
         public void Movement(KeyboardState k, KeyboardState p, GameTime g, SoundLoop fallingLoop)
-        {            ////Energy Nonsense
-            //if (coolDown.ElapsedMilliseconds >= 5000) { coolDown.Reset(); coolDown.Stop(); }
-            //if (grav != gravDirection.Down && !coolDown.IsRunning) { energy -= (60 * g.ElapsedGameTime.TotalSeconds); }
-            //if (grav == gravDirection.Down && energy < 280 && !coolDown.IsRunning)
-            //{
-            //    energy += (20 * g.ElapsedGameTime.TotalSeconds);
-            //    if (energy > 280)
-            //    {
-            //        energy = 280;
-            //    }
-            //}
-            //if (energy <= 0)
-            //{
-            //    grav = gravDirection.Down;
-            //    coolDown.Start();
-            //}
-            ////Energy nonsense
+        {    //Energy Nonsense
+            if (coolDown.ElapsedMilliseconds >= 5000) { coolDown.Reset(); coolDown.Stop(); }
+            if (grav != gravDirection.Down && !coolDown.IsRunning) { energy -= (60 * g.ElapsedGameTime.TotalSeconds); }
+            if (grav == gravDirection.Down && energy < 280 && !coolDown.IsRunning)
+            {
+                energy += (20 * g.ElapsedGameTime.TotalSeconds);
+                if (energy > 280)
+                {
+                    energy = 280;
+                }
+            }
+            if (energy <= 0)
+            {
+                grav = gravDirection.Down;
+                coolDown.Start();
+            }
+            //Energy nonsense
 
 
             ObjPos += new Vector2(xVelocity, yVelocity);

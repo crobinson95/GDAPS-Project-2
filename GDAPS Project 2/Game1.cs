@@ -23,7 +23,7 @@ namespace GDAPS_Project_2
         // Menus m;
         int width;
         int height;
-        // Hud gameHUD;
+        Hud gameHUD;
         bool paused;
 
         SoundLoop falling;
@@ -90,7 +90,7 @@ namespace GDAPS_Project_2
             world.currentLevel = "main.txt";
 
             moveCamera = new Camera(player, GraphicsDevice);
-                        
+            gameHUD = new Hud((int)moveCamera.camX + 20, (int)moveCamera.camY + 20, 300, 45, spriteBatch, player, moveCamera, world.levels[world.currentLevel]);
             //MediaPlayer.IsRepeating = true;
 
             width = GraphicsDevice.Viewport.Width;
@@ -135,6 +135,10 @@ namespace GDAPS_Project_2
             //fAcceleration = fallingAcceleration.CreateInstance();
             //fLoop = fallingLoop.CreateInstance();
             falling = new SoundLoop(GameVariables.fallingLoop.CreateInstance(), 1035, GameVariables.fallingLoop.CreateInstance(), 1035, GameVariables.fallingAcceleration.CreateInstance(), 1355, 0.5f * GameVariables.gameVolume);
+            gameHUD.backt = Content.Load<Texture2D>(@"ContentFiles/Images/Sprites/back");
+            gameHUD.undert = Content.Load<Texture2D>(@"ContentFiles/Images/Sprites/grey");
+            gameHUD.energyt = Content.Load<Texture2D>(@"ContentFiles/Images/Sprites/energy");
+            //gameHUD.keyt = Content.Load<Texture2D>(@"ContentFiles/Images/Sprites/ki");
         }
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
@@ -251,7 +255,7 @@ namespace GDAPS_Project_2
                 }
 
                 moveCamera.viewMatrix = moveCamera.GetTransform(player, width, height);
-
+                gameHUD.Check();
                 player.Update(gameTime);
             }
             if(g == GameState.Level && world.levels[world.currentLevel].HudInfo != null)
@@ -287,6 +291,8 @@ namespace GDAPS_Project_2
                     enemy.spriteDraw(spriteBatch);
                 }
                 player.Draw(spriteBatch);   //Player draw method
+                gameHUD.spriteDraw(spriteBatch);
+                spriteBatch.DrawString(gameFont, "Energy", new Vector2(-moveCamera.camX + 25, -moveCamera.camY + 45), Color.Black, 0.0f, new Vector2(0, 0), 0.30f, SpriteEffects.None, 0.1f);
                 if (paused)
                 {
                     spriteBatch.Draw(pauseBack, new Rectangle(-(int)moveCamera.camX + 20, -(int)moveCamera.camY + 80, graphics.PreferredBackBufferWidth - 60, graphics.PreferredBackBufferHeight - 160), null, Color.White * 0.8f, 0.0f, new Vector2(0, 0), SpriteEffects.None, 0.1f);
