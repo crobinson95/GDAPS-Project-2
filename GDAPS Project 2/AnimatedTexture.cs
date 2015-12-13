@@ -70,15 +70,28 @@ namespace GDAPS_Project_2
 
         public void DrawFrame(SpriteBatch batch, int level, Vector2 screenPos, Vector2 origin, bool multi, float r)
         {
-            DrawFrame(batch, Frame, level, screenPos, multi, r);
+            DrawFrame(batch, Frame, level, screenPos, origin, multi, r);
         }
 
         //Draws Specific Frame from spritesheet
         public void DrawFrame(SpriteBatch batch, int frame, int level, Vector2 screenPos, bool multi)
         {
             int FrameWidth = spriteSheet.Width / framecount;
-            Rectangle sourcerect = new Rectangle(FrameWidth * frame, level,
+            Rectangle sourcerect = new Rectangle(FrameWidth * frame, 0,
                 FrameWidth, spriteSheet.Height);
+            if (multi)
+            {
+                if(level == 1)
+                {
+                    sourcerect = new Rectangle(FrameWidth * frame, 0,
+                FrameWidth, spriteSheet.Height /2);
+                }
+                else if(level == 2)
+                {
+                    sourcerect = new Rectangle(FrameWidth * frame, spriteSheet.Height / 2,
+                FrameWidth, spriteSheet.Height/2);
+                }
+            }
             batch.Draw(spriteSheet, screenPos, sourcerect, Color.White, 0.0f, new Vector2(0,0), 1.0f, SpriteEffects.None, 0.3f);
         }
         public void DrawFrame(SpriteBatch batch, int frame, int level, Vector2 screenPos, bool multi, float s)
@@ -94,6 +107,19 @@ namespace GDAPS_Project_2
             int FrameWidth = spriteSheet.Width / framecount;
             Rectangle sourcerect = new Rectangle(FrameWidth * frame, level,
                 FrameWidth, spriteSheet.Height);
+            if (multi)
+            {
+                if (level == 1)
+                {
+                    sourcerect = new Rectangle(FrameWidth * frame, 0,
+                FrameWidth, spriteSheet.Height / 2);
+                }
+                else if (level == 2)
+                {
+                    sourcerect = new Rectangle(FrameWidth * frame, spriteSheet.Height / 2,
+                FrameWidth, spriteSheet.Height / 2);
+                }
+            }
             batch.Draw(spriteSheet, screenPos, sourcerect, Color.White, r, origin, 1.0f, SpriteEffects.None, 0.3f);
         }
     }

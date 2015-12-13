@@ -23,9 +23,11 @@ namespace GDAPS_Project_2
 
         AnimatedTexture Move;
 
-        protected Point origin;
+        public Point origin;
 
         protected Player player;
+
+        
 
         public enum Direction
         {
@@ -48,7 +50,7 @@ namespace GDAPS_Project_2
             origin = new Point(x, y);
             isDangerous = true;
             player = p;
-            Move = new AnimatedTexture(Content, @"Images/Sprites/enemy_sri", 10, 1f);
+            Move = new AnimatedTexture(Content, @"ContentFiles/Images/Sprites/enemy_sri", 10, 1f);
             atime = new Stopwatch();
         }
 
@@ -61,6 +63,9 @@ namespace GDAPS_Project_2
             ObjPos += new Vector2(xVelocity, yVelocity);
             if (grav == gravDirection.Down | grav == gravDirection.Up)
             {
+                ObjRectHeight = 70;
+                ObjRectWidth = 50;
+
                 if (ObjPos.X > origin.X + 100)
                 {
                     currentDir = Direction.left;
@@ -72,6 +77,9 @@ namespace GDAPS_Project_2
             }
             if (grav == gravDirection.Left | grav == gravDirection.Right)
             {
+                ObjRectHeight = 50;
+                ObjRectWidth = 70;
+
                 if (ObjPos.Y > origin.Y + 100)
                 {
                     currentDir = Direction.up;
@@ -190,7 +198,7 @@ namespace GDAPS_Project_2
             inAir = true;
             foreach (GameObject obj in objs)
             {
-                if (obj is Enemy | obj is Door)
+                if (obj is Enemy | obj is Door | obj is Panel)
                 {
 
                 }
@@ -350,7 +358,7 @@ namespace GDAPS_Project_2
                         if (atime.ElapsedMilliseconds > 1000) { atime.Reset(); }
 
                         atime.Start();
-                        Move.DrawFrame(s, 2, new Vector2(ObjRectX, ObjRectY), true);
+                        Move.DrawFrame(s, 1, new Vector2(ObjRectX, ObjRectY), true);
                         float elapsed = atime.ElapsedMilliseconds;
                         Move.UpdateFrame(elapsed / 1000);
                     }
@@ -359,7 +367,7 @@ namespace GDAPS_Project_2
                         if (atime.ElapsedMilliseconds > 1000) { atime.Reset(); }
 
                         atime.Start();
-                        Move.DrawFrame(s, 1, new Vector2(ObjRectX, ObjRectY), true);
+                        Move.DrawFrame(s, 2, new Vector2(ObjRectX, ObjRectY), true);
                         float elapsed = atime.ElapsedMilliseconds;
                         Move.UpdateFrame(elapsed / 1000);
                     }
@@ -372,7 +380,7 @@ namespace GDAPS_Project_2
                         if (atime.ElapsedMilliseconds > 1000) { atime.Reset(); }
 
                         atime.Start();
-                        Move.DrawFrame(s, 2, new Vector2(ObjRectX, ObjRectY), new Vector2(ObjRectHeight/2, ObjRectWidth/2), true, MathHelper.Pi);
+                        Move.DrawFrame(s, 2, new Vector2(ObjRectX, ObjRectY), new Vector2(ObjRectHeight, ObjRectWidth * 1.5f), true, MathHelper.Pi);
                         float elapsed = atime.ElapsedMilliseconds;
                         Move.UpdateFrame(elapsed / 1000);
                     }
@@ -381,7 +389,7 @@ namespace GDAPS_Project_2
                         if (atime.ElapsedMilliseconds > 1000) { atime.Reset(); }
 
                         atime.Start();
-                        Move.DrawFrame(s, 2, new Vector2(ObjRectX, ObjRectY), new Vector2(ObjRectHeight / 2, ObjRectWidth / 2), true, MathHelper.Pi);
+                        Move.DrawFrame(s, 1, new Vector2(ObjRectX, ObjRectY), new Vector2(ObjRectHeight, ObjRectWidth * 1.5f), true, MathHelper.Pi);
                         float elapsed = atime.ElapsedMilliseconds;
                         Move.UpdateFrame(elapsed / 1000);
                     }
@@ -394,7 +402,7 @@ namespace GDAPS_Project_2
                         if (atime.ElapsedMilliseconds > 1000) { atime.Reset(); }
 
                         atime.Start();
-                        Move.DrawFrame(s, 2, new Vector2(ObjRectX, ObjRectY), new Vector2(ObjRectHeight / 2, ObjRectWidth / 2), true, MathHelper.Pi /2);
+                        Move.DrawFrame(s, 1, new Vector2(ObjRectX, ObjRectY), new Vector2(ObjRectHeight, ObjRectWidth), true, MathHelper.Pi /2);
                         float elapsed = atime.ElapsedMilliseconds;
                         Move.UpdateFrame(elapsed / 1000);
                     }
@@ -403,7 +411,7 @@ namespace GDAPS_Project_2
                         if (atime.ElapsedMilliseconds > 1000) { atime.Reset(); }
 
                         atime.Start();
-                        Move.DrawFrame(s, 2, new Vector2(ObjRectX, ObjRectY), new Vector2(ObjRectHeight / 2, ObjRectWidth / 2), true, MathHelper.Pi /2);
+                        Move.DrawFrame(s, 2, new Vector2(ObjRectX, ObjRectY), new Vector2(ObjRectHeight, ObjRectWidth), true, MathHelper.Pi /2);
                         float elapsed = atime.ElapsedMilliseconds;
                         Move.UpdateFrame(elapsed / 1000);
                     }
@@ -416,7 +424,7 @@ namespace GDAPS_Project_2
                         if (atime.ElapsedMilliseconds > 1000) { atime.Reset(); }
 
                         atime.Start();
-                        Move.DrawFrame(s, 2, new Vector2(ObjRectX, ObjRectY), new Vector2(ObjRectHeight / 2, ObjRectWidth / 2), true, -MathHelper.Pi/2);
+                        Move.DrawFrame(s, 2, new Vector2(ObjRectX, ObjRectY), new Vector2(ObjRectHeight, 0), true, -MathHelper.Pi/2);
                         float elapsed = atime.ElapsedMilliseconds;
                         Move.UpdateFrame(elapsed / 1000);
                     }
@@ -425,7 +433,7 @@ namespace GDAPS_Project_2
                         if (atime.ElapsedMilliseconds > 1000) { atime.Reset(); }
 
                         atime.Start();
-                        Move.DrawFrame(s, 2, new Vector2(ObjRectX, ObjRectY), new Vector2(ObjRectHeight / 2, ObjRectWidth / 2), true, -MathHelper.Pi/2);
+                        Move.DrawFrame(s, 1, new Vector2(ObjRectX, ObjRectY), new Vector2(ObjRectHeight, 0), true, -MathHelper.Pi/2);
                         float elapsed = atime.ElapsedMilliseconds;
                         Move.UpdateFrame(elapsed / 1000);
                     }

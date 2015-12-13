@@ -97,6 +97,10 @@ namespace GDAPS_Project_2
                                         enemies.Add(new EnemyF(content, p.X, p.Y, 50, 70, player));
                                         break;
 
+                                    case "enemyw":
+                                        enemies.Add(new EnemyW(content, p.X, p.Y, 45, 40, player));
+                                        break;
+
                                 }
                             }
                         }

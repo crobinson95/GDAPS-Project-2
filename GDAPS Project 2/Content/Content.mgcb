@@ -515,3 +515,25 @@
 /processorParam:TextureFormat=Color
 /build:ContentFiles/Images/Sprites/imgEnemy.jpg
 
+#begin ContentFiles/Images/Sprites/enemy_sri.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:ContentFiles/Images/Sprites/enemy_sri.png
+
+#begin ContentFiles/Images/Sprites/enemyw_sri.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:ContentFiles/Images/Sprites/enemyw_sri.png
+

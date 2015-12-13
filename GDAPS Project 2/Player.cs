@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Audio;
+using System.Diagnostics;
 using System.IO;
 
 namespace GDAPS_Project_2
@@ -25,10 +26,9 @@ namespace GDAPS_Project_2
 
         public World world;
 
-        //public double energy = 280;
-        //public Stopwatch coolDown = new Stopwatch();
+        public double energy = 280;
+        public Stopwatch coolDown = new Stopwatch();
 
-        int energy;
         //public HitBox topHit;
         //public HitBox bottHit;
         //public HitBox rightHit;
@@ -74,8 +74,7 @@ namespace GDAPS_Project_2
         }
 
         public void Movement(KeyboardState k, KeyboardState p, GameTime g, SoundLoop fallingLoop)
-        {
-            ////Energy Nonsense
+        {            ////Energy Nonsense
             //if (coolDown.ElapsedMilliseconds >= 5000) { coolDown.Reset(); coolDown.Stop(); }
             //if (grav != gravDirection.Down && !coolDown.IsRunning) { energy -= (60 * g.ElapsedGameTime.TotalSeconds); }
             //if (grav == gravDirection.Down && energy < 280 && !coolDown.IsRunning)
@@ -92,6 +91,7 @@ namespace GDAPS_Project_2
             //    coolDown.Start();
             //}
             ////Energy nonsense
+
 
             ObjPos += new Vector2(xVelocity, yVelocity);
             switch (grav)
@@ -440,7 +440,7 @@ namespace GDAPS_Project_2
                 else
                 {
                     PlayAnimation("Jump_Down_Left");
-                }
+            }
             }
             if (k.IsKeyDown(Keys.Down) && grav != gravDirection.Down)
             {
@@ -568,7 +568,8 @@ namespace GDAPS_Project_2
                         Door temp = (Door)obj;
                         if (Game1.SingleKeyPress(Keys.E, k, p) && temp.destWorld == null)
                         {
-                            w.currentLevel = temp.destination + ".txt";
+                            w.currentLevel = temp.destination;
+
                             ObjPos.X = w.levels[w.currentLevel].playerSpawn.X;
                             ObjPos.Y = w.levels[w.currentLevel].playerSpawn.Y;
                             xVelocity = 0.0f;
@@ -581,9 +582,8 @@ namespace GDAPS_Project_2
                         else if (Game1.SingleKeyPress(Keys.E, k, p))
                         {
                             world = new World(temp.destWorld, s, this, content);
-                            world.LoadWorld();
-                            //w.changeWorldBool = true;
-                            world.currentLevel = temp.destination + ".txt";
+                            world.changeWorldBool = true;
+                            world.currentLevel = temp.destination;
                             ObjPos.X = world.levels[world.currentLevel].playerSpawn.X;
                             ObjPos.Y = world.levels[world.currentLevel].playerSpawn.Y;
                             xVelocity = 0.0f;
@@ -595,9 +595,12 @@ namespace GDAPS_Project_2
                         }
                     }
                     // Background Case
-                    else  if (obj is Panel)
+                    else if (obj is Panel)
                     {
                     }
+
+                    else if (obj is Panel) { }
+
                     // Left middle.
                     else if (obj.ObjRect.Contains(ObjRect.Left, ObjRect.Center.Y))
                     {

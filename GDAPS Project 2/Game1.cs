@@ -182,10 +182,16 @@ namespace GDAPS_Project_2
 
             if (g == GameState.Dead)
             {
-                if (Keyboard.GetState().GetPressedKeys().Length > 0)
+                if (SingleKeyPress(Keys.R, kbState, previousKbState))
                 {
                     player.ObjPos.X = world.levels[world.currentLevel].playerSpawn.X;
                     player.ObjPos.Y = world.levels[world.currentLevel].playerSpawn.Y;
+                    foreach (Enemy e in world.levels[world.currentLevel].enemies)
+                    {
+                        e.ObjRectX = e.origin.X;
+                        e.ObjRectY = e.origin.Y;
+                        
+                    }
                     g = GameState.Level;
                 }
             }
@@ -210,6 +216,11 @@ namespace GDAPS_Project_2
                 {
                     player.ObjPos.X = world.levels[world.currentLevel].playerSpawn.X;
                     player.ObjPos.Y = world.levels[world.currentLevel].playerSpawn.Y;
+                    foreach(Enemy e in world.levels[world.currentLevel].enemies)
+                    {
+                        e.ObjRectX = e.origin.X;
+                        e.ObjRectY = e.origin.Y;
+                    }
                 }
                 if (SingleKeyPress(Keys.F, kbState, previousKbState))
                 {
@@ -222,8 +233,8 @@ namespace GDAPS_Project_2
             }
             if (g == GameState.Level)
             {
-                player.Movement(kbState, previousKbState, gameTime);
-                player.Collisions(kbState, previousKbState, world, s, Content);
+                player.Movement(kbState, previousKbState, gameTime, falling);
+                player.Collisions(kbState, previousKbState, world, s, Content, GameVariables.landingInstance);
 
                 foreach (Enemy enemy in world.levels[world.currentLevel].enemies)
                 {
