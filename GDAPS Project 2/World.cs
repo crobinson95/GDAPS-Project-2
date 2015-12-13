@@ -24,7 +24,7 @@ namespace GDAPS_Project_2
             string[] tempLevelList = Directory.GetFiles(world);
             foreach ( string current in tempLevelList)
             {
-                string newCurrent = current.Replace(world+ "\\", "");
+                string newCurrent = current.Replace(world + "\\", "");
                 levels.Add(newCurrent, new Level(current, s, p, content));
             }            
             //levelFiles.Add = Directory.GetFiles(world); // need to start organizing worlds by directory

@@ -41,7 +41,7 @@ namespace GDAPS_Project_2
                     try
                     {
                         splitLine = line.Split(delim);
-                        identifier = splitLine[0];
+                        identifier = splitLine[0].ToLower();
                         if (identifier.Equals("hud"))
                         {
                             hudInfo = splitLine;
@@ -51,15 +51,15 @@ namespace GDAPS_Project_2
                             p = new Point(int.Parse(splitLine[1]), int.Parse(splitLine[2]));
                             if (identifier.Contains("block"))
                             {
-                                objects.Add(new Block(p.X, p.Y, 40, 40, identifier.ToLower()));
+                                objects.Add(new Block(p.X, p.Y, 40, 40, identifier));
                             }
                             else if (identifier.Contains("panel"))
                             {
-                                objects.Add(new Panel(p.X, p.Y, 80, 80, identifier.ToLower()));
+                                objects.Add(new Panel(p.X, p.Y, 80, 80, identifier));
                             }
                             else if (identifier.Contains("hazard"))
                             {
-                                objects.Add(new Hazard(p.X, p.Y, 40, 40, identifier.ToLower()));
+                                objects.Add(new Hazard(p.X, p.Y, 40, 40, identifier));
                             }
                             else
                             {
@@ -68,21 +68,12 @@ namespace GDAPS_Project_2
                                     case "spawn":
                                         playerSpawn = p;
                                         break;
-                                    case "floor":
-                                        int w = int.Parse(splitLine[3]);
-                                        objects.Add(new Floor(p.X, p.Y, w, 60));
-                                        break;
-                                    case "wall":
-                                        int h = int.Parse(splitLine[3]);
-                                        objects.Add(new Wall(p.X, p.Y, 60, h));
-                                        break;
                                     case "door":
                                         string d = splitLine[3];
                                         if (splitLine.Length == 5)
                                         {
                                             string world = splitLine[4];
                                             objects.Add(new Door(content, p.X, p.Y, 43, 70, d, @world));
-                                            // change door code to include world to go to
                                         }
                                         else
                                         {
@@ -100,7 +91,6 @@ namespace GDAPS_Project_2
                                     case "enemyw":
                                         enemies.Add(new EnemyW(content, p.X, p.Y, 45, 40, player));
                                         break;
-
                                 }
                             }
                         }

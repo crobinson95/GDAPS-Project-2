@@ -129,9 +129,9 @@ namespace GDAPS_Project_2
             panelDark = content.Load<Texture2D>(@"ContentFiles/Images/Sprites/Background/panelDark");
 
             hazardWiresBottom = content.Load<Texture2D>(@"ContentFiles/Images/Sprites/Hazards/hazardWiresBottom");
-            //hazardWiresLeft = content.Load<Texture2D>(@"ContentFiles/Images/Sprites/Hazards/hazardWiresLeft");
-            //hazardWiresRight = content.Load<Texture2D>(@"ContentFiles/Images/Sprites/Hazards/hazardWiresRight");
-            //hazardWiresTop = content.Load<Texture2D>(@"ContentFiles/Images/Sprites/Hazards/hazardWiresTop");
+            hazardWiresLeft = content.Load<Texture2D>(@"ContentFiles/Images/Sprites/Hazards/hazardWiresLeft");
+            hazardWiresRight = content.Load<Texture2D>(@"ContentFiles/Images/Sprites/Hazards/hazardWiresRight");
+            hazardWiresTop = content.Load<Texture2D>(@"ContentFiles/Images/Sprites/Hazards/hazardWiresTop");
 
             finalLayer1 = content.Load<SoundEffect>(@"ContentFiles/Sound/TestLoops/FinalLayer1");
             finalLayer2 = content.Load<SoundEffect>(@"ContentFiles/Sound/TestLoops/FinalLayer2");

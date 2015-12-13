@@ -55,10 +55,6 @@ namespace GDAPS_Project_2
             {
                 s.Draw(objImage, objRect, null, Color.White, 0.0f, new Vector2(0, 0), SpriteEffects.None, layerDepth: 0.4f);
             }
-            else if (itemType == "hazard")
-            {
-                s.Draw(objImage, objRect, null, Color.White, 0, new Vector2(0,0), SpriteEffects.None, layerDepth: 0.3f);
-            }
             else 
             {
                 s.Draw(objImage, objRect, null, Color.White, 0, new Vector2(0,0), SpriteEffects.None, layerDepth: 0.3f);

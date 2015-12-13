@@ -45,22 +45,22 @@ namespace GDAPS_Project_2
             ObjPos += new Vector2(xVelocity, yVelocity);
             if (grav == gravDirection.Down | grav == gravDirection.Up)
             {
-                if (player.ObjPos.X < ObjPos.X)
+                if (player.ObjPos.X < ObjPos.X - 50)
                 {
                     currentDir = Direction.left;
                 }
-                if (player.ObjPos.X > ObjPos.X)
+                if (player.ObjPos.X > ObjPos.X + 50)
                 {
                     currentDir = Direction.right;
                 }
             }
             if (grav == gravDirection.Left | grav == gravDirection.Right)
             {
-                if (player.ObjPos.Y < ObjPos.Y)
+                if (player.ObjPos.Y < ObjPos.Y - 50)
                 {
                     currentDir = Direction.up;
                 }
-                if (player.ObjPos.Y > ObjPos.Y)
+                if (player.ObjPos.Y > ObjPos.Y + 50)
                 {
                     currentDir = Direction.down;
                 }
@@ -203,7 +203,7 @@ namespace GDAPS_Project_2
             inAir = true;
             foreach (GameObject obj in objs)
             {
-                if (obj is Enemy | obj is Door)
+                if (obj is Enemy | obj is Door | obj is Panel)
                 {
 
                 }
@@ -265,7 +265,7 @@ namespace GDAPS_Project_2
                     if (yVelocity > 0) { yVelocity = 0; }
                 }
                 // Top left corner.
-                else if (obj.ObjRect.Contains(ObjRect.X, ObjRect.Y))
+                else if (obj.ObjRect.Contains(ObjRect.X + 7, ObjRect.Y + 7))
                 {
                     if (grav == gravDirection.Up)
                     {
@@ -286,7 +286,7 @@ namespace GDAPS_Project_2
                     }
                 }
                 // Top right corner.
-                else if (obj.ObjRect.Contains(ObjRect.Right, ObjRect.Y))
+                else if (obj.ObjRect.Contains(ObjRect.Right + 7, ObjRect.Y + 7))
                 {
                     if (grav == gravDirection.Up)
                     {
@@ -307,7 +307,7 @@ namespace GDAPS_Project_2
                     }
                 }
                 // Bottom left corner.
-                else if (obj.ObjRect.Contains(ObjRect.Left, ObjRect.Bottom))
+                else if (obj.ObjRect.Contains(ObjRect.Left + 7, ObjRect.Bottom + 7))
                 {
                     if (grav == gravDirection.Down)
                     {
@@ -328,7 +328,7 @@ namespace GDAPS_Project_2
                     }
                 }
                 // Bottom right corner.
-                else if (obj.ObjRect.Contains(ObjRect.Right, ObjRect.Bottom))
+                else if (obj.ObjRect.Contains(ObjRect.Right + 7, ObjRect.Bottom + 7))
                 {
                     if (grav == gravDirection.Down)
                     {

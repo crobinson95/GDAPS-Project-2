@@ -184,14 +184,13 @@ namespace GDAPS_Project_2
             {
                 if (SingleKeyPress(Keys.R, kbState, previousKbState))
                 {
-                    player.ObjPos.X = world.levels[world.currentLevel].playerSpawn.X;
-                    player.ObjPos.Y = world.levels[world.currentLevel].playerSpawn.Y;
                     foreach (Enemy e in world.levels[world.currentLevel].enemies)
                     {
-                        e.ObjRectX = e.origin.X;
-                        e.ObjRectY = e.origin.Y;
-                        
+                        e.ObjPos.X = e.origin.X;
+                        e.ObjPos.Y = e.origin.Y;
                     }
+                    player.ObjPos.X = world.levels[world.currentLevel].playerSpawn.X;
+                    player.ObjPos.Y = world.levels[world.currentLevel].playerSpawn.Y;
                     g = GameState.Level;
                 }
             }
@@ -214,13 +213,13 @@ namespace GDAPS_Project_2
             {
                 if (SingleKeyPress(Keys.R, kbState, previousKbState))
                 {
+                    foreach (Enemy e in world.levels[world.currentLevel].enemies)
+                    {
+                        e.ObjPos.X = e.origin.X;
+                        e.ObjPos.Y = e.origin.Y;
+                    }
                     player.ObjPos.X = world.levels[world.currentLevel].playerSpawn.X;
                     player.ObjPos.Y = world.levels[world.currentLevel].playerSpawn.Y;
-                    foreach(Enemy e in world.levels[world.currentLevel].enemies)
-                    {
-                        e.ObjRectX = e.origin.X;
-                        e.ObjRectY = e.origin.Y;
-                    }
                 }
                 if (SingleKeyPress(Keys.F, kbState, previousKbState))
                 {
@@ -248,6 +247,7 @@ namespace GDAPS_Project_2
                 if (player.world != null && player.world != world)
                 {
                     world = player.world;
+                    world.LoadWorld();
                 }
 
                 moveCamera.viewMatrix = moveCamera.GetTransform(player, width, height);
