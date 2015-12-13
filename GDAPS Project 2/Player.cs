@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Audio;
+using System.Diagnostics;
 using System.IO;
 
 namespace GDAPS_Project_2
@@ -25,10 +26,9 @@ namespace GDAPS_Project_2
 
         public World world;
 
-        //public double energy = 280;
-        //public Stopwatch coolDown = new Stopwatch();
+        public double energy = 280;
+        public Stopwatch coolDown = new Stopwatch();
 
-        int energy;
         //public HitBox topHit;
         //public HitBox bottHit;
         //public HitBox rightHit;
@@ -63,11 +63,18 @@ namespace GDAPS_Project_2
             AddAnimation(1, 22, 1340, 0, "Left_Idle_Down", 255, 222, 124, new Vector2(0, 0));
             AddAnimation(1, 22, 1596, 0, "Right_Idle_Up", 255, 222, 128, new Vector2(0, 0));
             AddAnimation(1, 22, 1850, 0, "Right_Idle_Down", 255, 222, 120, new Vector2(0, 0));
+            AddAnimation(1, 64, 2024, 0, "Jump_Down_Right", 255, 222, 124, new Vector2(0, 0));
+            AddAnimation(1, 284, 2024, 0, "Jump_Down_Left", 255, 222, 124, new Vector2(0, 0));
+            AddAnimation(1, 64, 2308, 0, "Jump_Up_Left", 255, 222, 124, new Vector2(0, 0));
+            AddAnimation(1, 284, 2308, 0, "Jump_Up_Right", 255, 222, 124, new Vector2(0, 0));
+            AddAnimation(1, 37, 2588, 0, "Jump_Right_Down", 255, 222, 128, new Vector2(0, 0));
+            AddAnimation(1, 283, 2588, 0, "Jump_Right_Right", 255, 222, 128, new Vector2(0, 0));
+            AddAnimation(1, 24, 2828, 0, "Jump_Left_Down", 255, 222, 120, new Vector2(0, 0));
+            AddAnimation(1, 268, 2828, 0, "Jump_Left_Up", 255, 222, 120, new Vector2(0, 0));
         }
 
         public void Movement(KeyboardState k, KeyboardState p, GameTime g, SoundLoop fallingLoop)
-        {
-            ////Energy Nonsense
+        {            ////Energy Nonsense
             //if (coolDown.ElapsedMilliseconds >= 5000) { coolDown.Reset(); coolDown.Stop(); }
             //if (grav != gravDirection.Down && !coolDown.IsRunning) { energy -= (60 * g.ElapsedGameTime.TotalSeconds); }
             //if (grav == gravDirection.Down && energy < 280 && !coolDown.IsRunning)
@@ -84,6 +91,7 @@ namespace GDAPS_Project_2
             //    coolDown.Start();
             //}
             ////Energy nonsense
+
 
             ObjPos += new Vector2(xVelocity, yVelocity);
             switch (grav)
@@ -161,11 +169,11 @@ namespace GDAPS_Project_2
                             inAir = true;
                             if (currentDir == myDirection.right)
                             {
-                                PlayAnimation("Down_Idle_Right");
+                                PlayAnimation("Jump_Down_Right");
                             }
                             else
                             {
-                                PlayAnimation("Down_Idle_Left");
+                                PlayAnimation("Jump_Down_Left");
                             }
                         }
                     }
@@ -243,11 +251,11 @@ namespace GDAPS_Project_2
                             inAir = true;
                             if (currentDir == myDirection.right)
                             {
-                                PlayAnimation("Up_Idle_Right");
+                                PlayAnimation("Jump_Up_Right");
                             }
                             else
                             {
-                                PlayAnimation("Up_Idle_Left");
+                                PlayAnimation("Jump_Up_Left");
                             }
                         }
                     }
@@ -324,11 +332,11 @@ namespace GDAPS_Project_2
                             inAir = true;
                             if (currentDir == myDirection.up)
                             {
-                                PlayAnimation("Right_Idle_Up");
+                                PlayAnimation("Jump_Right_Up");
                             }
                             else
                             {
-                                PlayAnimation("Right_Idle_Down");
+                                PlayAnimation("Jump_Right_Down");
                             }
                         }
                     }
@@ -427,12 +435,12 @@ namespace GDAPS_Project_2
                 }
                 if (currentDir == myDirection.right)
                 {
-                    PlayAnimation("Up_Idle_Right");
+                    PlayAnimation("Jump_Left_Right");
                 }
                 else
                 {
-                    PlayAnimation("Up_Idle_Left");
-                }
+                    PlayAnimation("Jump_Down_Left");
+            }
             }
             if (k.IsKeyDown(Keys.Down) && grav != gravDirection.Down)
             {
@@ -560,7 +568,8 @@ namespace GDAPS_Project_2
                         Door temp = (Door)obj;
                         if (Game1.SingleKeyPress(Keys.E, k, p) && temp.destWorld == null)
                         {
-                            w.currentLevel = temp.destination + ".txt";
+                            w.currentLevel = temp.destination;
+
                             ObjPos.X = w.levels[w.currentLevel].playerSpawn.X;
                             ObjPos.Y = w.levels[w.currentLevel].playerSpawn.Y;
                             xVelocity = 0.0f;
@@ -573,8 +582,8 @@ namespace GDAPS_Project_2
                         else if (Game1.SingleKeyPress(Keys.E, k, p))
                         {
                             world = new World(temp.destWorld, s, this, content);
-                            world.LoadWorld();
-                            world.currentLevel = temp.destination + ".txt";
+                            world.changeWorldBool = true;
+                            world.currentLevel = temp.destination;
                             ObjPos.X = world.levels[world.currentLevel].playerSpawn.X;
                             ObjPos.Y = world.levels[world.currentLevel].playerSpawn.Y;
                             xVelocity = 0.0f;
@@ -586,9 +595,12 @@ namespace GDAPS_Project_2
                         }
                     }
                     // Background Case
-                    else  if (obj is Panel)
+                    else if (obj is Panel)
                     {
                     }
+
+                    else if (obj is Panel) { }
+
                     // Left middle.
                     else if (obj.ObjRect.Contains(ObjRect.Left, ObjRect.Center.Y))
                     {

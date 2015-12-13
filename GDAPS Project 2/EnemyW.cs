@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -14,6 +15,8 @@ namespace GDAPS_Project_2
     {
         Rectangle vision;
         bool Attacking;
+        AnimatedTexture Move;
+        Stopwatch atime;
 
         public EnemyW(ContentManager Content, int x, int y, int w, int h, Player p)
             : base(Content, x, y, w, h, p)
@@ -26,7 +29,10 @@ namespace GDAPS_Project_2
             inAir = true;
             alive = true;
             isDangerous = true;
+            origin = new Point(x, y);
+            Move = new AnimatedTexture(Content, @"ContentFiles/Images/Sprites/enemyw_sri", 4, .1f);
             vision = new Rectangle(0, 0, 100, 100);
+            atime = new Stopwatch();
             player = p;
 
         }
@@ -34,7 +40,7 @@ namespace GDAPS_Project_2
 
         public override void Movement(GameTime g)
         {
-
+            VisionUpdate();
             grav = player.grav;
             ObjPos += new Vector2(xVelocity, yVelocity);
             if (grav == gravDirection.Down | grav == gravDirection.Up)
@@ -71,7 +77,19 @@ namespace GDAPS_Project_2
                     //    else if (xVelocity < -fric) { xVelocity += fric; }
                     //    else { xVelocity = 0; }
                     //}
-
+                    if(ObjRect.Y > origin.Y)
+                    {
+                        yVelocity -= (float)gravity;
+                    }
+                    if (ObjRect.Y < origin.Y)
+                    {
+                        yVelocity += (float)gravity;
+                    }
+                    if (ObjRect.Y == origin.Y)
+                    {
+                        Attacking = false;
+                        yVelocity = 0;
+                    }
                     if (currentDir == Direction.left)    //Move left
                     {
 
@@ -90,12 +108,20 @@ namespace GDAPS_Project_2
                 case gravDirection.Up:
                     yVelocity -= (float)gravity;
 
-                    if (!inAir)
+                    //if (!inAir)
+                    //{
+                    //    yVelocity += (float)gravity;
+                    //    if (xVelocity > fric) { xVelocity -= fric; }
+                    //    else if (xVelocity < -fric) { xVelocity += fric; }
+                    //    else { xVelocity = 0; }
+                    //}
+                    if (ObjRect.Y < origin.Y)
                     {
-                        yVelocity += (float)gravity;
-                        if (xVelocity > fric) { xVelocity -= fric; }
-                        else if (xVelocity < -fric) { xVelocity += fric; }
-                        else { xVelocity = 0; }
+                        yVelocity -= (float)gravity;
+                    }
+                    if (ObjRect.Y == origin.Y)
+                    {
+                        yVelocity = 0;
                     }
                     if (currentDir == Direction.left)
                     {
@@ -207,7 +233,7 @@ namespace GDAPS_Project_2
             inAir = true;
             foreach (GameObject obj in objs)
             {
-                if (obj is Enemy | obj is Door)
+                if (obj is Enemy | obj is Door | obj is Panel)
                 {
 
                 }
@@ -353,16 +379,14 @@ namespace GDAPS_Project_2
                 }
 
                 //Vision Colisions
-                if (vision.Intersects(obj.ObjRect))
+                if (vision.Intersects(player.ObjRect))
                 {
-                    if (obj is Player)
-                    {
                         if (Attacking == false)
                         {
                             Attacking = true;
-                            yVelocity = -(obj.ObjRect.Bottom - ObjRect.Bottom);
+                            yVelocity += (float)GameVariables.jump;
                         }
-                    }
+                    
                 }
 
 
@@ -374,7 +398,60 @@ namespace GDAPS_Project_2
 
         public override void spriteDraw(SpriteBatch s)
         {
-            base.spriteDraw(s);
+            if (alive)
+            {
+                if (grav == gravDirection.Down)
+                {
+                    if (currentDir == Direction.left | currentDir == Direction.right)
+                    {
+                        if (atime.ElapsedMilliseconds > 1000) { atime.Reset(); }
+
+                        atime.Start();
+                        Move.DrawFrame(s, 1, new Vector2(ObjRectX, ObjRectY), false);
+                        float elapsed = atime.ElapsedMilliseconds;
+                        Move.UpdateFrame(elapsed / 1000);
+                    }
+                }
+
+                if (grav == gravDirection.Up)
+                {
+                    if (currentDir == Direction.left | currentDir == Direction.right)
+                    {
+                        if (atime.ElapsedMilliseconds > 1000) { atime.Reset(); }
+
+                        atime.Start();
+                        Move.DrawFrame(s, 1, new Vector2(ObjRectX, ObjRectY), new Vector2(ObjRectHeight, ObjRectWidth * 1.5f), false, MathHelper.Pi);
+                        float elapsed = atime.ElapsedMilliseconds;
+                        Move.UpdateFrame(elapsed / 1000);
+                    }
+                }
+
+                if (grav == gravDirection.Left)
+                {
+                    if (currentDir == Direction.up | currentDir == Direction.down)
+                    {
+                        if (atime.ElapsedMilliseconds > 1000) { atime.Reset(); }
+
+                        atime.Start();
+                        Move.DrawFrame(s, 1, new Vector2(ObjRectX, ObjRectY), new Vector2(ObjRectHeight, ObjRectWidth), false, MathHelper.Pi / 2);
+                        float elapsed = atime.ElapsedMilliseconds;
+                        Move.UpdateFrame(elapsed / 1000);
+                    }
+                }
+
+                if (grav == gravDirection.Right)
+                {
+                    if (currentDir == Direction.up | currentDir == Direction.down)
+                    {
+                        if (atime.ElapsedMilliseconds > 1000) { atime.Reset(); }
+
+                        atime.Start();
+                        Move.DrawFrame(s, 1, new Vector2(ObjRectX, ObjRectY), new Vector2(ObjRectHeight, 0), false, -MathHelper.Pi / 2);
+                        float elapsed = atime.ElapsedMilliseconds;
+                        Move.UpdateFrame(elapsed / 1000);
+                    }
+                }
+            }
         }
     }
 }
