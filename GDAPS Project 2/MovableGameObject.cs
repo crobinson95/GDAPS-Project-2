@@ -12,7 +12,7 @@ namespace GDAPS_Project_2
     {
         protected Texture2D sTexture;
         private Rectangle[] playerRects;
-        private int frameIndex = 0;
+        public int frameIndex = 0;
         private double timeElapsed;
         private double timeToUpdate;
         public int FramesPerSec { set { timeToUpdate = 1f / value; } }
@@ -34,21 +34,21 @@ namespace GDAPS_Project_2
 
         protected bool inAir;
 
-        protected bool alive;
+        public bool alive;
 
         protected double gravity;
 
         public Vector2 ObjPos;
 
         float xvelocity;
-        protected float xVelocity
+        public float xVelocity
         {
             get { return xvelocity; }
             set { xvelocity = value; }
         }
 
         float yvelocity;
-        protected float yVelocity
+        public float yVelocity
         {
             get { return yvelocity; }
             set { yvelocity = value; }
@@ -124,8 +124,6 @@ namespace GDAPS_Project_2
                     //AnimationDone(currentAnimation);
                     frameIndex = 0;
                 }
-
-
             }
         }
 

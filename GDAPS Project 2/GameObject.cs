@@ -10,7 +10,7 @@ namespace GDAPS_Project_2
 {
    public abstract class GameObject
     {
-        public bool isDangerous;
+        public bool isDangerous = false;
 
         public string itemType;
 

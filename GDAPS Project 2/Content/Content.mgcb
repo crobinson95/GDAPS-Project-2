@@ -403,30 +403,6 @@
 /processorParam:Quality=Best
 /build:ContentFiles/Sound/TestLoops/FinalLayer3.mp3
 
-#begin ContentFiles/Sound/TestLoops/FinalLoop1.mp3
-/importer:Mp3Importer
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:ContentFiles/Sound/TestLoops/FinalLoop1.mp3
-
-#begin ContentFiles/Sound/TestLoops/FinalLoop2.mp3
-/importer:Mp3Importer
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:ContentFiles/Sound/TestLoops/FinalLoop2.mp3
-
-#begin ContentFiles/Sound/TestLoops/FinalLoop3.mp3
-/importer:Mp3Importer
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:ContentFiles/Sound/TestLoops/FinalLoop3.mp3
-
-#begin ContentFiles/Sound/TestLoops/FinalLoop4.mp3
-/importer:Mp3Importer
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:ContentFiles/Sound/TestLoops/FinalLoop4.mp3
-
 #begin ContentFiles/Images/Sprites/Block/blockWiresBottom.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -591,4 +567,70 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:TextureFormat=Color
 /build:ContentFiles/Images/Sprites/grey.jpg
+
+#begin ContentFiles/Sound/Foley/Footstep1.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:ContentFiles/Sound/Foley/Footstep1.mp3
+
+#begin ContentFiles/Sound/Foley/Footstep2.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:ContentFiles/Sound/Foley/Footstep2.mp3
+
+#begin ContentFiles/Sound/Foley/Footstep3.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:ContentFiles/Sound/Foley/Footstep3.mp3
+
+#begin ContentFiles/Sound/Foley/Footstep4.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:ContentFiles/Sound/Foley/Footstep4.mp3
+
+#begin ContentFiles/Sound/Foley/Footstep5.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:ContentFiles/Sound/Foley/Footstep5.mp3
+
+#begin ContentFiles/Sound/Foley/Footstep6.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:ContentFiles/Sound/Foley/Footstep6.mp3
+
+#begin ContentFiles/Sound/Foley/Footstep7.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:ContentFiles/Sound/Foley/Footstep7.mp3
+
+#begin ContentFiles/Sound/Foley/Robot.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:ContentFiles/Sound/Foley/Robot.wav
+
+#begin ContentFiles/Sound/FX/DoorClose.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:ContentFiles/Sound/FX/DoorClose.mp3
+
+#begin ContentFiles/Sound/FX/DoorOpen.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:ContentFiles/Sound/FX/DoorOpen.mp3
+
+#begin ContentFiles/Sound/FX/WireFX.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:ContentFiles/Sound/FX/WireFX.wav
 

@@ -71,7 +71,7 @@ namespace GDAPS_Project_2
                 tempTimer.Start();
                 delay = delayOne;
             }
-            if (tempTimer.ElapsedMilliseconds >= delay)
+            else if (tempTimer.ElapsedMilliseconds >= delay - 10)
             {
                 if (tracker)
                 {

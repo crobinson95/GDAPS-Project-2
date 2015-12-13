@@ -2,8 +2,10 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System;
 
 namespace GDAPS_Project_2
 {
@@ -80,6 +82,8 @@ namespace GDAPS_Project_2
             // m = Menus.Start;
             paused = false;
 
+            SoundEffect.DistanceScale = 100f;
+
             world = new World(GameVariables.menuWorld, s, player, Content); // Menu "world"
             
             // x y width height are temporary filler values
@@ -98,6 +102,8 @@ namespace GDAPS_Project_2
 
             base.Initialize();
         }
+
+        
 
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
@@ -129,12 +135,9 @@ namespace GDAPS_Project_2
             GameVariables.l1.Volume = 0.0f * GameVariables.gameVolume;
             GameVariables.l2.Volume = 0.0f * GameVariables.gameVolume;
             GameVariables.l3.Volume = 0.0f * GameVariables.gameVolume;
-            GameVariables.gFX1.Volume = 0.0f * GameVariables.gameVolume;
-            GameVariables.gFX2.Volume = 0.0f * GameVariables.gameVolume;
-            GameVariables.gFX3.Volume = 0.0f * GameVariables.gameVolume;
             //fAcceleration = fallingAcceleration.CreateInstance();
             //fLoop = fallingLoop.CreateInstance();
-            falling = new SoundLoop(GameVariables.fallingLoop.CreateInstance(), 1035, GameVariables.fallingLoop.CreateInstance(), 1035, GameVariables.fallingAcceleration.CreateInstance(), 1355, 0.5f * GameVariables.gameVolume);
+            falling = new SoundLoop(GameVariables.fallingLoop.CreateInstance(), 700, GameVariables.fallingLoop.CreateInstance(), 700, GameVariables.fallingAcceleration.CreateInstance(), 850, 0.6f * GameVariables.gameVolume);
             gameHUD.backt = Content.Load<Texture2D>(@"ContentFiles/Images/Sprites/back");
             gameHUD.undert = Content.Load<Texture2D>(@"ContentFiles/Images/Sprites/grey");
             gameHUD.energyt = Content.Load<Texture2D>(@"ContentFiles/Images/Sprites/energy");
@@ -154,6 +157,33 @@ namespace GDAPS_Project_2
         public static bool SingleKeyPress(Keys k, KeyboardState current, KeyboardState previous)
         {
             return (current.IsKeyDown(k) && previous.IsKeyUp(k));
+        }
+
+        public static void PlayRandomSound(List<SoundEffectInstance> soundList)
+        {
+            Random random = new Random();
+            soundList[random.Next(soundList.Count)].Play();
+        }
+
+        private void ResetLevel()
+        {
+            foreach (Enemy e in world.levels[world.currentLevel].enemies)
+            {
+                e.ObjPos.X = e.origin.X;
+                e.ObjPos.Y = e.origin.Y;
+                e.grav = MovableGameObject.gravDirection.Down;
+                e.xVelocity = 0;
+                e.yVelocity = 0;
+                e.alive = true;
+            }
+            player.ObjPos.X = world.levels[world.currentLevel].playerSpawn.X;
+            player.ObjPos.Y = world.levels[world.currentLevel].playerSpawn.Y;
+            player.grav = MovableGameObject.gravDirection.Down;
+            player.xVelocity = 0;
+            player.yVelocity = 0;
+            player.PlayAnimation("Down_Idle_Right");
+            player.ObjRectWidth = 30;
+            player.ObjRectHeight = 54;
         }
 
         /// <summary>
@@ -188,13 +218,7 @@ namespace GDAPS_Project_2
             {
                 if (SingleKeyPress(Keys.R, kbState, previousKbState))
                 {
-                    foreach (Enemy e in world.levels[world.currentLevel].enemies)
-                    {
-                        e.ObjPos.X = e.origin.X;
-                        e.ObjPos.Y = e.origin.Y;
-                    }
-                    player.ObjPos.X = world.levels[world.currentLevel].playerSpawn.X;
-                    player.ObjPos.Y = world.levels[world.currentLevel].playerSpawn.Y;
+                    ResetLevel();
                     g = GameState.Level;
                 }
             }
@@ -217,13 +241,7 @@ namespace GDAPS_Project_2
             {
                 if (SingleKeyPress(Keys.R, kbState, previousKbState))
                 {
-                    foreach (Enemy e in world.levels[world.currentLevel].enemies)
-                    {
-                        e.ObjPos.X = e.origin.X;
-                        e.ObjPos.Y = e.origin.Y;
-                    }
-                    player.ObjPos.X = world.levels[world.currentLevel].playerSpawn.X;
-                    player.ObjPos.Y = world.levels[world.currentLevel].playerSpawn.Y;
+                    ResetLevel();
                 }
                 if (SingleKeyPress(Keys.F, kbState, previousKbState))
                 {
@@ -240,9 +258,14 @@ namespace GDAPS_Project_2
                 player.Collisions(kbState, previousKbState, world, s, Content, GameVariables.landingInstance);
 
                 foreach (Enemy enemy in world.levels[world.currentLevel].enemies)
-                {
-                    enemy.Movement(gameTime);
-                    enemy.Collisions(world.levels[world.currentLevel].objects, kbState, previousKbState, world);
+                {            
+                    if (enemy.alive)
+                    {                         
+                        enemy.Movement(gameTime);
+                        enemy.Collisions(world.levels[world.currentLevel].objects, kbState, previousKbState, world);
+                        enemy.enemySound.Apply3D(player.listener, enemy.enemyEmitter);
+                        enemy.enemySound.Play();
+                    }
                 }
                 if (player.IsDead())
                 {

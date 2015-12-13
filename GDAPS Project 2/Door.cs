@@ -40,7 +40,7 @@ namespace GDAPS_Project_2
             frameTime = new Stopwatch();
             frameTime.Start();
             sprite = new AnimatedTexture(content, @"ContentFiles/Images/Sprites/DoorSliding", 7, 1);
-            frameSprite = new AnimatedTexture(content, @"ContentFiles/Images/Sprites/DoorFrame", 11, 1);
+            frameSprite = new AnimatedTexture(content, @"ContentFiles/Images/Sprites/DoorFrame", 11, .01f);
         }
 
 
@@ -53,7 +53,7 @@ namespace GDAPS_Project_2
             frameTime = new Stopwatch();
             frameTime.Start();
             sprite = new AnimatedTexture(content, @"ContentFiles/Images/Sprites/DoorSliding", 7, 1);
-            frameSprite = new AnimatedTexture(content, @"ContentFiles/Images/Sprites/DoorFrame", 11, 1);
+            frameSprite = new AnimatedTexture(content, @"ContentFiles/Images/Sprites/DoorFrame", 11, .01f);
         }
 
         public void Open(Player p)
@@ -64,6 +64,7 @@ namespace GDAPS_Project_2
                 {
                     time.Reset();
                     state = State.opening;
+                    GameVariables.doorOpen.Play();
                 }
             }
             else
@@ -72,6 +73,7 @@ namespace GDAPS_Project_2
                 {
                     time.Reset();
                     state = State.closing;
+                    GameVariables.doorClose.Play();
                 }
             }
         }

@@ -83,6 +83,17 @@ namespace GDAPS_Project_2
         public static SoundEffect gravityFX1;
         public static SoundEffect gravityFX2;
         public static SoundEffect gravityFX3;
+        public static SoundEffect Footstep1;
+        public static SoundEffect Footstep2;
+        public static SoundEffect Footstep3;
+        public static SoundEffect Footstep4;
+        public static SoundEffect Footstep5;
+        public static SoundEffect Footstep6;
+        public static SoundEffect Footstep7;
+        public static SoundEffect WireFX;
+        public static SoundEffect DoorOpen;
+        public static SoundEffect DoorClose;
+        public static SoundEffect Robot;
 
         public static SoundEffectInstance l1;
         public static SoundEffectInstance l2;
@@ -90,9 +101,13 @@ namespace GDAPS_Project_2
         public static SoundEffectInstance landingInstance;
         public static SoundEffectInstance fAcceleration;
         public static SoundEffectInstance fLoop;
-        public static SoundEffectInstance gFX1;
-        public static SoundEffectInstance gFX2;
-        public static SoundEffectInstance gFX3;
+        public static SoundEffectInstance doorOpen;
+        public static SoundEffectInstance doorClose;
+        public static SoundEffectInstance robotSound;
+        public static SoundEffectInstance wireSound;
+
+        public static List<SoundEffectInstance> FootstepSounds;
+        public static List<SoundEffectInstance> GravitySounds;
 
         public static void LoadContentFiles(ContentManager content)
         {
@@ -100,7 +115,6 @@ namespace GDAPS_Project_2
             wallTexture = content.Load<Texture2D>(GameVariables.imgWall);
             spikeTexture = content.Load<Texture2D>(GameVariables.imgSpike);
             doorTexture = content.Load<Texture2D>(GameVariables.imgDoor);
-            //enemyTexture = content.Load<Texture2D>(GameVariables.imgEnemy);
             starsBackground = content.Load<Texture2D>(GameVariables.backgroundStars);
 
             blockBlank = content.Load<Texture2D>(@"ContentFiles/Images/Sprites/Block/blockBlank");
@@ -142,14 +156,40 @@ namespace GDAPS_Project_2
             gravityFX1 = content.Load<SoundEffect>(@"ContentFiles/Sound/FX/GravityFX1");
             gravityFX2 = content.Load<SoundEffect>(@"ContentFiles/Sound/FX/GravityFX2");
             gravityFX3 = content.Load<SoundEffect>(@"ContentFiles/Sound/FX/GravityFX3");
+            Footstep1 = content.Load<SoundEffect>(@"ContentFiles/Sound/Foley/Footstep1");
+            Footstep2 = content.Load<SoundEffect>(@"ContentFiles/Sound/Foley/Footstep2");
+            Footstep3 = content.Load<SoundEffect>(@"ContentFiles/Sound/Foley/Footstep3");
+            Footstep4 = content.Load<SoundEffect>(@"ContentFiles/Sound/Foley/Footstep4");
+            Footstep5 = content.Load<SoundEffect>(@"ContentFiles/Sound/Foley/Footstep5");
+            Footstep6 = content.Load<SoundEffect>(@"ContentFiles/Sound/Foley/Footstep6");
+            Footstep7 = content.Load<SoundEffect>(@"ContentFiles/Sound/Foley/Footstep7");
+            WireFX = content.Load<SoundEffect>(@"ContentFiles/Sound/FX/WireFX");
+            DoorOpen = content.Load<SoundEffect>(@"ContentFiles/Sound/FX/DoorOpen");
+            DoorClose = content.Load<SoundEffect>(@"ContentFiles/Sound/FX/DoorClose");
+            Robot = content.Load<SoundEffect>(@"ContentFiles/Sound/Foley/Robot");
 
             l1 = finalLayer1.CreateInstance();
             l2 = finalLayer2.CreateInstance();
             l3 = finalLayer3.CreateInstance();
             landingInstance = landing.CreateInstance();
-            gFX1 = gravityFX1.CreateInstance();
-            gFX2 = gravityFX2.CreateInstance();
-            gFX3 = gravityFX3.CreateInstance();
+            doorOpen = DoorOpen.CreateInstance();
+            doorClose = DoorClose.CreateInstance();
+            robotSound = Robot.CreateInstance();
+            wireSound = WireFX.CreateInstance();
+
+            FootstepSounds = new List<SoundEffectInstance> {
+                Footstep1.CreateInstance(),
+                Footstep2.CreateInstance(),
+                Footstep3.CreateInstance(),
+                Footstep4.CreateInstance(),
+                Footstep5.CreateInstance(),
+                Footstep6.CreateInstance(),
+                Footstep7.CreateInstance() };
+
+            GravitySounds = new List<SoundEffectInstance> {
+                gravityFX1.CreateInstance(),
+                gravityFX2.CreateInstance(),
+                gravityFX3.CreateInstance() };
         }
 
         public static Texture2D ItemImage(string ImageName)

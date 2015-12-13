@@ -7,13 +7,12 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Audio;
 
 namespace GDAPS_Project_2
 {
     class Enemy : MovableGameObject
     {
-        protected Direction currentDir;
-
         protected float fric = (float)GameVariables.friction;
         protected float jump = (float)GameVariables.jump;
         protected float accel = (float)GameVariables.playerAcceleration;
@@ -37,6 +36,11 @@ namespace GDAPS_Project_2
             down
         }
 
+        protected Direction currentDir = new Direction();
+
+        public AudioEmitter enemyEmitter;
+        public SoundEffectInstance enemySound = GameVariables.Robot.CreateInstance();
+
         public Enemy(ContentManager Content, int x, int y, int w, int h, Player p)
             : base(x, y, w, h)
         {
@@ -52,6 +56,8 @@ namespace GDAPS_Project_2
             player = p;
             Move = new AnimatedTexture(Content, @"ContentFiles/Images/Sprites/enemy_sri", 10, 1f);
             atime = new Stopwatch();
+            enemyEmitter = new AudioEmitter();
+            enemyEmitter.Position = new Vector3(x, y, 0.0f);            
         }
 
 
@@ -188,6 +194,7 @@ namespace GDAPS_Project_2
 
             ObjRectX = (int)ObjPos.X;
             ObjRectY = (int)ObjPos.Y;
+            enemyEmitter.Position = new Vector3(ObjPos.X, ObjPos.Y, 0.0f);
         }
 
 
@@ -198,9 +205,13 @@ namespace GDAPS_Project_2
             inAir = true;
             foreach (GameObject obj in objs)
             {
-                if (obj is Enemy | obj is Door | obj is Panel)
+                if (isColliding(obj) && obj.isDangerous)
                 {
+                    alive = false;
+                }
 
+                else if (obj is Enemy | obj is Door | obj is Panel)
+                {
                 }
                 // Left middle.
                 else if (obj.ObjRect.Contains(ObjRect.Left, ObjRect.Center.Y))

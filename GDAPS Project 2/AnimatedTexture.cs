@@ -29,7 +29,7 @@ namespace GDAPS_Project_2
             spriteSheet = content.Load<Texture2D>(name);
             framecount = frames;
             TotalElapsed = 0;
-            Frame = 1;
+            Frame = 0;
             TimePerFrame = 1/FramesPerSec;
         }
 
