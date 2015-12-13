@@ -100,7 +100,7 @@ namespace GDAPS_Project_2
             wallTexture = content.Load<Texture2D>(GameVariables.imgWall);
             spikeTexture = content.Load<Texture2D>(GameVariables.imgSpike);
             doorTexture = content.Load<Texture2D>(GameVariables.imgDoor);
-            enemyTexture = content.Load<Texture2D>(GameVariables.imgEnemy);
+            //enemyTexture = content.Load<Texture2D>(GameVariables.imgEnemy);
             starsBackground = content.Load<Texture2D>(GameVariables.backgroundStars);
 
             blockBlank = content.Load<Texture2D>(@"ContentFiles/Images/Sprites/Block/blockBlank");

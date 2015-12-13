@@ -222,8 +222,8 @@ namespace GDAPS_Project_2
             }
             if (g == GameState.Level)
             {
-                player.Movement(kbState, previousKbState, gameTime);
-                player.Collisions(kbState, previousKbState, world, s, Content);
+                player.Movement(kbState, previousKbState, gameTime, falling);
+                player.Collisions(kbState, previousKbState, world, s, Content, GameVariables.landingInstance);
 
                 foreach (Enemy enemy in world.levels[world.currentLevel].enemies)
                 {
@@ -297,8 +297,8 @@ namespace GDAPS_Project_2
 
             if (g == GameState.Dead)
             {
-                spriteBatch.Draw(deathScreen, new Rectangle(-(int)moveCamera.camX, -(int)moveCamera.camY, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight), Color.White);
-                spriteBatch.DrawString(gameFont, "You died.\n\nPress 'R' \nto restart", new Vector2(-moveCamera.camX + 40, -moveCamera.camY + 100), Color.White);
+                spriteBatch.Draw(deathScreen, new Rectangle(-(int)moveCamera.camX, -(int)moveCamera.camY, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight), null, Color.White, 0.0f, new Vector2(0, 0), SpriteEffects.None, 0.1f);
+                spriteBatch.DrawString(gameFont, "You died.\n\nPress 'R' \nto restart", new Vector2(-moveCamera.camX + 40, -moveCamera.camY + 100), Color.White, 0.0f, new Vector2(0, 0), 1.0f, SpriteEffects.None, 0.0f);
             }
 
             // if (world.Levels[world.currentLevel].HudInfo != null)

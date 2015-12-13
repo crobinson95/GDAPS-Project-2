@@ -63,14 +63,6 @@ namespace GDAPS_Project_2
             AddAnimation(1, 22, 1340, 0, "Left_Idle_Down", 255, 222, 124, new Vector2(0, 0));
             AddAnimation(1, 22, 1596, 0, "Right_Idle_Up", 255, 222, 128, new Vector2(0, 0));
             AddAnimation(1, 22, 1850, 0, "Right_Idle_Down", 255, 222, 120, new Vector2(0, 0));
-            AddAnimation(1, 64, 2024, 0, "Jump_Down_Right", 255, 222, 124, new Vector2(0, 0));
-            AddAnimation(1, 284, 2024, 0, "Jump_Down_Left", 255, 222, 124, new Vector2(0, 0));
-            AddAnimation(1, 64, 2308, 0, "Jump_Up_Left", 255, 222, 124, new Vector2(0, 0));
-            AddAnimation(1, 284, 2308, 0, "Jump_Up_Right", 255, 222, 124, new Vector2(0, 0));
-            AddAnimation(1, 37, 2588, 0, "Jump_Right_Down", 255, 222, 128, new Vector2(0, 0));
-            AddAnimation(1, 283, 2588, 0, "Jump_Right_Right", 255, 222, 128, new Vector2(0, 0));
-            AddAnimation(1, 24, 2828, 0, "Jump_Left_Down", 255, 222, 120, new Vector2(0, 0));
-            AddAnimation(1, 268, 2828, 0, "Jump_Left_Up", 255, 222, 120, new Vector2(0, 0));
         }
 
         public void Movement(KeyboardState k, KeyboardState p, GameTime g, SoundLoop fallingLoop)
@@ -169,11 +161,11 @@ namespace GDAPS_Project_2
                             inAir = true;
                             if (currentDir == myDirection.right)
                             {
-                                PlayAnimation("Jump_Down_Right");
+                                PlayAnimation("Down_Idle_Right");
                             }
                             else
                             {
-                                PlayAnimation("Jump_Down_Left");
+                                PlayAnimation("Down_Idle_Left");
                             }
                         }
                     }
@@ -251,11 +243,11 @@ namespace GDAPS_Project_2
                             inAir = true;
                             if (currentDir == myDirection.right)
                             {
-                                PlayAnimation("Jump_Up_Right");
+                                PlayAnimation("Up_Idle_Right");
                             }
                             else
                             {
-                                PlayAnimation("Jump_Up_Left");
+                                PlayAnimation("Up_Idle_Left");
                             }
                         }
                     }
@@ -332,11 +324,11 @@ namespace GDAPS_Project_2
                             inAir = true;
                             if (currentDir == myDirection.up)
                             {
-                                PlayAnimation("Jump_Right_Up");
+                                PlayAnimation("Right_Idle_Up");
                             }
                             else
                             {
-                                PlayAnimation("Jump_Right_Down");
+                                PlayAnimation("Right_Idle_Down");
                             }
                         }
                     }
@@ -435,11 +427,11 @@ namespace GDAPS_Project_2
                 }
                 if (currentDir == myDirection.right)
                 {
-                    PlayAnimation("Jump_Left_Right");
+                    PlayAnimation("Up_Idle_Right");
                 }
                 else
                 {
-                    PlayAnimation("Jump_Down_Left");
+                    PlayAnimation("Up_Idle_Left");
                 }
             }
             if (k.IsKeyDown(Keys.Down) && grav != gravDirection.Down)
@@ -582,7 +574,6 @@ namespace GDAPS_Project_2
                         {
                             world = new World(temp.destWorld, s, this, content);
                             world.LoadWorld();
-                            //w.changeWorldBool = true;
                             world.currentLevel = temp.destination + ".txt";
                             ObjPos.X = world.levels[world.currentLevel].playerSpawn.X;
                             ObjPos.Y = world.levels[world.currentLevel].playerSpawn.Y;
