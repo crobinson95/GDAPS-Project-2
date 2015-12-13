@@ -272,17 +272,6 @@
 /processorParam:TextureFormat=Color
 /build:ContentFiles/Images/Sprites/imgDoor.png
 
-#begin ContentFiles/Images/Sprites/imgEnemy.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:TextureFormat=Color
-/build:ContentFiles/Images/Sprites/imgEnemy.png
-
 #begin ContentFiles/Images/Sprites/imgFloor.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -514,4 +503,15 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:TextureFormat=Color
 /build:ContentFiles/Images/Sprites/fronta.png
+
+#begin ContentFiles/Images/Sprites/imgEnemy.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:ContentFiles/Images/Sprites/imgEnemy.jpg
 

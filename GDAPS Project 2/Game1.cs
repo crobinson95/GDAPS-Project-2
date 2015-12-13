@@ -222,8 +222,8 @@ namespace GDAPS_Project_2
             }
             if (g == GameState.Level)
             {
-                player.Movement(kbState, previousKbState, gameTime, falling);
-                player.Collisions(kbState, previousKbState, world, s, Content, GameVariables.landingInstance);
+                player.Movement(kbState, previousKbState, gameTime);
+                player.Collisions(kbState, previousKbState, world, s, Content);
 
                 foreach (Enemy enemy in world.levels[world.currentLevel].enemies)
                 {
@@ -292,7 +292,7 @@ namespace GDAPS_Project_2
                 float elapsed = time.ElapsedMilliseconds;
                 menu.UpdateFrame(elapsed / 1000);
 
-                spriteBatch.DrawString(gameFont, "   Project\n   Inversion\n\n\n  Enter to Start!?" + world.currentLevel, new Vector2(-moveCamera.camX + 400, -moveCamera.camY + 100), Color.White);
+                spriteBatch.DrawString(gameFont, "   Project\n   Inversion\n\n\n  Enter to Start!?", new Vector2(-moveCamera.camX + 400, -moveCamera.camY + 100), Color.White);
             }
 
             if (g == GameState.Dead)

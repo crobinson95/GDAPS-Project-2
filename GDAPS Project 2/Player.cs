@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
+using System.Diagnostics;
 using System.IO;
 
 namespace GDAPS_Project_2
@@ -22,10 +23,9 @@ namespace GDAPS_Project_2
 
         public World world;
 
-        //public double energy = 280;
-        //public Stopwatch coolDown = new Stopwatch();
+        public double energy = 280;
+        public Stopwatch coolDown = new Stopwatch();
 
-        int energy;
         //public HitBox topHit;
         //public HitBox bottHit;
         //public HitBox rightHit;
@@ -68,23 +68,23 @@ namespace GDAPS_Project_2
 
         public void Movement(KeyboardState k, KeyboardState p, GameTime g)
         {
-            ////Energy Nonsense
-            //if (coolDown.ElapsedMilliseconds >= 5000) { coolDown.Reset(); coolDown.Stop(); }
-            //if (grav != gravDirection.Down && !coolDown.IsRunning) { energy -= (60 * g.ElapsedGameTime.TotalSeconds); }
-            //if (grav == gravDirection.Down && energy < 280 && !coolDown.IsRunning)
-            //{
-            //    energy += (20 * g.ElapsedGameTime.TotalSeconds);
-            //    if (energy > 280)
-            //    {
-            //        energy = 280;
-            //    }
-            //}
-            //if (energy <= 0)
-            //{
-            //    grav = gravDirection.Down;
-            //    coolDown.Start();
-            //}
-            ////Energy nonsense
+            //Energy Nonsense
+            if (coolDown.ElapsedMilliseconds >= 5000) { coolDown.Reset(); coolDown.Stop(); }
+            if (grav != gravDirection.Down && !coolDown.IsRunning) { energy -= (60 * g.ElapsedGameTime.TotalSeconds); }
+            if (grav == gravDirection.Down && energy < 280 && !coolDown.IsRunning)
+            {
+                energy += (20 * g.ElapsedGameTime.TotalSeconds);
+                if (energy > 280)
+                {
+                    energy = 280;
+                }
+            }
+            if (energy <= 0)
+            {
+                grav = gravDirection.Down;
+                coolDown.Start();
+            }
+            //Energy nonsense
 
             ObjPos += new Vector2(xVelocity, yVelocity);
             switch (grav)
@@ -486,8 +486,8 @@ namespace GDAPS_Project_2
         public void Collisions(KeyboardState k, KeyboardState p, World w, StreamReader s, ContentManager content)
         {
             inAir = true;
-            List<GameObject> objs = w.Levels[w.currentLevel].objects;
-            List<Enemy> enms = w.Levels[w.currentLevel].enemies;
+            List<GameObject> objs = w.levels[w.currentLevel].objects;
+            List<Enemy> enms = w.levels[w.currentLevel].enemies;
             foreach (Enemy en in enms)
             {
                 if (isColliding(en))
@@ -510,22 +510,27 @@ namespace GDAPS_Project_2
                         {
                             w.currentLevel = temp.destination;
 
-                            ObjPos.X = w.Levels[w.currentLevel].playerSpawn.X;
-                            ObjPos.Y = w.Levels[w.currentLevel].playerSpawn.Y;
+                            ObjPos.X = w.levels[w.currentLevel].playerSpawn.X;
+                            ObjPos.Y = w.levels[w.currentLevel].playerSpawn.Y;
                             xVelocity = 0.0f;
                             yVelocity = 0.0f;
+                            grav = gravDirection.Down;
+                            PlayAnimation("Down_Idle_Right");
                         }
                         else if (Game1.SingleKeyPress(Keys.E, k, p))
                         {
                             world = new World(temp.destWorld, s, this, content);
                             w.changeWorldBool = true;
                             w.currentLevel = temp.destination;
-                            ObjPos.X = w.Levels[w.currentLevel].playerSpawn.X;
-                            ObjPos.Y = w.Levels[w.currentLevel].playerSpawn.Y;
+                            ObjPos.X = w.levels[w.currentLevel].playerSpawn.X;
+                            ObjPos.Y = w.levels[w.currentLevel].playerSpawn.Y;
                             xVelocity = 0.0f;
                             yVelocity = 0.0f;
                         }
                     }
+
+                    else if(obj is Panel) { }
+
                     // Left middle.
                     else if (obj.ObjRect.Contains(ObjRect.Left, ObjRect.Center.Y))
                     {
@@ -725,7 +730,7 @@ namespace GDAPS_Project_2
         //Grabs the sprite sheet - not currently in pipe line
         public void LoadContent(ContentManager content)
         {
-            sTexture = content.Load<Texture2D>(@"Images/Sprites/sprite_sheet");
+            sTexture = content.Load<Texture2D>(@"ContentFiles/Images/Sprites/sprite_sheet");
         }
 
         //Updates position of character sprite

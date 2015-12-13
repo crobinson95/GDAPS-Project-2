@@ -68,6 +68,11 @@ namespace GDAPS_Project_2
             DrawFrame(batch, Frame, level, screenPos, multi, s);
         }
 
+        public void DrawFrame(SpriteBatch batch, int level, Vector2 screenPos, Vector2 origin, bool multi, float r)
+        {
+            DrawFrame(batch, Frame, level, screenPos, multi, r);
+        }
+
         //Draws Specific Frame from spritesheet
         public void DrawFrame(SpriteBatch batch, int frame, int level, Vector2 screenPos, bool multi)
         {
@@ -82,6 +87,14 @@ namespace GDAPS_Project_2
             Rectangle sourcerect = new Rectangle(FrameWidth * frame, level,
                 FrameWidth, spriteSheet.Height);
             batch.Draw(spriteSheet, screenPos, sourcerect, Color.White, 0.0f, new Vector2(0, 0), s, SpriteEffects.None, 0.3f);
+        }
+
+        public void DrawFrame(SpriteBatch batch, int frame, int level, Vector2 screenPos, Vector2 origin, bool multi, float r)
+        {
+            int FrameWidth = spriteSheet.Width / framecount;
+            Rectangle sourcerect = new Rectangle(FrameWidth * frame, level,
+                FrameWidth, spriteSheet.Height);
+            batch.Draw(spriteSheet, screenPos, sourcerect, Color.White, r, origin, 1.0f, SpriteEffects.None, 0.3f);
         }
     }
 }

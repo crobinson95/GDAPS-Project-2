@@ -11,7 +11,6 @@ namespace GDAPS_Project_2
 {
     class EnemyF : Enemy
     {
-        Direction currentDir;
 
         Rectangle vision;
 
@@ -19,9 +18,6 @@ namespace GDAPS_Project_2
         //float jump = (float)GameVariables.jump;
         //float accel = (float)GameVariables.playerAcceleration;
         //float maxSpeed = (float)GameVariables.playerMaxSpeed;
-
-
-        Player player;
 
 
         public EnemyF(ContentManager Content, int x, int y, int w, int h, Player p)
@@ -356,11 +352,40 @@ namespace GDAPS_Project_2
                 {
                     if (obj is Hazard)
                     {
-                        if (inAir == false)
+                        switch (grav)
                         {
-                            ObjPos.Y -= 20;
-                            yVelocity = -jump;
-                            inAir = true;
+                            case gravDirection.Down:
+                                if (inAir == false)
+                                {
+                                    ObjPos.Y -= 20;
+                                    yVelocity = -jump;
+                                    inAir = true;
+                                }
+                                break;
+                            case gravDirection.Up:
+                                if (inAir == false)
+                                {
+                                    ObjPos.Y += 20;
+                                    yVelocity = jump;
+                                    inAir = true;
+                                }
+                                break;
+                            case gravDirection.Left:
+                                if (inAir == false)
+                                {
+                                    ObjPos.X += 20;
+                                    xVelocity = jump;
+                                    inAir = true;
+                                }
+                                break;
+                            case gravDirection.Right:
+                                if (inAir == false)
+                                {
+                                    ObjPos.X -= 20;
+                                    xVelocity = -jump;
+                                    inAir = true;
+                                }
+                                break;
                         }
                     }
                 }
@@ -369,12 +394,5 @@ namespace GDAPS_Project_2
             }
         }
 
-        public override void spriteDraw(SpriteBatch s)
-        {
-            if (alive)
-            {
-                base.spriteDraw(s);
-            }
-        }
     }
 }
