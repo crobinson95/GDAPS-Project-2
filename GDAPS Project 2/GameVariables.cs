@@ -74,6 +74,8 @@ namespace GDAPS_Project_2
         public static Texture2D hazardWiresRight;
         public static Texture2D hazardWiresTop;
 
+        public static SoundEffect mainMenuX;
+
         public static SoundEffect finalLayer1;
         public static SoundEffect finalLayer2;
         public static SoundEffect finalLayer3;
@@ -83,6 +85,8 @@ namespace GDAPS_Project_2
         public static SoundEffect gravityFX1;
         public static SoundEffect gravityFX2;
         public static SoundEffect gravityFX3;
+
+        public static SoundEffectInstance mainX;
 
         public static SoundEffectInstance l1;
         public static SoundEffectInstance l2;
@@ -133,6 +137,8 @@ namespace GDAPS_Project_2
             hazardWiresRight = content.Load<Texture2D>(@"ContentFiles/Images/Sprites/Hazards/hazardWiresRight");
             hazardWiresTop = content.Load<Texture2D>(@"ContentFiles/Images/Sprites/Hazards/hazardWiresTop");
 
+            mainMenuX = content.Load<SoundEffect>(@"ContentFiles/Sound/FFX_To_Zanarkand");
+
             finalLayer1 = content.Load<SoundEffect>(@"ContentFiles/Sound/TestLoops/FinalLayer1");
             finalLayer2 = content.Load<SoundEffect>(@"ContentFiles/Sound/TestLoops/FinalLayer2");
             finalLayer3 = content.Load<SoundEffect>(@"ContentFiles/Sound/TestLoops/FinalLayer3");
@@ -142,6 +148,8 @@ namespace GDAPS_Project_2
             gravityFX1 = content.Load<SoundEffect>(@"ContentFiles/Sound/FX/GravityFX1");
             gravityFX2 = content.Load<SoundEffect>(@"ContentFiles/Sound/FX/GravityFX2");
             gravityFX3 = content.Load<SoundEffect>(@"ContentFiles/Sound/FX/GravityFX3");
+
+            mainX = mainMenuX.CreateInstance();
 
             l1 = finalLayer1.CreateInstance();
             l2 = finalLayer2.CreateInstance();

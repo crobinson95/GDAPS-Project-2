@@ -173,9 +173,14 @@ namespace GDAPS_Project_2
 
             if (g == GameState.Menu)
             {
+                if(GameVariables.mainX.State == SoundState.Stopped)
+                {
+                    GameVariables.mainX.Play();
+                }
                 moveCamera.viewMatrix = moveCamera.GetTransform(player, width, height);
                 if (SingleKeyPress(Keys.Enter, kbState, previousKbState))
                 {
+                    GameVariables.mainX.Stop();
                     g = GameState.Level;
                 }
                 if (SingleKeyPress(Keys.F, kbState, previousKbState))
