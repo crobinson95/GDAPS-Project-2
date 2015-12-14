@@ -16,7 +16,7 @@ namespace GDAPS_Project_2
 
         public AnimatedTexture sprite;
         public AnimatedTexture frameSprite;
-
+        public bool victory = false;
         public State state;
 
         Stopwatch time;
@@ -30,7 +30,7 @@ namespace GDAPS_Project_2
             open
         }
 
-        public Door(ContentManager content, int x, int y, int w, int h, string d, string world)
+        public Door(ContentManager content, int x, int y, int w, int h, string vict, string d, string world)
             : base(x, y, w, h)
         {
             destination = d;
@@ -44,7 +44,7 @@ namespace GDAPS_Project_2
         }
 
 
-        public Door(ContentManager content, int x, int y, int w, int h, string d)
+        public Door(ContentManager content, int x, int y, int w, int h, string vict, string d)
             : base(x, y, w, h)
         {
             destination = d;
@@ -64,6 +64,7 @@ namespace GDAPS_Project_2
                 {
                     time.Reset();
                     state = State.opening;
+                    GameVariables.doorOpen.Volume = 1.0f * GameVariables.gameVolume;
                     GameVariables.doorOpen.Play();
                 }
             }
@@ -73,6 +74,7 @@ namespace GDAPS_Project_2
                 {
                     time.Reset();
                     state = State.closing;
+                    GameVariables.doorClose.Volume = 1.0f * GameVariables.gameVolume;
                     GameVariables.doorClose.Play();
                 }
             }
@@ -80,8 +82,6 @@ namespace GDAPS_Project_2
 
         public override void spriteDraw(SpriteBatch s)
         {
-            frameSprite.DrawFrame(s, 0, new Vector2(ObjRectX, ObjRectY), false);
-            frameSprite.UpdateFrame(frameTime.ElapsedMilliseconds / 1000);
             if (frameTime.ElapsedMilliseconds > 10000)
             {
                 frameTime.Reset();
@@ -117,6 +117,8 @@ namespace GDAPS_Project_2
             {
                 sprite.DrawFrame(s, 6, new Vector2(ObjRectX, ObjRectY), false);
             }
+            frameSprite.DrawFrame(s, 0, new Vector2(ObjRectX, ObjRectY), false);
+            frameSprite.UpdateFrame(frameTime.ElapsedMilliseconds / 1000);
         }
     }
 }

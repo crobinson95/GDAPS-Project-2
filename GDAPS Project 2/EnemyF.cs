@@ -24,7 +24,7 @@ namespace GDAPS_Project_2
         {
             grav = gravDirection.Down;
             gravity = GameVariables.gravity;
-            currentDir = Direction.right;
+            currentDir = myDirection.right;
             xVelocity = 0;
             yVelocity = 0;
             inAir = true;
@@ -45,24 +45,38 @@ namespace GDAPS_Project_2
                 ObjPos += new Vector2(xVelocity, yVelocity);
                 if (grav == gravDirection.Down | grav == gravDirection.Up)
                 {
-                    if (player.ObjPos.X < ObjPos.X - 50)
+                    if (ObjRectHeight != 70)
                     {
-                        currentDir = Direction.left;
+                        ObjRectHeight = 70;
+                        ObjRectWidth = 50;
+                        if (grav == gravDirection.Down)
+                        {
+                            ObjPos.Y -= 10;
+                        }
                     }
-                    if (player.ObjPos.X > ObjPos.X + 50)
+                    if (player.ObjPos.X < ObjPos.X - 100)
                     {
-                        currentDir = Direction.right;
+                        currentDir = myDirection.left;
+                    }
+                    if (player.ObjPos.X > ObjPos.X + 100)
+                    {
+                        currentDir = myDirection.right;
                     }
                 }
                 if (grav == gravDirection.Left | grav == gravDirection.Right)
                 {
-                    if (player.ObjPos.Y < ObjPos.Y - 50)
+                    if (ObjRectHeight != 50)
                     {
-                        currentDir = Direction.up;
+                        ObjRectHeight = 50;
+                        ObjRectWidth = 70;
                     }
-                    if (player.ObjPos.Y > ObjPos.Y + 50)
+                    if (player.ObjPos.Y < ObjPos.Y - 100)
                     {
-                        currentDir = Direction.down;
+                        currentDir = myDirection.up;
+                    }
+                    if (player.ObjPos.Y > ObjPos.Y + 100)
+                    {
+                        currentDir = myDirection.down;
                     }
                 }
                 switch (grav)
@@ -77,13 +91,13 @@ namespace GDAPS_Project_2
                             else if (xVelocity < -fric) { xVelocity += fric; }
                             else { xVelocity = 0; }
                         }
-                        if (currentDir == Direction.left)    //Move left
+                        if (currentDir == myDirection.left)    //Move left
                         {
 
                             xVelocity -= accel * (float)g.ElapsedGameTime.TotalSeconds;
                             if (xVelocity < -maxSpeed) { xVelocity = -maxSpeed; }
                         }
-                        if (currentDir == Direction.right)    //Move right
+                        if (currentDir == myDirection.right)    //Move right
                         {
 
                             xVelocity += accel * (float)g.ElapsedGameTime.TotalSeconds;
@@ -102,12 +116,12 @@ namespace GDAPS_Project_2
                             else if (xVelocity < -fric) { xVelocity += fric; }
                             else { xVelocity = 0; }
                         }
-                        if (currentDir == Direction.left)
+                        if (currentDir == myDirection.left)
                         {
                             xVelocity -= accel * (float)g.ElapsedGameTime.TotalSeconds;
                             if (xVelocity < -maxSpeed) { xVelocity = -maxSpeed; }
                         }
-                        if (currentDir == Direction.right)
+                        if (currentDir == myDirection.right)
                         {
                             xVelocity += accel * (float)g.ElapsedGameTime.TotalSeconds;
                             if (xVelocity > maxSpeed) { xVelocity = maxSpeed; }
@@ -125,12 +139,12 @@ namespace GDAPS_Project_2
                             else if (yVelocity < -fric) { yVelocity += fric; }
                             else { yVelocity = 0; }
                         }
-                        if (currentDir == Direction.up)
+                        if (currentDir == myDirection.up)
                         {
                             yVelocity -= accel * (float)g.ElapsedGameTime.TotalSeconds;
                             if (yVelocity < -maxSpeed) { yVelocity = -maxSpeed; }
                         }
-                        if (currentDir == Direction.down)
+                        if (currentDir == myDirection.down)
                         {
                             yVelocity += accel * (float)g.ElapsedGameTime.TotalSeconds;
                             if (yVelocity > maxSpeed) { yVelocity = maxSpeed; }
@@ -148,12 +162,12 @@ namespace GDAPS_Project_2
                             else if (yVelocity < -fric) { yVelocity += fric; }
                             else { yVelocity = 0; }
                         }
-                        if (currentDir == Direction.up)
+                        if (currentDir == myDirection.up)
                         {
                             yVelocity -= accel * (float)g.ElapsedGameTime.TotalSeconds;
                             if (yVelocity < -maxSpeed) { yVelocity = -maxSpeed; }
                         }
-                        if (currentDir == Direction.down)
+                        if (currentDir == myDirection.down)
                         {
                             yVelocity += accel * (float)g.ElapsedGameTime.TotalSeconds;
                             if (yVelocity > maxSpeed) { yVelocity = maxSpeed; }
@@ -173,12 +187,12 @@ namespace GDAPS_Project_2
         {
             if (grav == gravDirection.Down | grav == gravDirection.Up)
             {
-                if (currentDir == Direction.right)
+                if (currentDir == myDirection.right)
                 {
                     vision.X = ObjRectX + ObjRect.Width;
                     vision.Y = ObjRectY;
                 }
-                if (currentDir == Direction.left)
+                if (currentDir == myDirection.left)
                 {
                     vision.X = ObjRectX - vision.Width;
                     vision.Y = ObjRectY;
@@ -186,18 +200,17 @@ namespace GDAPS_Project_2
             }
             if (grav == gravDirection.Left | grav == gravDirection.Right)
             {
-                if (currentDir == Direction.up)
+                if (currentDir == myDirection.up)
                 {
                     vision.X = ObjRectX;
                     vision.Y = ObjRectY - vision.Height;
                 }
-                if (currentDir == Direction.down)
+                if (currentDir == myDirection.down)
                 {
                     vision.X = ObjRectX;
                     vision.Y = ObjRectY + ObjRect.Height;
                 }
             }
-
         }
 
         public override void Collisions(List<GameObject> objs, KeyboardState k, KeyboardState p, World w)
@@ -223,7 +236,7 @@ namespace GDAPS_Project_2
                     }
                     if (grav == gravDirection.Down | grav == gravDirection.Up)
                     {
-                        currentDir = Direction.right;
+                        currentDir = myDirection.right;
                     }
                     ObjPos.X = obj.ObjRect.Right;
                     if (xVelocity < 0) { xVelocity = 0; }
@@ -237,7 +250,7 @@ namespace GDAPS_Project_2
                     }
                     if (grav == gravDirection.Down | grav == gravDirection.Up)
                     {
-                        currentDir = Direction.left;
+                        currentDir = myDirection.left;
                     }
                     ObjPos.X = obj.ObjRect.Left - ObjRect.Width;
                     if (xVelocity > 0) { xVelocity = 0; }
@@ -251,7 +264,7 @@ namespace GDAPS_Project_2
                     }
                     if (grav == gravDirection.Left | grav == gravDirection.Right)
                     {
-                        currentDir = Direction.down;
+                        currentDir = myDirection.down;
                     }
                     ObjPos.Y = obj.ObjRect.Bottom;
                     if (yVelocity < 0) { yVelocity = 0; }
@@ -265,13 +278,13 @@ namespace GDAPS_Project_2
                     }
                     if (grav == gravDirection.Left | grav == gravDirection.Right)
                     {
-                        currentDir = Direction.up;
+                        currentDir = myDirection.up;
                     }
                     ObjPos.Y = obj.ObjRect.Top - ObjRect.Height;
                     if (yVelocity > 0) { yVelocity = 0; }
                 }
                 // Top left corner.
-                else if (obj.ObjRect.Contains(ObjRect.X + 10, ObjRect.Y + 10))
+                else if (obj.ObjRect.Contains(ObjRect.X + 18, ObjRect.Y + 18))
                 {
                     if (grav == gravDirection.Up)
                     {
@@ -292,7 +305,7 @@ namespace GDAPS_Project_2
                     }
                 }
                 // Top right corner.
-                else if (obj.ObjRect.Contains(ObjRect.Right - 10, ObjRect.Y + 10))
+                else if (obj.ObjRect.Contains(ObjRect.Right - 18, ObjRect.Y + 18))
                 {
                     if (grav == gravDirection.Up)
                     {
@@ -313,7 +326,7 @@ namespace GDAPS_Project_2
                     }
                 }
                 // Bottom left corner.
-                else if (obj.ObjRect.Contains(ObjRect.Left + 10, ObjRect.Bottom - 10))
+                else if (obj.ObjRect.Contains(ObjRect.Left + 18, ObjRect.Bottom - 18))
                 {
                     if (grav == gravDirection.Down)
                     {
@@ -334,7 +347,7 @@ namespace GDAPS_Project_2
                     }
                 }
                 // Bottom right corner.
-                else if (obj.ObjRect.Contains(ObjRect.Right - 10, ObjRect.Bottom - 10))
+                else if (obj.ObjRect.Contains(ObjRect.Right - 18, ObjRect.Bottom - 18))
                 {
                     if (grav == gravDirection.Down)
                     {

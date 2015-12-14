@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,9 @@ namespace GDAPS_Project_2
 {
     class Level
     {
-        int levelTime;
+        public int levelTime;
+        public int deathCount;
+        public Stopwatch levelTimer;
         public Point playerSpawn;
         public List<GameObject> objects = new List<GameObject>();
         public List<Enemy> enemies = new List<Enemy>();
@@ -27,6 +30,9 @@ namespace GDAPS_Project_2
         /// </summary>
         public Level(string levelData, StreamReader s, Player player, ContentManager content)
         {
+            levelTimer = new Stopwatch();
+            levelTime = 0;
+            deathCount = 0;
             try
             {
                 playerSpawn = new Point ( 0, 0 );
@@ -69,15 +75,16 @@ namespace GDAPS_Project_2
                                         playerSpawn = p;
                                         break;
                                     case "door":
-                                        string d = splitLine[3];
-                                        if (splitLine.Length == 5)
+                                        string d = splitLine[4];
+                                        string vict = splitLine[3];
+                                        if (splitLine.Length == 6)
                                         {
-                                            string world = splitLine[4];
-                                            objects.Add(new Door(content, p.X, p.Y, 43, 70, d, @world));
+                                            string world = splitLine[5];
+                                            objects.Add(new Door(content, p.X, p.Y, 43, 70, vict, d, @world));
                                         }
                                         else
                                         {
-                                            objects.Add(new Door(content, p.X, p.Y, 43, 70, d));
+                                            objects.Add(new Door(content, p.X, p.Y, 43, 70, vict, d));
                                         }
                                         break;
                                     case "enemy":

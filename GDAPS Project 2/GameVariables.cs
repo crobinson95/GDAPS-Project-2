@@ -112,6 +112,7 @@ namespace GDAPS_Project_2
 
         public static List<SoundEffectInstance> FootstepSounds;
         public static List<SoundEffectInstance> GravitySounds;
+        public static List<SoundEffectInstance> GameSounds;
 
         public static void LoadContentFiles(ContentManager content)
         {
@@ -198,6 +199,8 @@ namespace GDAPS_Project_2
                 gravityFX1.CreateInstance(),
                 gravityFX2.CreateInstance(),
                 gravityFX3.CreateInstance() };
+
+            GameSounds = new List<SoundEffectInstance>();
         }
 
         public static Texture2D ItemImage(string ImageName)

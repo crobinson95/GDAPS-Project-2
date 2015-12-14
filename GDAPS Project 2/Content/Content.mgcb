@@ -616,18 +616,6 @@
 /processorParam:Quality=Best
 /build:ContentFiles/Sound/Foley/Robot.wav
 
-#begin ContentFiles/Sound/FX/DoorClose.mp3
-/importer:Mp3Importer
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:ContentFiles/Sound/FX/DoorClose.mp3
-
-#begin ContentFiles/Sound/FX/DoorOpen.mp3
-/importer:Mp3Importer
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:ContentFiles/Sound/FX/DoorOpen.mp3
-
 #begin ContentFiles/Sound/FX/WireFX.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -639,4 +627,16 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:ContentFiles/Sound/FFX_To_Zanarkand.mp3
+
+#begin ContentFiles/Sound/FX/DoorClose.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:ContentFiles/Sound/FX/DoorClose.wav
+
+#begin ContentFiles/Sound/FX/DoorOpen.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:ContentFiles/Sound/FX/DoorOpen.wav
 

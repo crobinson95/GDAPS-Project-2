@@ -13,6 +13,7 @@ namespace GDAPS_Project_2
         SoundEffectInstance one;
         SoundEffectInstance two;
         SoundEffectInstance introSound;
+        float initialVolume;
         float delay;
         float delayOne;
         float delayTwo;
@@ -46,6 +47,7 @@ namespace GDAPS_Project_2
             introSound = introduction;
             one = first;
             two = second;
+            initialVolume = volume;
             introSound.Volume = volume;
             one.Volume = volume;
             two.Volume = volume;
@@ -56,6 +58,12 @@ namespace GDAPS_Project_2
 
         public void Loop()
         {
+            one.Volume = initialVolume * GameVariables.gameVolume;
+            two.Volume = initialVolume * GameVariables.gameVolume;
+            if (introSound != null)
+            {
+                introSound.Volume = initialVolume * GameVariables.gameVolume;
+            }
             if (intro)
             {
                 introSound.Play();

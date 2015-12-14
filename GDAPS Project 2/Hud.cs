@@ -53,14 +53,14 @@ namespace GDAPS_Project_2
 
         public void Update(Level l)
         {
-            if (false)
-            {
-                hasKey = true;
-            }
-            else
-            {
+            //if (false)
+            //{
+            //    hasKey = true;
+            //}
+            //else
+            //{
                 hasKey = false;
-            }
+            //}
         }
 
         public void Check()
