@@ -221,8 +221,13 @@ namespace GDAPS_Project_2
 
             if (g == GameState.Dead)
             {
+                if (GameVariables.deadX.State == SoundState.Stopped)
+                {
+                    GameVariables.deadX.Play();
+                }
                 if (SingleKeyPress(Keys.R, kbState, previousKbState))
                 {
+                    GameVariables.deadX.Stop();
                     ResetLevel();
                     g = GameState.Level;
                 }
