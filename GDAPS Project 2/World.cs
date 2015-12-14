@@ -20,7 +20,7 @@ namespace GDAPS_Project_2
         public World(string world, StreamReader s, Player p, ContentManager content) // string world is a directory
         {
             currentLevel = 0;
-            levelFiles = Directory.GetFiles(world); // need to start organizing worlds by directory
+            levelFiles = Directory.GetCurrentDirectory().GetFiles(world); // need to start organizing worlds by directory
             foreach (string level in levelFiles)
             {
                 Level newLevel = new Level(level, s, p, content);
