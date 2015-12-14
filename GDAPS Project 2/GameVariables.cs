@@ -33,6 +33,7 @@ namespace GDAPS_Project_2
         public static string imgDoor = @"ContentFiles/Images/Sprites/imgDoor";
         public static string imgEnemy = @"ContentFiles/Images/Sprites/imgEnemy";
         public static string gFont = @"ContentFiles/Images/Sprites/Font";
+        public static string gFont2 = @"ContentFiles/Images/Sprites/Font2";
         public static string backgroundStars = @"ContentFiles/Images/Sprites/Background/stars";
         public static string bgMenus;
         public static string bgLevels;
@@ -155,7 +156,7 @@ namespace GDAPS_Project_2
             hazardWiresTop = content.Load<Texture2D>(@"ContentFiles/Images/Sprites/Hazards/hazardWiresTop");
 
             mainMenuX = content.Load<SoundEffect>(@"ContentFiles/Sound/FFX_To_Zanarkand");
-            mainDeadX = content.Load<SoundEffect>(@"ContentFiles/Sound/Cantus_in_Memeory");
+            mainDeadX = content.Load<SoundEffect>(@"ContentFiles/Sound/Cantus_in_Memory");
 
             finalLayer1 = content.Load<SoundEffect>(@"ContentFiles/Sound/TestLoops/FinalLayer1");
             finalLayer2 = content.Load<SoundEffect>(@"ContentFiles/Sound/TestLoops/FinalLayer2");
@@ -180,6 +181,8 @@ namespace GDAPS_Project_2
 
             mainX = mainMenuX.CreateInstance();
             deadX = mainDeadX.CreateInstance();
+            mainX.IsLooped = true;
+            deadX.IsLooped = true;
 
             l1 = finalLayer1.CreateInstance();
             l2 = finalLayer2.CreateInstance();

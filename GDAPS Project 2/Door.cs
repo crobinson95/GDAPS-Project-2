@@ -41,6 +41,10 @@ namespace GDAPS_Project_2
             frameTime.Start();
             sprite = new AnimatedTexture(content, @"ContentFiles/Images/Sprites/DoorSliding", 7, 1);
             frameSprite = new AnimatedTexture(content, @"ContentFiles/Images/Sprites/DoorFrame", 11, .01f);
+            if (vict == "true")
+            {
+                victory = true;
+            }
         }
 
 
@@ -54,6 +58,10 @@ namespace GDAPS_Project_2
             frameTime.Start();
             sprite = new AnimatedTexture(content, @"ContentFiles/Images/Sprites/DoorSliding", 7, 1);
             frameSprite = new AnimatedTexture(content, @"ContentFiles/Images/Sprites/DoorFrame", 11, .01f);
+            if (vict == "true")
+            {
+                victory = true;
+            }
         }
 
         public void Open(Player p)

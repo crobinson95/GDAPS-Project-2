@@ -470,7 +470,7 @@ namespace GDAPS_Project_2
                 {
                     alive = false;
                 }
-                if (en.alive)
+                if (en.alive && en is EnemyF)
                 {
                     en.enemySound.Volume = 1.0f * GameVariables.gameVolume;
                     en.enemySound.Apply3D(listener, en.enemyEmitter);
@@ -497,7 +497,7 @@ namespace GDAPS_Project_2
                 if (isColliding(obj) && obj.isDangerous)
                 {
                     alive = false;
-                    ObjPos.X = w.levels[w.currentLevel].deathCount ++;
+                    w.levels[w.currentLevel].deathCount++;
                 }
                 else if (isColliding(obj))
                 {

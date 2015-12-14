@@ -646,3 +646,38 @@
 /processorParam:Quality=Best
 /build:ContentFiles/Sound/Cantus_in_Memory.mp3
 
+#begin ContentFiles/Images/Sprites/Victory.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:ContentFiles/Images/Sprites/Victory.png
+
+#begin ContentFiles/Sound/FX/InterfacePause .wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:ContentFiles/Sound/FX/InterfacePause .wav
+
+#begin ContentFiles/Sound/FX/InterfaceStart.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:ContentFiles/Sound/FX/InterfaceStart.wav
+
+#begin ContentFiles/Sound/FX/RobotDeath.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:ContentFiles/Sound/FX/RobotDeath.wav
+
+#begin ContentFiles/Images/Sprites/Font2.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:TextureFormat=Compressed
+/build:ContentFiles/Images/Sprites/Font2.spritefont
+
