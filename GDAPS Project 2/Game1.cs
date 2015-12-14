@@ -239,8 +239,13 @@ namespace GDAPS_Project_2
 
             if (g == GameState.Pause)
             {
+                if (GameVariables.deadX.State == SoundState.Stopped)
+                {
+                    GameVariables.deadX.Play();
+                }
                 if (SingleKeyPress(Keys.R, kbState, previousKbState))
                 {
+                    GameVariables.deadX.Stop();
                     ResetLevel();
                     world.levels[world.currentLevel].levelTimer.Reset();
                     world.levels[world.currentLevel].levelTimer.Start();

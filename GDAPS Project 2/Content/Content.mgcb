@@ -640,3 +640,9 @@
 /processorParam:Quality=Best
 /build:ContentFiles/Sound/FX/DoorOpen.wav
 
+#begin ContentFiles/Sound/Cantus_in_Memory.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:ContentFiles/Sound/Cantus_in_Memory.mp3
+
