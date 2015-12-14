@@ -12,7 +12,7 @@ namespace GDAPS_Project_2
     {
         protected Texture2D sTexture;
         private Rectangle[] playerRects;
-        private int frameIndex = 0;
+        public int frameIndex = 0;
         private double timeElapsed;
         private double timeToUpdate;
         public int FramesPerSec { set { timeToUpdate = 1f / value; } }
@@ -21,7 +21,7 @@ namespace GDAPS_Project_2
         public enum myDirection { none, left, right, up, down };
 
         protected myDirection currentDir = myDirection.none;
-
+        
         public enum gravDirection
         {
             Up,
@@ -34,21 +34,21 @@ namespace GDAPS_Project_2
 
         protected bool inAir;
 
-        protected bool alive;
+        public bool alive;
 
         protected double gravity;
 
         public Vector2 ObjPos;
 
         float xvelocity;
-        protected float xVelocity
+        public float xVelocity
         {
             get { return xvelocity; }
             set { xvelocity = value; }
         }
 
         float yvelocity;
-        protected float yVelocity
+        public float yVelocity
         {
             get { return yvelocity; }
             set { yvelocity = value; }
@@ -63,6 +63,16 @@ namespace GDAPS_Project_2
         private Dictionary<string, Vector2> sOffset = new Dictionary<string, Vector2>();
 
         public MovableGameObject(int x, int y, int w, int h) : base(x, y, w, h)
+        {
+            ObjPos = new Vector2(x, y);
+            ObjRectX = (int)ObjPos.X;
+            ObjRectY = (int)ObjPos.Y;
+
+            currentAnimation = "Down_Idle_Left";
+            currentDir = myDirection.right;
+        }
+
+        public MovableGameObject(int x, int y, int w, int h, string ItemType) : base(x, y, w, h, ItemType)
         {
             ObjPos = new Vector2(x, y);
             ObjRectX = (int)ObjPos.X;
@@ -114,15 +124,13 @@ namespace GDAPS_Project_2
                     //AnimationDone(currentAnimation);
                     frameIndex = 0;
                 }
-
-
             }
         }
 
         //Draws the current frame of the current animation
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(sTexture, ObjPos + sOffset[currentAnimation], sAnimations[currentAnimation][frameIndex], Color.White);
+            spriteBatch.Draw(sTexture, ObjPos + sOffset[currentAnimation], sAnimations[currentAnimation][frameIndex], Color.White, 0.0f, new Vector2(0,0), 0.25f, SpriteEffects.None,0.2f);
         }
 
         //Possibly needed later to prevent animation loops

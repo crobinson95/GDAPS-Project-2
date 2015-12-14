@@ -7,42 +7,19 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Audio;
+
 
 namespace GDAPS_Project_2
 {
-    class Enemy : MovableGameObject
+    class EnemyW: Enemy
     {
-        protected float fric = (float)GameVariables.friction;
-        protected float jump = (float)GameVariables.jump;
-        protected float accel = (float)GameVariables.playerAcceleration;
-        protected float maxSpeed = (float)GameVariables.playerMaxSpeed / 2;
-
+        Rectangle vision;
+        bool Attacking;
+        AnimatedTexture Move;
         Stopwatch atime;
 
-        AnimatedTexture Move;
-
-        public Point origin;
-
-        protected Player player;
-
-        
-
-        public enum Direction
-        {
-            left,
-            right,
-            up,
-            down
-        }
-
-        protected Direction currentDir = new Direction();
-
-        public AudioEmitter enemyEmitter;
-        public SoundEffectInstance enemySound = GameVariables.Robot.CreateInstance();
-
-        public Enemy(ContentManager Content, int x, int y, int w, int h, Player p)
-            : base(x, y, w, h)
+        public EnemyW(ContentManager Content, int x, int y, int w, int h, Player p)
+            : base(Content, x, y, w, h, p)
         {
             grav = gravDirection.Down;
             gravity = GameVariables.gravity;
@@ -51,27 +28,23 @@ namespace GDAPS_Project_2
             yVelocity = 0;
             inAir = true;
             alive = true;
-            origin = new Point(x, y);
             isDangerous = true;
-            player = p;
-            Move = new AnimatedTexture(Content, @"ContentFiles/Images/Sprites/enemy_sri", 10, 1f);
+            origin = new Point(x, y);
+            Move = new AnimatedTexture(Content, @"ContentFiles/Images/Sprites/enemyw_sri", 4, .1f);
+            vision = new Rectangle(0, 0, 100, 500);
             atime = new Stopwatch();
-            enemyEmitter = new AudioEmitter();
-            enemyEmitter.Position = new Vector3(x, y, 0.0f);            
+            player = p;
+
         }
 
 
-
-        public virtual void Movement(GameTime g)
+        public override void Movement(GameTime g)
         {
-
+            VisionUpdate();
             grav = player.grav;
             ObjPos += new Vector2(xVelocity, yVelocity);
             if (grav == gravDirection.Down | grav == gravDirection.Up)
             {
-                ObjRectHeight = 70;
-                ObjRectWidth = 50;
-
                 if (ObjPos.X > origin.X + 100)
                 {
                     currentDir = Direction.left;
@@ -83,9 +56,6 @@ namespace GDAPS_Project_2
             }
             if (grav == gravDirection.Left | grav == gravDirection.Right)
             {
-                ObjRectHeight = 50;
-                ObjRectWidth = 70;
-
                 if (ObjPos.Y > origin.Y + 100)
                 {
                     currentDir = Direction.up;
@@ -98,15 +68,26 @@ namespace GDAPS_Project_2
             switch (grav)
             {
                 case gravDirection.Down:
-                    yVelocity += (float)gravity;
+                    //yVelocity += (float)gravity;
 
-                    if (!inAir)
+                    //if (!inAir)
+                    //{
+                    //    yVelocity -= (float)gravity;
+                    //    if (xVelocity > fric) { xVelocity -= fric; }
+                    //    else if (xVelocity < -fric) { xVelocity += fric; }
+                    //    else { xVelocity = 0; }
+                    //}
+                    if(ObjRect.Y > origin.Y)
                     {
                         yVelocity -= (float)gravity;
-                        if (xVelocity > fric) { xVelocity -= fric; }
-                        else if (xVelocity < -fric) { xVelocity += fric; }
-                        else { xVelocity = 0; }
                     }
+                    if (ObjRect.Y <= origin.Y)
+                    {
+                        Attacking = false;
+                        yVelocity = 0;
+                    }
+
+
                     if (currentDir == Direction.left)    //Move left
                     {
 
@@ -123,14 +104,23 @@ namespace GDAPS_Project_2
                     break;
 
                 case gravDirection.Up:
-                    yVelocity -= (float)gravity;
+                    //yVelocity -= (float)gravity;
 
-                    if (!inAir)
+                    //if (!inAir)
+                    //{
+                    //    yVelocity += (float)gravity;
+                    //    if (xVelocity > fric) { xVelocity -= fric; }
+                    //    else if (xVelocity < -fric) { xVelocity += fric; }
+                    //    else { xVelocity = 0; }
+                    //}
+                    if (ObjRect.Y < origin.Y)
                     {
                         yVelocity += (float)gravity;
-                        if (xVelocity > fric) { xVelocity -= fric; }
-                        else if (xVelocity < -fric) { xVelocity += fric; }
-                        else { xVelocity = 0; }
+                    }
+                    if (ObjRect.Y >= origin.Y)
+                    {
+                        Attacking = false;
+                        yVelocity = 0;
                     }
                     if (currentDir == Direction.left)
                     {
@@ -146,14 +136,23 @@ namespace GDAPS_Project_2
 
 
                 case gravDirection.Right:
-                    xVelocity += (float)gravity;
+                    //xVelocity += (float)gravity;
 
-                    if (!inAir)
+                    //if (!inAir)
+                    //{
+                    //    xVelocity -= (float)gravity;
+                    //    if (yVelocity > fric) { yVelocity -= fric; }
+                    //    else if (yVelocity < -fric) { yVelocity += fric; }
+                    //    else { yVelocity = 0; }
+                    //}
+                    if (ObjRect.X > origin.X)
                     {
                         xVelocity -= (float)gravity;
-                        if (yVelocity > fric) { yVelocity -= fric; }
-                        else if (yVelocity < -fric) { yVelocity += fric; }
-                        else { yVelocity = 0; }
+                    }
+                    if (ObjRect.X <= origin.X)
+                    {
+                        Attacking = false;
+                        xVelocity = 0;
                     }
                     if (currentDir == Direction.up)
                     {
@@ -170,13 +169,22 @@ namespace GDAPS_Project_2
 
 
                 case gravDirection.Left:
-                    xVelocity -= (float)gravity;
-                    if (!inAir)
+                    //xVelocity -= (float)gravity;
+                    //if (!inAir)
+                    //{
+                    //    xVelocity += (float)gravity;
+                    //    if (yVelocity > fric) { yVelocity -= fric; }
+                    //    else if (yVelocity < -fric) { yVelocity += fric; }
+                    //    else { yVelocity = 0; }
+                    //}
+                    if (ObjRect.X < origin.X)
                     {
                         xVelocity += (float)gravity;
-                        if (yVelocity > fric) { yVelocity -= fric; }
-                        else if (yVelocity < -fric) { yVelocity += fric; }
-                        else { yVelocity = 0; }
+                    }
+                    if (ObjRect.X >= origin.X)
+                    {
+                        Attacking = false;
+                        xVelocity = 0;
                     }
                     if (currentDir == Direction.up)
                     {
@@ -194,24 +202,57 @@ namespace GDAPS_Project_2
 
             ObjRectX = (int)ObjPos.X;
             ObjRectY = (int)ObjPos.Y;
-            enemyEmitter.Position = new Vector3(ObjPos.X, ObjPos.Y, 0.0f);
         }
 
 
+        public void VisionUpdate()
+        {
+            if(grav == gravDirection.Down)
+            {
+                if(currentDir == Direction.left | currentDir == Direction.right)
+                {
+                    vision.X = ObjRect.X - 10;
+                    vision.Y = ObjRect.Y + ObjRectHeight;
+                }
+            }
 
+            if (grav == gravDirection.Up)
+            {
+                if (currentDir == Direction.left | currentDir == Direction.right)
+                {
+                    vision.X = ObjRect.X - 10;
+                    vision.Y = ObjRect.Y - vision.Height;
+                }
+            }
 
-        public virtual void Collisions(List<GameObject> objs, KeyboardState k, KeyboardState p, World w)
+            if (grav == gravDirection.Right)
+            {
+                if (currentDir == Direction.up | currentDir == Direction.down)
+                {
+                    vision.X = ObjRect.X + ObjRectWidth;
+                    vision.Y = ObjRect.Y - 10;
+                }
+            }
+
+            if (grav == gravDirection.Left)
+            {
+                if (currentDir == Direction.up | currentDir == Direction.down)
+                {
+                    vision.X = ObjRect.X - vision.Height;
+                    vision.Y = ObjRect.Y - 10;
+                }
+            }
+
+        }
+
+        public override void Collisions(List<GameObject> objs, KeyboardState k, KeyboardState p, World w)
         {
             inAir = true;
             foreach (GameObject obj in objs)
             {
-                if (isColliding(obj) && obj.isDangerous)
+                if (obj is Enemy | obj is Door | obj is Panel)
                 {
-                    alive = false;
-                }
 
-                else if (obj is Enemy | obj is Door | obj is Panel)
-                {
                 }
                 // Left middle.
                 else if (obj.ObjRect.Contains(ObjRect.Left, ObjRect.Center.Y))
@@ -353,10 +394,51 @@ namespace GDAPS_Project_2
                         else if (yVelocity > 0) { yVelocity = 0; ObjPos.Y = obj.ObjRect.Top - ObjRect.Height; }
                     }
                 }
+
+                //Vision Colisions
+                if (vision.Intersects(player.ObjRect))
+                {
+                    switch (grav)
+                    {
+                        case gravDirection.Up:
+                            if (Attacking == false)
+                            {
+                                Attacking = true;
+                                yVelocity -= (float)GameVariables.jump * 1.5f;
+                            }
+                            break;
+                        case gravDirection.Down:
+                            if (Attacking == false)
+                            {
+                                Attacking = true;
+                                yVelocity += (float)GameVariables.jump * 1.5f;
+                            }
+                            break;
+                        case gravDirection.Left:
+                            if (Attacking == false)
+                            {
+                                Attacking = true;
+                                xVelocity -= (float)GameVariables.jump * 1.5f;
+                            }
+                            break;
+                        case gravDirection.Right:
+                            if (Attacking == false)
+                            {
+                                Attacking = true;
+                                xVelocity += (float)GameVariables.jump * 1.5f;
+                            }
+                            break;
+                    }
+                        
+                    
+                }
+
+
                 ObjRectX = (int)ObjPos.X;
                 ObjRectY = (int)ObjPos.Y;
             }
         }
+
 
         public override void spriteDraw(SpriteBatch s)
         {
@@ -364,21 +446,12 @@ namespace GDAPS_Project_2
             {
                 if (grav == gravDirection.Down)
                 {
-                    if (currentDir == Direction.left)
+                    if (currentDir == Direction.left | currentDir == Direction.right)
                     {
                         if (atime.ElapsedMilliseconds > 1000) { atime.Reset(); }
 
                         atime.Start();
-                        Move.DrawFrame(s, 1, new Vector2(ObjRectX, ObjRectY), true);
-                        float elapsed = atime.ElapsedMilliseconds;
-                        Move.UpdateFrame(elapsed / 1000);
-                    }
-                    if (currentDir == Direction.right)
-                    {
-                        if (atime.ElapsedMilliseconds > 1000) { atime.Reset(); }
-
-                        atime.Start();
-                        Move.DrawFrame(s, 2, new Vector2(ObjRectX, ObjRectY), true);
+                        Move.DrawFrame(s, 1, new Vector2(ObjRectX, ObjRectY), false);
                         float elapsed = atime.ElapsedMilliseconds;
                         Move.UpdateFrame(elapsed / 1000);
                     }
@@ -386,21 +459,12 @@ namespace GDAPS_Project_2
 
                 if (grav == gravDirection.Up)
                 {
-                    if (currentDir == Direction.left)
+                    if (currentDir == Direction.left | currentDir == Direction.right)
                     {
                         if (atime.ElapsedMilliseconds > 1000) { atime.Reset(); }
 
                         atime.Start();
-                        Move.DrawFrame(s, 2, new Vector2(ObjRectX, ObjRectY), new Vector2(ObjRectHeight, ObjRectWidth * 1.5f), true, MathHelper.Pi);
-                        float elapsed = atime.ElapsedMilliseconds;
-                        Move.UpdateFrame(elapsed / 1000);
-                    }
-                    if (currentDir == Direction.right)
-                    {
-                        if (atime.ElapsedMilliseconds > 1000) { atime.Reset(); }
-
-                        atime.Start();
-                        Move.DrawFrame(s, 1, new Vector2(ObjRectX, ObjRectY), new Vector2(ObjRectHeight, ObjRectWidth * 1.5f), true, MathHelper.Pi);
+                        Move.DrawFrame(s, 1, new Vector2(ObjRectX, ObjRectY), new Vector2(ObjRectHeight, ObjRectWidth * 1.5f), false, MathHelper.Pi);
                         float elapsed = atime.ElapsedMilliseconds;
                         Move.UpdateFrame(elapsed / 1000);
                     }
@@ -408,21 +472,12 @@ namespace GDAPS_Project_2
 
                 if (grav == gravDirection.Left)
                 {
-                    if (currentDir == Direction.up)
+                    if (currentDir == Direction.up | currentDir == Direction.down)
                     {
                         if (atime.ElapsedMilliseconds > 1000) { atime.Reset(); }
 
                         atime.Start();
-                        Move.DrawFrame(s, 1, new Vector2(ObjRectX, ObjRectY), new Vector2(ObjRectHeight, ObjRectWidth), true, MathHelper.Pi /2);
-                        float elapsed = atime.ElapsedMilliseconds;
-                        Move.UpdateFrame(elapsed / 1000);
-                    }
-                    if (currentDir == Direction.down)
-                    {
-                        if (atime.ElapsedMilliseconds > 1000) { atime.Reset(); }
-
-                        atime.Start();
-                        Move.DrawFrame(s, 2, new Vector2(ObjRectX, ObjRectY), new Vector2(ObjRectHeight, ObjRectWidth), true, MathHelper.Pi /2);
+                        Move.DrawFrame(s, 1, new Vector2(ObjRectX, ObjRectY), new Vector2(ObjRectHeight, ObjRectWidth), false, MathHelper.Pi / 2);
                         float elapsed = atime.ElapsedMilliseconds;
                         Move.UpdateFrame(elapsed / 1000);
                     }
@@ -430,21 +485,12 @@ namespace GDAPS_Project_2
 
                 if (grav == gravDirection.Right)
                 {
-                    if (currentDir == Direction.up)
+                    if (currentDir == Direction.up | currentDir == Direction.down)
                     {
                         if (atime.ElapsedMilliseconds > 1000) { atime.Reset(); }
 
                         atime.Start();
-                        Move.DrawFrame(s, 2, new Vector2(ObjRectX, ObjRectY), new Vector2(ObjRectHeight, 0), true, -MathHelper.Pi/2);
-                        float elapsed = atime.ElapsedMilliseconds;
-                        Move.UpdateFrame(elapsed / 1000);
-                    }
-                    if (currentDir == Direction.down)
-                    {
-                        if (atime.ElapsedMilliseconds > 1000) { atime.Reset(); }
-
-                        atime.Start();
-                        Move.DrawFrame(s, 1, new Vector2(ObjRectX, ObjRectY), new Vector2(ObjRectHeight, 0), true, -MathHelper.Pi/2);
+                        Move.DrawFrame(s, 1, new Vector2(ObjRectX, ObjRectY), new Vector2(ObjRectHeight, 0), false, -MathHelper.Pi / 2);
                         float elapsed = atime.ElapsedMilliseconds;
                         Move.UpdateFrame(elapsed / 1000);
                     }

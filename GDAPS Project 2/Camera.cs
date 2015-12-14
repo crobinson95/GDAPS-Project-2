@@ -11,6 +11,12 @@ namespace GDAPS_Project_2
     class Camera
     {
         public Vector2 position;
+        GraphicsDevice range;
+
+
+        public Rectangle right;
+        public Rectangle left;
+        public Rectangle up;
 
         public Matrix viewMatrix { get; set; }
         public float camX
@@ -32,6 +38,10 @@ namespace GDAPS_Project_2
             origin = Vector2.Zero;
             position.X = p.ObjRect.Center.X - 150;
             position.Y = p.ObjRect.Top - 100;
+            right = new Rectangle(screen.Viewport.Width / 2, 0, screen.Viewport.Width / 2, screen.Viewport.Height);
+            left = new Rectangle(0, 0, screen.Viewport.Width / 4, screen.Viewport.Height);
+            up = new Rectangle(0, 0, screen.Viewport.Width, screen.Viewport.Height / 2);
+            range = screen;
         }
 
         public void Move(Player p, int width, int height)
