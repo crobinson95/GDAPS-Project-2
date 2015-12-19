@@ -26,9 +26,14 @@ namespace GDAPS_Project_2
         int height;
         Hud gameHUD;
         bool paused;
+        bool soundMuted;
+        bool musicMuted;
         StreamReader s = null;
+        int tempTime;
+        int tempDeaths;
 
         SoundLoop falling;
+        SoundLoop robotMovement;
 
         Texture2D pauseBack;
         SpriteFont gameFont;
@@ -85,29 +90,15 @@ namespace GDAPS_Project_2
             // m = Menus.Start;
             paused = false;
 
-            SoundEffect.DistanceScale = 75f;
-
-            world = new World(GameVariables.menuWorld, s, player, Content); // Menu "world"
-            world.LoadWorld();
-
-            // x y width height are temporary filler values
-            // gameHUD = new Hud(50, 20, 700, 180, spriteBatch, player, world.Levels[0].HudInfo, (GameVariables.menuWorld + " - " + (world.currentLevel + 1).ToString()));
-
-            player.ObjPos.X = world.levels["main.txt"].playerSpawn.X;
-            player.ObjPos.Y = world.levels["main.txt"].playerSpawn.Y;
-            world.currentLevel = "main.txt";
-
-            moveCamera = new Camera(player, GraphicsDevice);
-            gameHUD = new Hud((int)moveCamera.camX + 20, (int)moveCamera.camY + 20, 300, 45, spriteBatch, player, moveCamera, world.levels[world.currentLevel]);
-            //MediaPlayer.IsRepeating = true;
-
+            SoundEffect.DistanceScale = 150f;
+         
             width = GraphicsDevice.Viewport.Width;
             height = GraphicsDevice.Viewport.Height;
 
             base.Initialize();
         }
 
-        
+
 
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
@@ -128,24 +119,23 @@ namespace GDAPS_Project_2
             deathScreen = Content.Load<Texture2D>(@"ContentFiles/Images/Sprites/death");
             victoryScreen = Content.Load<Texture2D>(@"ContentFiles/Images/Sprites/Victory");
             menu = new AnimatedTexture(Content, @"ContentFiles/Images/Sprites/fronta", 5, .05f);
+
+            world = new World(GameVariables.menuWorld, s, player, Content); // Menu "world"
             world.LoadWorld();
 
-            //Texture2D hud = Content.Load<Texture2D>(GameVariables.imgHUD);
+            player.ObjPos.X = world.levels["main.txt"].playerSpawn.X;
+            player.ObjPos.Y = world.levels["main.txt"].playerSpawn.Y;
+            world.currentLevel = "main.txt";
 
-            GameVariables.l1.IsLooped = true;
-            GameVariables.l2.IsLooped = true;
-            GameVariables.l3.IsLooped = true;
-            GameVariables.l1.Volume = 0.4f * GameVariables.gameVolume;
-            GameVariables.l2.Volume = 0.4f * GameVariables.gameVolume;
-            GameVariables.l3.Volume = 0.4f * GameVariables.gameVolume;
-            GameVariables.mainX.Volume = 1 * GameVariables.gameVolume;
-            GameVariables.deadX.Volume = 1 * GameVariables.gameVolume;
+            moveCamera = new Camera(player, GraphicsDevice);
+            gameHUD = new Hud((int)moveCamera.camX + 20, (int)moveCamera.camY + 20, 300, 45, spriteBatch, player, moveCamera, world.levels[world.currentLevel]);
 
-            falling = new SoundLoop(GameVariables.fallingLoop.CreateInstance(), 700, GameVariables.fallingLoop.CreateInstance(), 700, GameVariables.fallingAcceleration.CreateInstance(), 850, 0.6f * GameVariables.gameVolume);
+            falling = new SoundLoop(GameVariables.fallingLoopInstance1, 700, GameVariables.fallingLoopInstance2, 700, GameVariables.fallingAccelerationInstance, 850);
+            robotMovement = new SoundLoop(GameVariables.robotSoundInstance1, 690, GameVariables.robotSoundInstance2, 690);
+
             gameHUD.backt = Content.Load<Texture2D>(@"ContentFiles/Images/Sprites/back");
             gameHUD.undert = Content.Load<Texture2D>(@"ContentFiles/Images/Sprites/grey");
             gameHUD.energyt = Content.Load<Texture2D>(@"ContentFiles/Images/Sprites/energy");
-            //gameHUD.keyt = Content.Load<Texture2D>(@"ContentFiles/Images/Sprites/ki");
         }
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
@@ -166,8 +156,7 @@ namespace GDAPS_Project_2
         public static void PlayRandomSound(List<SoundEffectInstance> soundList)
         {
             Random random = new Random();
-            soundList[random.Next(soundList.Count)].Volume = 1.0f * GameVariables.gameVolume;
-            soundList[random.Next(soundList.Count)].Play();
+            soundList[random.Next(0, soundList.Count)].Play();
         }
 
         private void ResetLevel()
@@ -176,6 +165,8 @@ namespace GDAPS_Project_2
             {
                 e.ObjPos.X = e.origin.X;
                 e.ObjPos.Y = e.origin.Y;
+                e.ObjRectX = (int)e.ObjPos.X;
+                e.ObjRectY = (int)e.ObjPos.Y;
                 e.grav = MovableGameObject.gravDirection.Down;
                 e.xVelocity = 0;
                 e.yVelocity = 0;
@@ -199,15 +190,62 @@ namespace GDAPS_Project_2
             world.levels[world.currentLevel].levelTimer.Start();
         }
 
-        private void Mute()
+        private void MuteSoundEffects()
+        {
+            if (SingleKeyPress(Keys.N, kbState, previousKbState))
+            {
+                if (soundMuted)
+                {
+                    GameVariables.gameVolume = 1.0f;
+                    soundMuted = false;
+                }
+                else
+                {
+                    GameVariables.gameVolume = 0.0f;
+                    soundMuted = true;
+                }
+                foreach (SoundEffectInstance temp in GameVariables.GameSounds)
+                {
+                    temp.Volume = GameVariables.gameVolume;
+                }
+                GameVariables.interfaceStartInstance.Volume = 0.25f * GameVariables.gameVolume;
+            }
+        }
+        private void MuteMusic()
         {
             if (SingleKeyPress(Keys.M, kbState, previousKbState))
             {
-                if (GameVariables.gameVolume == 1.0f)
+                if (musicMuted)
+                {
+                    musicMuted = false;
+                }
+                else
                 {
                     GameVariables.gameVolume = 0.0f;
+                    musicMuted = true;
                 }
-                else { GameVariables.gameVolume = 1.0f; }
+                foreach (MusicController temp in GameVariables.layerList)
+                {
+                    temp.Layer.Volume = GameVariables.gameVolume;
+                }
+            }
+        }
+
+        private void FadeLayers()
+        {
+            if (!musicMuted)
+            {
+                foreach (MusicController layer in GameVariables.layerList)
+                {
+                    if (layer.layerInLevel)
+                    {
+                        layer.FadeIn(0.6f);
+                    }
+                    else
+                    {
+                        layer.FadeOut(0.0f);
+                    }
+                }
             }
         }
 
@@ -223,30 +261,29 @@ namespace GDAPS_Project_2
 
             // TODO: Add your update logic here
 
+            foreach (MusicController temp in GameVariables.layerList)
+            {
+                temp.Layer.Play();
+            }
+
             previousKbState = kbState;
             kbState = Keyboard.GetState();
-            GameVariables.l1.Volume = 0.4f * GameVariables.gameVolume;
-            GameVariables.l2.Volume = 0.4f * GameVariables.gameVolume;
-            GameVariables.l3.Volume = 0.4f * GameVariables.gameVolume;
-            GameVariables.mainX.Volume = 0.4f * GameVariables.gameVolume;
-            GameVariables.deadX.Volume = 1 * GameVariables.gameVolume;
 
             if (g == GameState.Menu)
             {
 
-                GameVariables.mainX.Play();
+                GameVariables.menuMusicInstance.Play();
 
                 moveCamera.viewMatrix = moveCamera.GetTransform(player, width, height);
                 if (SingleKeyPress(Keys.Enter, kbState, previousKbState))
                 {
-                    GameVariables.mainX.Stop();
-                    GameVariables.l1.Play();
-                    GameVariables.l2.Play();
-                    GameVariables.l3.Play();
+                    GameVariables.interfaceStartInstance.Play();
+                    GameVariables.menuMusicInstance.Stop();
                     g = GameState.Level;
                     world.levels[world.currentLevel].levelTimer.Start();
                 }
-                Mute();
+                MuteSoundEffects();
+                MuteMusic();
                 if (SingleKeyPress(Keys.F, kbState, previousKbState))
                 {
                     graphics.ToggleFullScreen();
@@ -255,10 +292,11 @@ namespace GDAPS_Project_2
 
             if (g == GameState.Pause)
             {
+                FadeLayers();
                 if (SingleKeyPress(Keys.R, kbState, previousKbState))
                 {
-                    GameVariables.deadX.Stop();
                     ResetLevel();
+                    GameVariables.interfacePauseInstance.Play();
                     g = prevState;
                     paused = false;
                 }
@@ -267,8 +305,8 @@ namespace GDAPS_Project_2
                     graphics.ToggleFullScreen();
                 }
 
-                Mute();
-
+                MuteSoundEffects();
+                MuteMusic();
                 if (SingleKeyPress(Keys.Q, kbState, previousKbState))
                 {
                     Exit();
@@ -277,18 +315,20 @@ namespace GDAPS_Project_2
 
             if (g == GameState.Dead)
             {
-                GameVariables.l1.Stop();
-                GameVariables.l2.Stop();
-                GameVariables.l3.Stop();
-                GameVariables.deadX.Play();
+                foreach (MusicController temp in GameVariables.layerList)
+                {
+                    temp.Layer.Stop();
+                }
+                if (GameVariables.deathMusicInstance.State == SoundState.Stopped)
+                {
+                    GameVariables.deathMusicInstance.Play();
+                }
                 if (SingleKeyPress(Keys.R, kbState, previousKbState))
                 {
                     ResetLevel();
                     g = GameState.Level;
-                    GameVariables.deadX.Stop();
-                    GameVariables.l1.Play();
-                    GameVariables.l2.Play();
-                    GameVariables.l3.Play();
+                    GameVariables.interfaceStartInstance.Play();
+                    GameVariables.deathMusicInstance.Stop();
                 }
             }
 
@@ -299,19 +339,22 @@ namespace GDAPS_Project_2
                 {
                     g = GameState.Level;
                     player.victory = false;
+                    GameVariables.interfaceStartInstance.Play();
                     world.levels[world.currentLevel].levelTimer.Start();
                 }
                 if (SingleKeyPress(Keys.F, kbState, previousKbState))
                 {
                     graphics.ToggleFullScreen();
                 }
-                Mute();
+                MuteSoundEffects();
+                MuteMusic();
             }
 
             if (g == GameState.Level)
             {
+                FadeLayers();
                 player.Movement(kbState, previousKbState, gameTime, falling);
-                player.Collisions(kbState, previousKbState, world, s, Content);
+                player.Collisions(kbState, previousKbState, world, s, Content, robotMovement);
                 foreach (Enemy enemy in world.levels[world.currentLevel].enemies)
                 {            
                     if (enemy.alive)
@@ -322,11 +365,24 @@ namespace GDAPS_Project_2
                 }
                 if (player.IsDead())
                 {
+                    foreach (SoundEffectInstance temp in GameVariables.GameSounds)
+                    {
+                        if (temp != GameVariables.deathMusicInstance && temp != GameVariables.deathSoundInstance)
+                        {
+                            temp.Stop();
+                        }
+                    }
                     g = GameState.Dead;
                 }
 
                 if (player.world != null && player.world != world)
                 {
+                    if (player.victory)
+                    {
+                        tempTime = world.levels[world.currentLevel].levelTimer.Elapsed.Seconds;
+                        tempDeaths = world.levels[world.currentLevel].deathCount;
+                        player.energy = 280;
+                    }
                     world = player.world;
                     world.LoadWorld();
                     world.levels[world.currentLevel].levelTimer.Start();
@@ -344,6 +400,14 @@ namespace GDAPS_Project_2
 
             if (SingleKeyPress(Keys.P, kbState, previousKbState) && g != GameState.Menu && g != GameState.Victory && g != GameState.Dead)
             {
+                foreach (SoundEffectInstance temp in GameVariables.GameSounds)
+                {
+                    if (temp != GameVariables.layer1Instance && temp != GameVariables.layer2Instance && temp != GameVariables.layer3Instance && temp != GameVariables.layer4Instance && temp != GameVariables.layer5Instance && temp != GameVariables.layer6Instance)
+                    {
+                        temp.Stop();
+                    }
+                }
+                GameVariables.interfacePauseInstance.Play();
                 if (!paused)
                 {
                     prevState = g;
@@ -354,6 +418,7 @@ namespace GDAPS_Project_2
                 else
                 {
                     g = prevState;
+                    GameVariables.interfacePauseInstance.Play();
                     world.levels[world.currentLevel].levelTimer.Start();
                     paused = false;
                 }
@@ -388,7 +453,8 @@ namespace GDAPS_Project_2
                 float elapsed = time.ElapsedMilliseconds;
                 menu.UpdateFrame(elapsed / 1000);
 
-                spriteBatch.DrawString(gameFont, "   Project\n   Inversion\n\n\n  Enter to Start!?", new Vector2(-moveCamera.camX + 400, -moveCamera.camY + 100), Color.White);
+                spriteBatch.DrawString(gameFont, "   Project\n   Inversion", new Vector2(-moveCamera.camX + 500, -moveCamera.camY + 50), Color.White);
+                spriteBatch.DrawString(gameFont, "   Press Enter to Start", new Vector2(-moveCamera.camX + 540, -moveCamera.camY + 300), Color.White, 0.0f, new Vector2(0, 0), 0.40f, SpriteEffects.None, 0.1f);
             }
 
             if (g == GameState.Level || g == GameState.Pause)
@@ -409,7 +475,7 @@ namespace GDAPS_Project_2
                 if (paused)
                 {
                     spriteBatch.Draw(pauseBack, new Rectangle(-(int)moveCamera.camX + 20, -(int)moveCamera.camY + 80, graphics.PreferredBackBufferWidth - 60, graphics.PreferredBackBufferHeight - 160), null, Color.White * 0.8f, 0.0f, new Vector2(0, 0), SpriteEffects.None, 0.1f);
-                    spriteBatch.DrawString(gameFont, "R to reset\nQ to quit\nCurrent Level: " + world.currentLevel, new Vector2(-moveCamera.camX + 40, -moveCamera.camY + 100), Color.Black, 0.0f, new Vector2(0, 0), 1.0f, SpriteEffects.None, 0.0f);
+                    spriteBatch.DrawString(gameFont2, "R to reset\nQ to quit\nF for fullscreen\nM to mute music\nN to mute sounds", new Vector2(-moveCamera.camX + 40, -moveCamera.camY + 100), Color.Black, 0.0f, new Vector2(0, 0), 1.0f, SpriteEffects.None, 0.0f);
                 }
             }
 
@@ -417,7 +483,7 @@ namespace GDAPS_Project_2
             {
                 spriteBatch.Draw(victoryScreen, new Rectangle(-(int)moveCamera.camX, -(int)moveCamera.camY, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight), null, Color.White, 0.0f, new Vector2(0, 0), SpriteEffects.None, 0.1f);
                 spriteBatch.DrawString(gameFont2, "Nice job!\n\n\nPress 'Enter' \nto continue", new Vector2(-moveCamera.camX + 40, -moveCamera.camY + 100), Color.White, 0.0f, new Vector2(0, 0), 1.0f, SpriteEffects.None, 0.0f);
-                spriteBatch.DrawString(gameFont2, "Time: " + world.levels[world.currentLevel].levelTimer.Elapsed.Seconds + "\nDeaths: " + world.levels[world.currentLevel].deathCount, new Vector2(-moveCamera.camX + 40, -moveCamera.camY + 185), Color.White, 0.0f, new Vector2(0, 0), 0.75f, SpriteEffects.None, 0.0f);
+                spriteBatch.DrawString(gameFont2, "Time: " + tempTime + " seconds" + "\nDeaths: " + tempDeaths, new Vector2(-moveCamera.camX + 40, -moveCamera.camY + 185), Color.White, 0.0f, new Vector2(0, 0), 0.75f, SpriteEffects.None, 0.0f);
             }
 
             if (g == GameState.Dead)

@@ -233,17 +233,6 @@
 /processorParam:TextureFormat=Color
 /build:ContentFiles/Images/Sprites/Block/blockOutsideTop.png
 
-#begin ContentFiles/Images/Sprites/door_spir.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:TextureFormat=Color
-/build:ContentFiles/Images/Sprites/door_spir.png
-
 #begin ContentFiles/Images/Sprites/Font.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
@@ -260,61 +249,6 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:TextureFormat=Color
 /build:ContentFiles/Images/Sprites/IGME106_P02_Character.png
-
-#begin ContentFiles/Images/Sprites/imgDoor.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:TextureFormat=Color
-/build:ContentFiles/Images/Sprites/imgDoor.png
-
-#begin ContentFiles/Images/Sprites/imgFloor.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:TextureFormat=Color
-/build:ContentFiles/Images/Sprites/imgFloor.png
-
-#begin ContentFiles/Images/Sprites/imgPlayer.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:TextureFormat=Color
-/build:ContentFiles/Images/Sprites/imgPlayer.png
-
-#begin ContentFiles/Images/Sprites/imgSpike.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:TextureFormat=Color
-/build:ContentFiles/Images/Sprites/imgSpike.png
-
-#begin ContentFiles/Images/Sprites/imgWall.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:TextureFormat=Color
-/build:ContentFiles/Images/Sprites/imgWall.png
 
 #begin ContentFiles/Images/Sprites/DoorSliding.png
 /importer:TextureImporter
@@ -360,48 +294,6 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:ContentFiles/Sound/Foley/FallingMaxLoop.wav
-
-#begin ContentFiles/Sound/Foley/Landing.mp3
-/importer:Mp3Importer
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:ContentFiles/Sound/Foley/Landing.mp3
-
-#begin ContentFiles/Sound/FX/GravityFX1.mp3
-/importer:Mp3Importer
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:ContentFiles/Sound/FX/GravityFX1.mp3
-
-#begin ContentFiles/Sound/FX/GravityFX2.mp3
-/importer:Mp3Importer
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:ContentFiles/Sound/FX/GravityFX2.mp3
-
-#begin ContentFiles/Sound/FX/GravityFX3.mp3
-/importer:Mp3Importer
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:ContentFiles/Sound/FX/GravityFX3.mp3
-
-#begin ContentFiles/Sound/TestLoops/FinalLayer1.mp3
-/importer:Mp3Importer
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:ContentFiles/Sound/TestLoops/FinalLayer1.mp3
-
-#begin ContentFiles/Sound/TestLoops/FinalLayer2.mp3
-/importer:Mp3Importer
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:ContentFiles/Sound/TestLoops/FinalLayer2.mp3
-
-#begin ContentFiles/Sound/TestLoops/FinalLayer3.mp3
-/importer:Mp3Importer
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:ContentFiles/Sound/TestLoops/FinalLayer3.mp3
 
 #begin ContentFiles/Images/Sprites/Block/blockWiresBottom.png
 /importer:TextureImporter
@@ -622,12 +514,6 @@
 /processorParam:Quality=Best
 /build:ContentFiles/Sound/FX/WireFX.wav
 
-#begin ContentFiles/Sound/FFX_To_Zanarkand.mp3
-/importer:Mp3Importer
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:ContentFiles/Sound/FFX_To_Zanarkand.mp3
-
 #begin ContentFiles/Sound/FX/DoorClose.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -640,12 +526,6 @@
 /processorParam:Quality=Best
 /build:ContentFiles/Sound/FX/DoorOpen.wav
 
-#begin ContentFiles/Sound/Cantus_in_Memory.mp3
-/importer:Mp3Importer
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:ContentFiles/Sound/Cantus_in_Memory.mp3
-
 #begin ContentFiles/Images/Sprites/Victory.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -657,27 +537,90 @@
 /processorParam:TextureFormat=Color
 /build:ContentFiles/Images/Sprites/Victory.png
 
-#begin ContentFiles/Sound/FX/InterfacePause .wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:ContentFiles/Sound/FX/InterfacePause .wav
-
 #begin ContentFiles/Sound/FX/InterfaceStart.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:ContentFiles/Sound/FX/InterfaceStart.wav
 
-#begin ContentFiles/Sound/FX/RobotDeath.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:ContentFiles/Sound/FX/RobotDeath.wav
-
 #begin ContentFiles/Images/Sprites/Font2.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
 /processorParam:TextureFormat=Compressed
 /build:ContentFiles/Images/Sprites/Font2.spritefont
+
+#begin ContentFiles/Sound/Layers/Drum.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:ContentFiles/Sound/Layers/Drum.wav
+
+#begin ContentFiles/Sound/Layers/Guitar.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:ContentFiles/Sound/Layers/Guitar.wav
+
+#begin ContentFiles/Sound/Layers/Melody.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:ContentFiles/Sound/Layers/Melody.wav
+
+#begin ContentFiles/Sound/Layers/Pad.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:ContentFiles/Sound/Layers/Pad.wav
+
+#begin ContentFiles/Sound/Layers/Rythm.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:ContentFiles/Sound/Layers/Rythm.wav
+
+#begin ContentFiles/Sound/Music/DeathScreen.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:ContentFiles/Sound/Music/DeathScreen.wav
+
+#begin ContentFiles/Sound/Music/MenuMusic.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:ContentFiles/Sound/Music/MenuMusic.wav
+
+#begin ContentFiles/Sound/FX/DeathSound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:ContentFiles/Sound/FX/DeathSound.wav
+
+#begin ContentFiles/Sound/Foley/Landing.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:ContentFiles/Sound/Foley/Landing.wav
+
+#begin ContentFiles/Sound/Layers/Arppegiating.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:ContentFiles/Sound/Layers/Arppegiating.wav
+
+#begin ContentFiles/Sound/FX/InterfacePause.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:ContentFiles/Sound/FX/InterfacePause.wav
+
+#begin menu/main.txt
+/copy:menu/main.txt
+
+#begin world1/1-1.txt
+/copy:world1/1-1.txt
+
+#begin world2/2-1.txt
+/copy:world2/2-1.txt
 

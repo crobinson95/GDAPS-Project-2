@@ -10,9 +10,12 @@ using System.Text;
 
 namespace GDAPS_Project_2
 {
+    /// <summary>
+    /// Various game variables to allow easy editing to them. Also loads and initializes most content files.
+    /// </summary>
     public static class GameVariables
     {
-
+        // Some editable game variables.
         public static int gameWidth;
         public static int gameHeight;
         public static int innerWidth;
@@ -27,10 +30,8 @@ namespace GDAPS_Project_2
         public static double jump = 5.5f;
         public static string imgHUD = @"ContentFiles/Images/Sprites/hud";
         public static string imgPlayer = @"ContentFiles/Images/Sprites/imgPlayer";
-        public static string imgWall = @"ContentFiles/Images/Sprites/imgWall";
-        public static string imgFloor = @"ContentFiles/Images/Sprites/imgFloor";
-        public static string imgSpike = @"ContentFiles/Images/Sprites/imgSpike";
         public static string imgDoor = @"ContentFiles/Images/Sprites/imgDoor";
+        public static string imgWall = @"ContentFiles/Images/Sprites/grey";
         public static string imgEnemy = @"ContentFiles/Images/Sprites/imgEnemy";
         public static string gFont = @"ContentFiles/Images/Sprites/Font";
         public static string gFont2 = @"ContentFiles/Images/Sprites/Font2";
@@ -39,13 +40,8 @@ namespace GDAPS_Project_2
         public static string bgLevels;
         public static string menuWorld = @"menu"; // set root directory?
 
-        public static Texture2D floorTexture;
-        public static Texture2D wallTexture;
-        public static Texture2D spikeTexture;
-        public static Texture2D doorTexture;
-        public static Texture2D enemyTexture;
+        // Most of the texture in the game.
         public static Texture2D starsBackground;
-
         public static Texture2D blockBlank;
         public static Texture2D blockInsideBottom;
         public static Texture2D blockInsideLeft;
@@ -69,60 +65,85 @@ namespace GDAPS_Project_2
         public static Texture2D blockOutsideCornerBottomRight;
         public static Texture2D panel;
         public static Texture2D panelDark;
-
         public static Texture2D hazardWiresBottom;
         public static Texture2D hazardWiresLeft;
         public static Texture2D hazardWiresRight;
         public static Texture2D hazardWiresTop;
 
-        public static SoundEffect mainMenuX;
-        public static SoundEffect mainDeadX;
+        // All soundeffects to be added here.
+        static SoundEffect menuMusicEffect;
+        static SoundEffect deathScreenEffect;
+        static SoundEffect layer1Effect;
+        static SoundEffect layer2Effect;
+        static SoundEffect layer3Effect;
+        static SoundEffect layer4Effect;
+        static SoundEffect layer5Effect;
+        static SoundEffect layer6Effect;
+        static SoundEffect landing;
+        static SoundEffect fallingAcceleration;
+        static SoundEffect fallingLoop;
+        static SoundEffect gravityFX1;
+        static SoundEffect gravityFX2;
+        static SoundEffect gravityFX3;
+        static SoundEffect Footstep1;
+        static SoundEffect Footstep2;
+        static SoundEffect Footstep3;
+        static SoundEffect Footstep4;
+        static SoundEffect Footstep5;
+        static SoundEffect Footstep6;
+        static SoundEffect Footstep7;
+        static SoundEffect WireFX;
+        static SoundEffect DoorOpen;
+        static SoundEffect DoorClose;
+        static SoundEffect Robot;
+        static SoundEffect DeathSound;
+        static SoundEffect InterfacePauseEffect;
+        static SoundEffect InterfaceStartEffect;
 
-        public static SoundEffect finalLayer1;
-        public static SoundEffect finalLayer2;
-        public static SoundEffect finalLayer3;
-        public static SoundEffect landing;
-        public static SoundEffect fallingAcceleration;
-        public static SoundEffect fallingLoop;
-        public static SoundEffect gravityFX1;
-        public static SoundEffect gravityFX2;
-        public static SoundEffect gravityFX3;
-        public static SoundEffect Footstep1;
-        public static SoundEffect Footstep2;
-        public static SoundEffect Footstep3;
-        public static SoundEffect Footstep4;
-        public static SoundEffect Footstep5;
-        public static SoundEffect Footstep6;
-        public static SoundEffect Footstep7;
-        public static SoundEffect WireFX;
-        public static SoundEffect DoorOpen;
-        public static SoundEffect DoorClose;
-        public static SoundEffect Robot;
-
-        public static SoundEffectInstance mainX;
-        public static SoundEffectInstance deadX;
-
-        public static SoundEffectInstance l1;
-        public static SoundEffectInstance l2;
-        public static SoundEffectInstance l3;
+        // Any sound effect instance should be added here.
+        public static SoundEffectInstance menuMusicInstance;
+        public static SoundEffectInstance deathMusicInstance;
         public static SoundEffectInstance landingInstance;
-        public static SoundEffectInstance fAcceleration;
-        public static SoundEffectInstance fLoop;
-        public static SoundEffectInstance doorOpen;
-        public static SoundEffectInstance doorClose;
-        public static SoundEffectInstance robotSound;
-        public static SoundEffectInstance wireSound;
+        public static SoundEffectInstance fallingAccelerationInstance;
+        public static SoundEffectInstance fallingLoopInstance1;
+        public static SoundEffectInstance fallingLoopInstance2;
+        public static SoundEffectInstance doorOpenInstance;
+        public static SoundEffectInstance doorCloseInstance;
+        public static SoundEffectInstance robotSoundInstance1;
+        public static SoundEffectInstance robotSoundInstance2;
+        public static SoundEffectInstance wireFXInstance;
+        public static SoundEffectInstance deathSoundInstance;
+        public static SoundEffectInstance interfacePauseInstance;
+        public static SoundEffectInstance interfaceStartInstance;
+        public static SoundEffectInstance layer1Instance;
+        public static SoundEffectInstance layer2Instance;
+        public static SoundEffectInstance layer3Instance;
+        public static SoundEffectInstance layer4Instance;
+        public static SoundEffectInstance layer5Instance;
+        public static SoundEffectInstance layer6Instance;
 
+        // Lists of instances. Called in a random sound method.
         public static List<SoundEffectInstance> FootstepSounds;
         public static List<SoundEffectInstance> GravitySounds;
+
+        // List of all instances to keep track of and change the volume of each instance.
         public static List<SoundEffectInstance> GameSounds;
 
+        // MusicController objects.
+        public static MusicController layer1;
+        public static MusicController layer2;
+        public static MusicController layer3;
+        public static MusicController layer4;
+        public static MusicController layer5;
+        public static MusicController layer6;
+        public static List<MusicController> layerList = new List<MusicController>();
+
+        /// <summary>
+        /// Loads all content. To be called in Game1.Initialize. Also initializes sound instances.
+        /// </summary>
+        /// <param name="content"></param>
         public static void LoadContentFiles(ContentManager content)
         {
-            floorTexture = content.Load<Texture2D>(GameVariables.imgFloor);
-            wallTexture = content.Load<Texture2D>(GameVariables.imgWall);
-            spikeTexture = content.Load<Texture2D>(GameVariables.imgSpike);
-            doorTexture = content.Load<Texture2D>(GameVariables.imgDoor);
             starsBackground = content.Load<Texture2D>(GameVariables.backgroundStars);
 
             blockBlank = content.Load<Texture2D>(@"ContentFiles/Images/Sprites/Block/blockBlank");
@@ -155,12 +176,16 @@ namespace GDAPS_Project_2
             hazardWiresRight = content.Load<Texture2D>(@"ContentFiles/Images/Sprites/Hazards/hazardWiresRight");
             hazardWiresTop = content.Load<Texture2D>(@"ContentFiles/Images/Sprites/Hazards/hazardWiresTop");
 
-            mainMenuX = content.Load<SoundEffect>(@"ContentFiles/Sound/FFX_To_Zanarkand");
-            mainDeadX = content.Load<SoundEffect>(@"ContentFiles/Sound/Cantus_in_Memory");
+            menuMusicEffect = content.Load<SoundEffect>(@"ContentFiles/Sound/Music/MenuMusic");
+            deathScreenEffect = content.Load<SoundEffect>(@"ContentFiles/Sound/Music/DeathScreen");
 
-            finalLayer1 = content.Load<SoundEffect>(@"ContentFiles/Sound/TestLoops/FinalLayer1");
-            finalLayer2 = content.Load<SoundEffect>(@"ContentFiles/Sound/TestLoops/FinalLayer2");
-            finalLayer3 = content.Load<SoundEffect>(@"ContentFiles/Sound/TestLoops/FinalLayer3");
+            layer1Effect = content.Load<SoundEffect>(@"ContentFiles/Sound/Layers/Arppegiating");
+            layer2Effect = content.Load<SoundEffect>(@"ContentFiles/Sound/Layers/Pad");
+            layer3Effect = content.Load<SoundEffect>(@"ContentFiles/Sound/Layers/Melody");
+            layer4Effect = content.Load<SoundEffect>(@"ContentFiles/Sound/Layers/Rythm");
+            layer5Effect = content.Load<SoundEffect>(@"ContentFiles/Sound/Layers/Drum");
+            layer6Effect = content.Load<SoundEffect>(@"ContentFiles/Sound/Layers/Guitar");
+
             landing = content.Load<SoundEffect>(@"ContentFiles/Sound/Foley/Landing");
             fallingAcceleration = content.Load<SoundEffect>(@"ContentFiles/Sound/Foley/FallingAccelerating");
             fallingLoop = content.Load<SoundEffect>(@"ContentFiles/Sound/Foley/FallingMaxLoop");
@@ -177,21 +202,37 @@ namespace GDAPS_Project_2
             WireFX = content.Load<SoundEffect>(@"ContentFiles/Sound/FX/WireFX");
             DoorOpen = content.Load<SoundEffect>(@"ContentFiles/Sound/FX/DoorOpen");
             DoorClose = content.Load<SoundEffect>(@"ContentFiles/Sound/FX/DoorClose");
+            InterfacePauseEffect = content.Load<SoundEffect>(@"ContentFiles/Sound/FX/InterfacePause");
+            InterfaceStartEffect = content.Load<SoundEffect>(@"ContentFiles/Sound/FX/InterfaceStart");
             Robot = content.Load<SoundEffect>(@"ContentFiles/Sound/Foley/Robot");
+            DeathSound = content.Load<SoundEffect>(@"ContentFiles/Sound/FX/DeathSound");
 
-            mainX = mainMenuX.CreateInstance();
-            deadX = mainDeadX.CreateInstance();
-            mainX.IsLooped = true;
-            deadX.IsLooped = true;
+            menuMusicInstance = menuMusicEffect.CreateInstance();
+            deathMusicInstance = deathScreenEffect.CreateInstance();
+            menuMusicInstance.IsLooped = true;
+            deathMusicInstance.IsLooped = true;
 
-            l1 = finalLayer1.CreateInstance();
-            l2 = finalLayer2.CreateInstance();
-            l3 = finalLayer3.CreateInstance();
+            layer1Instance = layer1Effect.CreateInstance();
+            layer2Instance = layer2Effect.CreateInstance();
+            layer3Instance = layer3Effect.CreateInstance();
+            layer4Instance = layer4Effect.CreateInstance();
+            layer5Instance = layer5Effect.CreateInstance();
+            layer6Instance = layer6Effect.CreateInstance();
+
             landingInstance = landing.CreateInstance();
-            doorOpen = DoorOpen.CreateInstance();
-            doorClose = DoorClose.CreateInstance();
-            robotSound = Robot.CreateInstance();
-            wireSound = WireFX.CreateInstance();
+            doorOpenInstance = DoorOpen.CreateInstance();
+            doorCloseInstance = DoorClose.CreateInstance();
+            robotSoundInstance1 = Robot.CreateInstance();
+            robotSoundInstance2 = Robot.CreateInstance();
+            wireFXInstance = WireFX.CreateInstance();
+            fallingAccelerationInstance = fallingAcceleration.CreateInstance();
+            fallingLoopInstance1 = fallingLoop.CreateInstance();
+            fallingLoopInstance2 = fallingLoop.CreateInstance();
+            interfacePauseInstance = InterfacePauseEffect.CreateInstance();
+            interfaceStartInstance = InterfaceStartEffect.CreateInstance();
+            deathSoundInstance = DeathSound.CreateInstance();
+
+            interfaceStartInstance.Volume = 0.25f;
 
             FootstepSounds = new List<SoundEffectInstance> {
                 Footstep1.CreateInstance(),
@@ -207,7 +248,36 @@ namespace GDAPS_Project_2
                 gravityFX2.CreateInstance(),
                 gravityFX3.CreateInstance() };
 
-            GameSounds = new List<SoundEffectInstance>();
+            GameSounds = new List<SoundEffectInstance>
+            {
+                menuMusicInstance,
+                deathMusicInstance,
+                landingInstance,
+                doorOpenInstance,
+                robotSoundInstance1,
+                robotSoundInstance2,
+                wireFXInstance,
+                fallingAccelerationInstance,
+                fallingLoopInstance1,
+                fallingLoopInstance2,
+                interfacePauseInstance,
+                interfaceStartInstance,
+                deathSoundInstance
+            };
+            foreach (SoundEffectInstance temp in FootstepSounds)
+            {
+                GameSounds.Add(temp);
+            }
+            foreach (SoundEffectInstance temp in GravitySounds)
+            {
+                GameSounds.Add(temp);
+            }
+            layerList.Add(new MusicController(layer1Instance));
+            layerList.Add(new MusicController(layer2Instance));
+            layerList.Add(new MusicController(layer3Instance));
+            layerList.Add(new MusicController(layer4Instance));
+            layerList.Add(new MusicController(layer5Instance));
+            layerList.Add(new MusicController(layer6Instance));
         }
 
         public static Texture2D ItemImage(string ImageName)

@@ -14,6 +14,8 @@ namespace GDAPS_Project_2
     {
         Texture2D spriteSheet;
 
+        //Vector2 spriteOrigin;
+
         float TotalElapsed;
 
         public int Frame;
@@ -99,7 +101,7 @@ namespace GDAPS_Project_2
             int FrameWidth = spriteSheet.Width / framecount;
             Rectangle sourcerect = new Rectangle(FrameWidth * frame, level,
                 FrameWidth, spriteSheet.Height);
-            batch.Draw(spriteSheet, screenPos, sourcerect, Color.White, 0.0f, new Vector2(0, 0), s, SpriteEffects.None, 0.3f);
+            batch.Draw(spriteSheet, screenPos, null, Color.White, 0.0f, new Vector2(0, 0), s, SpriteEffects.None, 0.3f);
         }
 
         public void DrawFrame(SpriteBatch batch, int frame, int level, Vector2 screenPos, Vector2 origin, bool multi, float r)

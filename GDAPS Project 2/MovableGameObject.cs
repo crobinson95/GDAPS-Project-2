@@ -15,7 +15,7 @@ namespace GDAPS_Project_2
         public int frameIndex = 0;
         private double timeElapsed;
         private double timeToUpdate;
-        public int FramesPerSec { set { timeToUpdate = 1f / value; } }
+        public int FramesPerSec { set { timeToUpdate = 1f / 15; } }
         //protected Vector2 spriteDirection = Vector2.Zero;
         private string currentAnimation;
         public enum myDirection { none, left, right, up, down };

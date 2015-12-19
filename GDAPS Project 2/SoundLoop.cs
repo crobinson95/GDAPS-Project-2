@@ -7,22 +7,32 @@ using System.Diagnostics;
 
 namespace GDAPS_Project_2
 {
+    /// <summary>
+    /// This class is an attempt to make a more seemless audio loop than Monogame's isLooped method (not 100% succesful...).
+    /// </summary>
     class SoundLoop
     {
+        // Keeps track of when to player he next instance of a sound.
         Stopwatch tempTimer;
         SoundEffectInstance one;
         SoundEffectInstance two;
         SoundEffectInstance introSound;
-        float initialVolume;
+
+        // Time wait after sound effect is played.
         float delay;
         float delayOne;
         float delayTwo;
         float introDelay;
+
+        // Keeps track of which soundeffect was last played.
         bool tracker;
+        // Keeps track of whether or not the loop is playing.
         bool play;
+        // Keeps track of whether or not an intro exists.
         bool intro;
 
-        public SoundLoop(SoundEffectInstance first, float d1, SoundEffectInstance second, float d2, float volume)
+        // Create a loop between two sound effects with no intro sound effect.
+        public SoundLoop(SoundEffectInstance first, float d1, SoundEffectInstance second, float d2)
         {
             tempTimer = new Stopwatch();
             delay = d1;
@@ -30,14 +40,13 @@ namespace GDAPS_Project_2
             delayTwo = d2;
             one = first;
             two = second;
-            one.Volume = volume;
-            two.Volume = volume;
             tracker = false;
             play = false;
             intro = false;
         }
 
-        public SoundLoop( SoundEffectInstance first, float d1, SoundEffectInstance second, float d2, SoundEffectInstance introduction, float iDelay, float volume)
+        // Create a loop between two sound effects with no intro sound effect.
+        public SoundLoop( SoundEffectInstance first, float d1, SoundEffectInstance second, float d2, SoundEffectInstance introduction, float iDelay)
         {
             tempTimer = new Stopwatch();
             delay = introDelay;
@@ -47,23 +56,14 @@ namespace GDAPS_Project_2
             introSound = introduction;
             one = first;
             two = second;
-            initialVolume = volume;
-            introSound.Volume = volume;
-            one.Volume = volume;
-            two.Volume = volume;
             tracker = false;
             play = false;
             intro = true;
         }
 
+        // Loop method to be called in update when loop should be played.
         public void Loop()
         {
-            one.Volume = initialVolume * GameVariables.gameVolume;
-            two.Volume = initialVolume * GameVariables.gameVolume;
-            if (introSound != null)
-            {
-                introSound.Volume = initialVolume * GameVariables.gameVolume;
-            }
             if (intro)
             {
                 introSound.Play();
@@ -78,8 +78,9 @@ namespace GDAPS_Project_2
                 play = true;
                 tempTimer.Start();
                 delay = delayOne;
+                tracker = true;
             }
-            else if (tempTimer.ElapsedMilliseconds >= delay - 10)
+            else if (tempTimer.ElapsedMilliseconds >= delay)
             {
                 if (tracker)
                 {
@@ -100,6 +101,7 @@ namespace GDAPS_Project_2
             }
         }
 
+        // End method to be called when the loop stops to reset it. Specifically made to reset the intro of the loop.
         public void End()
         {
             one.Stop();

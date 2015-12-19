@@ -17,6 +17,7 @@ namespace GDAPS_Project_2
         public Point playerSpawn;
         public List<GameObject> objects = new List<GameObject>();
         public List<Enemy> enemies = new List<Enemy>();
+        public List<MusicController> levelMusic;
 
         string[] hudInfo;
         public string[] HudInfo { get { return hudInfo; } }
@@ -33,13 +34,14 @@ namespace GDAPS_Project_2
             levelTimer = new Stopwatch();
             levelTime = 0;
             deathCount = 0;
+            levelMusic = new List<MusicController>();
             try
             {
                 playerSpawn = new Point ( 0, 0 );
                 char[] delim = { ',' };
                 string identifier;
                 Point p;
-                s = new StreamReader(levelData);
+                s = new StreamReader("Content/" + levelData);
                 string line;
                 string[] splitLine;
                 while ((line = s.ReadLine()) != null)
@@ -51,6 +53,23 @@ namespace GDAPS_Project_2
                         if (identifier.Equals("hud"))
                         {
                             hudInfo = splitLine;
+                        }
+                        else if (identifier.Equals("music"))
+                        {
+                            int i = 0;
+                            string[] musicInfo = splitLine;
+                            foreach (MusicController layer in GameVariables.layerList)
+                            {
+                                if (i < musicInfo.Length - 1)
+                                {
+                                    layer.layerInLevel = true;
+                                }
+                                else
+                                {
+                                    layer.layerInLevel = false;
+                                }
+                                i++;        
+                            }
                         }
                         else
                         {
@@ -65,7 +84,7 @@ namespace GDAPS_Project_2
                             }
                             else if (identifier.Contains("hazard"))
                             {
-                                objects.Add(new Hazard(p.X, p.Y, 40, 40, identifier));
+                                objects.Add(new Hazard(p.X + 4, p.Y, 32, 32, identifier));
                             }
                             else
                             {
@@ -104,17 +123,17 @@ namespace GDAPS_Project_2
                     }
                     catch
                     {
-                        Console.WriteLine("File read, unable to load objects, exiting");
-                        System.Threading.Thread.Sleep(2000);
-                        Environment.Exit(0);
+                        //Console.WriteLine("File read, unable to load objects, exiting");
+                        //System.Threading.Thread.Sleep(2000);
+                        //Environment.Exit(0);
                     }
                 }
             }
             catch
             {
-                Console.WriteLine("Unable to read file, exiting");
-                System.Threading.Thread.Sleep(2000);
-                Environment.Exit(0);
+                //Console.WriteLine("Unable to read file, exiting");
+                //System.Threading.Thread.Sleep(2000);
+                //Environment.Exit(0);
             }
             finally
             {

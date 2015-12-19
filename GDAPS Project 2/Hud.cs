@@ -15,8 +15,6 @@ namespace GDAPS_Project_2
 
         Camera view;
 
-        bool hasKey;
-
         public Rectangle back = new Rectangle();
         public Texture2D backt;
         public Rectangle under = new Rectangle();
@@ -24,7 +22,6 @@ namespace GDAPS_Project_2
         public Rectangle energy = new Rectangle();
         public Texture2D energyt;
         public Rectangle key = new Rectangle();
-        public Texture2D keyt;
 
 
         public Hud(int x, int y, int w, int h, SpriteBatch s, Player p, Camera g, Level level) : base(x, y, w, h)
@@ -32,7 +29,6 @@ namespace GDAPS_Project_2
             sprite = s;
             player = p;
             view = g;
-            Update(level);
             Check();
 
         }
@@ -44,23 +40,6 @@ namespace GDAPS_Project_2
             s.Draw(backt, back, null, Color.White, 0.0f, new Vector2(0, 0), SpriteEffects.None, 0.13f);
             s.Draw(undert, under, null, Color.White, 0.0f, new Vector2(0, 0), SpriteEffects.None, 0.12f);
             s.Draw(energyt, energy, null, Color.White, 0.0f, new Vector2(0, 0), SpriteEffects.None, 0.11f);
-            if (hasKey)
-            {
-                s.Draw(keyt, key, Color.White);
-            }
-
-        }
-
-        public void Update(Level l)
-        {
-            //if (false)
-            //{
-            //    hasKey = true;
-            //}
-            //else
-            //{
-                hasKey = false;
-            //}
         }
 
         public void Check()
@@ -87,7 +66,6 @@ namespace GDAPS_Project_2
             key.Height = 10;
             key.X = under.X;
             key.Y = under.Y + 15;
-
         }
         //Player playerLoc;
         //SpriteBatch spriteBatch;
